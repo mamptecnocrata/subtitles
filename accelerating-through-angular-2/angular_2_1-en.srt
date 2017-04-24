@@ -8,7 +8,7 @@ See the first version of Angular is now being known as AngularJS
 
 3
 00:00:10,521 --> 00:00:17,229
-whereas versions of Angular which are 2.0 and above are now know as just Angular.
+whereas versions of Angular which are 2.0 and above are now known as just Angular.
 
 4
 00:00:17,229 --> 00:00:21,604
