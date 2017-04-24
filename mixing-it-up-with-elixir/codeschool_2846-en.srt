@@ -1,0 +1,195 @@
+﻿1
+00:00:00,000 --> 00:00:06,999
+You're watching Mixing It Up With Elixir.  I'm Carlos Sosa and in this section we'll learn about control flow
+
+2
+00:00:07,000 --> 00:00:10,999
+using the cond statement.
+
+3
+00:00:11,000 --> 00:00:15,999
+Let's write a new function to transfer money between accounts.  This new function will be part of the
+
+4
+00:00:16,000 --> 00:00:22,999
+Account module and will be called transfer_amount.  It will take three arguments, the origin account,
+
+5
+00:00:23,000 --> 00:00:28,999
+the destination account, and the amount to be transferred.  Upon a successful transfer the function returns
+
+6
+00:00:29,000 --> 00:00:36,999
+a tuple with the ok atom and the transferred amount.  If the transfer is not successful, say due to an invalid
+
+7
+00:00:37,000 --> 00:00:43,999
+amount, then what we get back is a tuple with the error atom and a string describing the error.
+
+8
+00:00:44,000 --> 00:00:47,999
+Let's see how we might implement this function.
+
+9
+00:00:48,000 --> 00:00:52,999
+Here's the function definition.  We have our Account module and the transfer_amount function with three
+
+10
+00:00:53,000 --> 00:01:01,999
+arguments, from_account, to_account, and amount.  Now before we perform the actual transfer with the
+
+11
+00:01:02,000 --> 00:01:07,999
+perform_transfer function that's defined elsewhere in the module, we have to perform a validation.
+
+12
+00:01:08,000 --> 00:01:13,999
+This validation depends on the amount that's being transferred and the hour of the day that this operation
+
+13
+00:01:14,000 --> 00:01:19,999
+is taking place.  The first thing we do in the function is grab the hour of the day.
+
+14
+00:01:20,000 --> 00:01:28,999
+We do that by using the DateTime module from Elixir's standard library calling DateTime.utc_now.hour
+
+15
+00:01:29,000 --> 00:01:35,999
+returns the current hour of the day in utc, a standard and agreed upon time zone across the world.
+
+16
+00:01:36,000 --> 00:01:40,999
+We assign this value to the hour of the day variable and pass that, along with the amount, to the
+
+17
+00:01:41,000 --> 00:01:47,999
+valid_transfer function.  If this function returns false, then the exclamation point negates the value
+
+18
+00:01:48,000 --> 00:01:53,999
+and the if block is run, returning the tuple with an error atom and the string Invalid Transfer.
+
+19
+00:01:54,000 --> 00:02:00,999
+Otherwise in case the transfer is valid, then we'll invoke the perform_transfer function, which we won't
+
+20
+00:02:01,000 --> 00:02:05,999
+be going into details, but just know it's there.
+
+21
+00:02:06,000 --> 00:02:11,999
+The logic for the valid_transfer function is as follows.  If it's morning time, before noon, then we can
+
+22
+00:02:12,000 --> 00:02:21,999
+transfer up to, but no more than $5000.  In the afternoon, until before 6pm, we can transfer no more than $1000.
+
+23
+00:02:22,000 --> 00:02:32,999
+In the evening after 6pm we can transfer no more than $300.  Let's see how we can implement this in Elixir.
+
+24
+00:02:33,000 --> 00:02:37,999
+We could implement this using multiple nested if statements and, I know, we've just learned that it's not
+
+25
+00:02:38,000 --> 00:02:41,999
+ideal, but let's see how that might look anyway.
+
+26
+00:02:42,000 --> 00:02:50,999
+Here we first check if hourOfDay is less than 12.  If so, we see if amount is less than or equal to 5000
+
+27
+00:02:51,000 --> 00:02:59,999
+and return the result.  Then on the else block we check if hourOfDay is less than 18 or 6pm and if so
+
+28
+00:03:00,000 --> 00:03:09,999
+check if the amount is less than or equal to 1000 and return.  Lastly, if hourOfDay is greater than 18,
+
+29
+00:03:10,000 --> 00:03:15,999
+or 6pm, we check if amount is less than or equal to 300 and return.
+
+30
+00:03:16,000 --> 00:03:20,999
+This is valid code, but as we've learned before, it's hard to read and complicated to maintain.
+
+31
+00:03:21,000 --> 00:03:27,999
+Let's see how we can rewrite this using the cond statement.
+
+32
+00:03:28,000 --> 00:03:32,999
+The cond statement checks multiple conditions and finds the first one that evaluates to true.
+
+33
+00:03:33,000 --> 00:03:39,999
+Here's that same code refactored to use the cond statement.  Inside the do en bloc, each line has a condition
+
+34
+00:03:40,000 --> 00:03:47,999
+to be evaluated on the left of the arrow.  The first condition that returns true will have its right hand side
+
+35
+00:03:48,000 --> 00:03:54,999
+evaluated and returned as the result of the enclosing function, in this case, the valid_transfer function.
+
+36
+00:03:55,000 --> 00:04:03,999
+In this example the cond statement has three lines, the first two check hourOfDay against the numbers 12 and 18.
+
+37
+00:04:04,000 --> 00:04:09,999
+The third line has a true value hardcoded and this acts as a catch all in case none of the previous conditions
+
+38
+00:04:10,000 --> 00:04:16,999
+are evaluated to true.  It is a good practice to have a hard coded true condition as the last line like this
+
+39
+00:04:17,000 --> 00:04:23,999
+because the cond statement will raise an error in case none of the conditions are met.
+
+40
+00:04:24,000 --> 00:04:27,999
+Our function is now complete and with the proper validations in place.
+
+41
+00:04:28,000 --> 00:04:36,999
+We run two transfers, 150.50 and 980 and they complete with success.
+
+42
+00:04:37,000 --> 00:04:45,999
+But if we try and transfer 1500 in the afternoon we'll see the error message for an Invalid Transfer.
+
+43
+00:04:46,000 --> 00:04:50,999
+Now you before you move on to the challenges, here's a quick summary to help understand the differences
+
+44
+00:04:51,000 --> 00:04:57,999
+between the case and the cond statements.  We use case for matching on multiple patterns.
+
+45
+00:04:58,000 --> 00:05:04,999
+Here in this first example the tuple is ok and content and error and type Aurelia the two patterns we're testing
+
+46
+00:05:05,000 --> 00:05:11,999
+against.  We use cond for checking multiple conditions.  Here in the second example the first condition
+
+47
+00:05:12,000 --> 00:05:17,999
+is when hourOfDay is less than 12.  The second condition is when it's less than 18.
+
+48
+00:05:18,000 --> 00:05:26,999
+And the third condition will always evaluate to true and will be run when the first two conditions are not met.
+
+49
+00:05:27,000 --> 01:00:00,000
+This is the end of this level.  Now it's your turn to practice some cond statements in the challenges.

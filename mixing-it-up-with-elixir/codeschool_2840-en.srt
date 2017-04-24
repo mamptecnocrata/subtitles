@@ -1,0 +1,331 @@
+﻿1
+00:00:00,000 --> 00:00:08,999
+Gather all the elements to learn Elixir with our guidance.  Functional programs you will code,
+
+2
+00:00:09,000 --> 00:00:25,999
+turning the knowledge into gold.  Become a master mixer as you stir it all up with Elixir.
+
+3
+00:00:26,000 --> 00:00:33,999
+Welcome to Mixing It Up With Elixir.  I'm Carlos Sosa and in this first level we'll learn about anonymous functions.
+
+4
+00:00:34,000 --> 00:00:39,999
+We say that in Elixir functions are first-class citizens, but what does that mean?
+
+5
+00:00:40,000 --> 00:00:44,999
+Well it means a couple of different things, but most importantly these two.
+
+6
+00:00:45,000 --> 00:00:51,999
+It means functions can be assigned to variables.  We can create them anonymously and then bind them to variables
+
+7
+00:00:52,000 --> 00:00:57,999
+so they can be invoked later.  Functions can be passed around as arguments to other functions, just like
+
+8
+00:00:58,000 --> 00:01:01,999
+we're used to doing with other data types like strings and numbers.
+
+9
+00:01:02,000 --> 00:01:07,999
+This allows for some really cool techniques found in many real world Elixir applications.
+
+10
+00:01:08,000 --> 00:01:09,999
+Let's take a look.
+
+11
+00:01:10,000 --> 00:01:15,999
+First, here's what we already know about functions in Elixir.  The functions we've worked with so far
+
+12
+00:01:16,000 --> 00:01:22,999
+have a name, like in this example max_balance, and belong to an enclosing module, like Account.
+
+13
+00:01:23,000 --> 00:01:30,999
+In order to call them, we use the module name followed by a dot followed by the function name.
+
+14
+00:01:31,000 --> 00:01:40,999
+Any arguments are passed inside of parenthesis.  When we run this code we can see it prints Max: 500.
+
+15
+00:01:41,000 --> 00:01:45,999
+Unlike named functions, anonymous functions have no name and no module.
+
+16
+00:01:46,000 --> 00:01:51,999
+To create them we use a new syntax we haven’t seen before, the fn arrow syntax.
+
+17
+00:01:52,000 --> 00:01:57,999
+In this first example we create an anonymous function that expects one argument, amount.
+
+18
+00:01:58,000 --> 00:02:04,999
+Remember, Elixir is a dynamic language, so we don’t have to declare the data type for this argument or
+
+19
+00:02:05,000 --> 00:02:10,999
+for the return value of this function.  After the arrow we define the function body.
+
+20
+00:02:11,000 --> 00:02:16,999
+It's a string, Max:, followed by the argument passed to the anonymous function.
+
+21
+00:02:17,000 --> 00:02:22,999
+We finish the definition with the end keyword.  Anonymous functions can be assigned to variables, so we assign
+
+22
+00:02:23,000 --> 00:02:29,999
+it to a new variable called max_balance.  In order to invoke anonymous functions, we must use the dot parenthesis
+
+23
+00:02:30,000 --> 00:02:36,999
+syntax.  Here's what that looks like.  We use the name of the variable that our function is assigned to,
+
+24
+00:02:37,000 --> 00:02:41,999
+in this case max_balance, followed by a dot and then the parenthesis.
+
+25
+00:02:42,000 --> 00:02:48,999
+In this example we're passing 500 as the argument.  When we run this code we can see it prints Max: 500.
+
+26
+00:02:49,000 --> 00:02:55,999
+Because we've stated that this function expects an argument, every time we call it we must pass this argument,
+
+27
+00:02:56,000 --> 00:03:02,999
+otherwise we'll run into an error like this, BadArityError.
+
+28
+00:03:03,000 --> 00:03:10,999
+One way we can use anonymous functions in Elixir is to decouple logic around performing a task from the logic
+
+29
+00:03:11,000 --> 00:03:16,999
+for the task itself.  In this example we have a run_transaction function.
+
+30
+00:03:17,000 --> 00:03:21,999
+This function takes arguments and it's responsible for running a given transaction.
+
+31
+00:03:22,000 --> 00:03:28,999
+We could make it so the logic for each type of transaction, like deposit and withdrawal, is passed an argument
+
+32
+00:03:29,000 --> 00:03:36,999
+in the form of a function so that the run_transaction function is decoupled from the logic for individual
+
+33
+00:03:37,000 --> 00:03:44,999
+transaction.  Decoupled code leads to fine grain systems where logic for each part of the system is silo'd
+
+34
+00:03:45,000 --> 00:03:50,999
+and independent from other parts.  Now that we understand the reason, let's see how we can implement
+
+35
+00:03:51,000 --> 00:03:55,999
+the run_transaction function.
+
+36
+00:03:56,000 --> 00:04:01,999
+Here we have our Account module and the definition for the run_transaction function, expecting three arguments,
+
+37
+00:04:02,000 --> 00:04:06,999
+balance, amount, and transaction.  Balance and amount will be numbers.
+
+38
+00:04:07,000 --> 00:04:13,999
+Transaction will be a function, but as we can see, it looks just like any other argument.
+
+39
+00:04:14,000 --> 00:04:18,999
+There's nothing special about it in our function definition.  First thing we do inside run_transaction
+
+40
+00:04:19,000 --> 00:04:27,999
+is check to see if the balance is less than or equal to 0, and if it is we must not allow any transaction
+
+41
+00:04:28,000 --> 00:04:34,999
+to be performed.  So we write an if statement and use the balance variable to check if it's less than
+
+42
+00:04:35,000 --> 00:04:43,999
+or equal to 0.  If so, we'll return a string, Cannot perform any transaction, and then be done with the function.
+
+43
+00:04:44,000 --> 00:04:50,999
+Otherwise, we call the function stored in the transaction variable, giving it two arguments, balance and amount.
+
+44
+00:04:51,000 --> 00:04:57,999
+Here the if statement represents the logic around performing the transaction, which is decoupled from the
+
+45
+00:04:58,000 --> 00:05:05,999
+logic for performing the actual transaction.  Now let's see how we can implement our different transactions.
+
+46
+00:05:06,000 --> 00:05:12,999
+We'll create one anonymous function for each transaction.  Both will take two arguments, balance and amount.
+
+47
+00:05:13,000 --> 00:05:18,999
+The first one adds balance to amount and we assign it to the deposit variable.
+
+48
+00:05:19,000 --> 00:05:24,999
+The second one subtracts amount from balance and we assign it to the withdraw variable.
+
+49
+00:05:25,000 --> 00:05:30,999
+We've learned that we can pass anonymous functions around as arguments, just like we do with other data types.
+
+50
+00:05:31,000 --> 00:05:38,999
+So if we call Account.run_transaction with 1000 and 20 as the first 2 arguments and then give the function
+
+51
+00:05:39,000 --> 00:05:46,999
+assigned to the withdrawal variable as the third argument, we'll see 980 printed to the console, the subtraction
+
+52
+00:05:47,000 --> 00:05:53,999
+of amount from balance.  And if we call run_transaction with the same 1000 and 20 as the first 2 arguments,
+
+53
+00:05:54,000 --> 00:06:01,999
+but give it deposit as the third argument, we can see it prints 1020, the addition of balance and account.
+
+54
+00:06:02,000 --> 00:06:08,999
+Lastly, if we try running this function with balance 0, it will not perform the function given as the third argument
+
+55
+00:06:09,000 --> 00:06:18,999
+and will instead print the message Cannot perform any transaction, as expected.
+
+56
+00:06:19,000 --> 00:06:25,999
+Similar to named functions, anonymous functions can also be split into multiple clauses using pattern matching.
+
+57
+00:06:26,000 --> 00:06:31,999
+In this example we create an anonymous function with two clauses, both take balance and amount as the
+
+58
+00:06:32,000 --> 00:06:38,999
+first two arguments, but one takes the deposit atom as the third argument and the other takes the withdrawal
+
+59
+00:06:39,000 --> 00:06:45,999
+atom as the third argument.  Notice that when defining multiple clauses for an anonymous function, the
+
+60
+00:06:46,000 --> 00:06:51,999
+arrow sign goes after the argument list and not immediately after the fn keyword.
+
+61
+00:06:52,000 --> 00:06:58,999
+We assign our anonymous function to a new variable called account_transaction and call it just like before
+
+62
+00:06:59,000 --> 00:07:04,999
+with the dot paren syntax, calling it with a deposit atom matches the first clause and returns the sum
+
+63
+00:07:05,000 --> 00:07:13,999
+of 100 and 40, 140, calling it with the withdrawal atom matches the second clause and returns the subtraction
+
+64
+00:07:14,000 --> 00:07:20,999
+of 40 from 100, which is 60.
+
+65
+00:07:21,000 --> 00:07:26,999
+Because anonymous functions are widely used in Elixir, there's a shorthand for writing them using the
+
+66
+00:07:27,000 --> 00:07:33,999
+ampersand operator.  Here's our function from earlier which takes two arguments and adds them together.
+
+67
+00:07:34,000 --> 00:07:38,999
+This same function can be written using the ampersand operator, like this.
+
+68
+00:07:39,000 --> 00:07:45,999
+We use ampersand followed by parenthesis.  This turns the expression inside the parenthesis into a function.
+
+69
+00:07:46,000 --> 00:07:53,999
+Then we reference each argument with the ampersand operator again, followed by the number of the argument,
+
+70
+00:07:54,000 --> 00:08:00,999
+in this example ampersand 1 represents the first argument and ampersand 2 represents the second argument.
+
+71
+00:08:01,000 --> 00:08:05,999
+Just like the longer version, the short version can also be assigned to a variable and passed around
+
+72
+00:08:06,000 --> 00:08:12,999
+as an argument to other functions.  So if we call run_transaction giving it the deposit variable as the
+
+73
+00:08:13,000 --> 00:08:20,999
+third argument, we can see in parens the expected result.
+
+74
+00:08:21,000 --> 00:08:26,999
+This shorthand version of anonymous functions can also be found used inline as arguments to other functions.
+
+75
+00:08:27,000 --> 00:08:32,999
+In this example we're not even assigning the function to a variable, but instead just inlining the body
+
+76
+00:08:33,000 --> 00:08:39,999
+of the function as the third argument to run_transaction.  Running this gives us the same result as before,
+
+77
+00:08:40,000 --> 00:08:47,999
+the sum of 1000 and 20, 1020.  Here's another example of the shorthand inline version of anonymous functions.
+
+78
+00:08:48,000 --> 00:08:56,999
+This one using enum.map from Elixir's standard library.  This function takes two arguments and returns a new list.
+
+79
+00:08:57,000 --> 00:09:03,999
+The first argument to the map function is a list of elements and the second argument is a function that will be
+
+80
+00:09:04,000 --> 00:09:09,999
+called with each one of the elements from the first argument.  The function we are defining inline here
+
+81
+00:09:10,000 --> 00:09:17,999
+multiplies its argument by 2 and the result of calling Enum.map is a list with each one of these elements
+
+82
+00:09:18,000 --> 00:09:25,999
+from the first argument multiplied by 2, so 2, 4, 6, and 8.
+
+83
+00:09:26,000 --> 01:00:00,000
+That's it for this first level.  Now it's your turn to practice anonymous functions in the challenges.

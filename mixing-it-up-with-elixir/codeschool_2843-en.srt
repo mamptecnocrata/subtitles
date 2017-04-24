@@ -1,0 +1,203 @@
+﻿1
+00:00:00,000 --> 00:00:06,999
+You're watching Mixing It Up With Elixir.  I'm Carlos Sosa and in this section we'll learn about
+
+2
+00:00:07,000 --> 00:00:10,999
+keyword lists and default values.
+
+3
+00:00:11,000 --> 00:00:17,999
+Say we have an existing balance function from the account module and this function prints an amount based on
+
+4
+00:00:18,000 --> 00:00:24,999
+a list of transactions given as an argument, like this.  We run Account.balance, giving it some transactions,
+
+5
+00:00:25,000 --> 00:00:31,999
+and it prints the message Balance: 200, for example.  Now what if we want to pass formatting options
+
+6
+00:00:32,000 --> 00:00:38,999
+to allow us to work with different currencies, like currency names, like dollars, euros and pounds,
+
+7
+00:00:39,000 --> 00:00:44,999
+and also their corresponding symbols?  Ideally what we want is for the balance function to take options
+
+8
+00:00:45,000 --> 00:00:50,999
+in addition to the list of transactions.  This way we could add more flexibility to our function without
+
+9
+00:00:51,000 --> 00:00:56,999
+hard coding all the different possibilities.
+
+10
+00:00:57,000 --> 00:01:05,999
+To do this we use something called a keyword list.  A keyword list is a list of two-value tuples, typically used
+
+11
+00:01:06,000 --> 00:01:12,999
+as the last argument to functions representing options that we can pass to them, which is exactly what we need.
+
+12
+00:01:13,000 --> 00:01:16,999
+This is what it looks like when using a keyword list on a function call.
+
+13
+00:01:17,000 --> 00:01:23,999
+In this first example, we give the currency option the value dollar and the symbol option the dollar sign.
+
+14
+00:01:24,000 --> 00:01:29,999
+This syntax might look a bit weird at first without the square brackets and curly braces, but this is just
+
+15
+00:01:30,000 --> 00:01:36,999
+a shortcut Elixir gives us to write cleaner code.  Behind the scenes it is the same thing as writing two tuples
+
+16
+00:01:37,000 --> 00:01:43,999
+with the brackets and braces like we see on the second line.
+
+17
+00:01:44,000 --> 00:01:48,999
+To read values from keyword lists, we can use the square brackets notation.
+
+18
+00:01:49,000 --> 00:01:50,999
+Let's see what that looks like in our balance function.
+
+19
+00:01:51,000 --> 00:01:55,999
+First thing we do is add a second argument to our function and call it options.
+
+20
+00:01:56,000 --> 00:02:00,999
+This variable will receive the formatting options in the form of a keyword list.
+
+21
+00:02:01,000 --> 00:02:06,999
+Then from inside the function, we refer to the options variable and pass the name of the key we want to
+
+22
+00:02:07,000 --> 00:02:14,999
+read the value from inside square brackets, like this.  This first line returns the value for the currency key
+
+23
+00:02:15,000 --> 00:02:20,999
+and we assign it to a new variable named currency.  On the following line we do the same thing to read
+
+24
+00:02:21,000 --> 00:02:24,999
+the value for the symbol key and assign it to a new variable symbol.
+
+25
+00:02:25,000 --> 00:02:31,999
+We get the balance from the transactions using the calculate_balance function defined elsewhere in this module
+
+26
+00:02:32,000 --> 00:02:36,999
+in which we won't worry about for now.  We store the result in the variable balance.
+
+27
+00:02:37,000 --> 00:02:46,999
+Finally, we use currency, symbol, and balance to compose the final string, using string interpolation.
+
+28
+00:02:47,000 --> 00:02:53,999
+Our code is now ready to accept formatting options.  So if we call it with currency set to euros and the
+
+29
+00:02:54,000 --> 00:03:02,999
+symbol set to the euros symbol, we can see it prints the expected message to the console.
+
+30
+00:03:03,000 --> 00:03:07,999
+However, as it is, we must pass options to the balance function.
+
+31
+00:03:08,000 --> 00:03:14,999
+If we try calling it with just a list of transactions, we'll run into an error like this, UndefinedFunctionError.
+
+32
+00:03:15,000 --> 00:03:21,999
+Elixir is basically trying to find a balance function that takes a single argument, but instead it can only
+
+33
+00:03:22,000 --> 00:03:27,999
+find one that takes two arguments.
+
+34
+00:03:28,000 --> 00:03:33,999
+To fix this we'll set a default value for the options variable, which will be used when we call this function
+
+35
+00:03:34,000 --> 00:03:41,999
+with just the first argument.  The double backslash symbol is used to define a default value, which in this case
+
+36
+00:03:42,000 --> 00:03:48,999
+will be an empty list.  If we run the code as it, you won't raise errors anymore, but notice it's now missing
+
+37
+00:03:49,000 --> 00:03:56,999
+the options.  No values are being returned when reading the currency and symbol keys.
+
+38
+00:03:57,000 --> 00:04:02,999
+To fix this, we'll use the logical or operator, represented by the double pipe.
+
+39
+00:04:03,000 --> 00:04:11,999
+This operator can be used to return a default value when the value to the left of the operator is evaluated to false,
+
+40
+00:04:12,000 --> 00:04:18,999
+or in this example, when a key is not present.  So now the first line inside the balance function can be
+
+41
+00:04:19,000 --> 00:04:26,999
+interpreted as return the value assigned to the currency key or if this key is not present and no value is returned,
+
+42
+00:04:27,000 --> 00:04:33,999
+then return the string dollar, whichever value is returned is assigned to the currency variable.
+
+43
+00:04:34,000 --> 00:04:38,999
+The same thing happens on the second line when reading the value for the symbol key.
+
+44
+00:04:39,000 --> 00:04:45,999
+In both cases, if the left side of the double pipe does not return a value, then we return the value
+
+45
+00:04:46,000 --> 00:04:51,999
+on the right side.  Now when we call the Account.balance function again with just a list of transactions,
+
+46
+00:04:52,000 --> 00:05:02,999
+it uses the proper defaults for the options argument and the default value for each one of the keys.
+
+47
+00:05:03,000 --> 00:05:07,999
+Keyword lists are widely used in Elixir for passing optional values to functions.
+
+48
+00:05:08,000 --> 00:05:14,999
+One popular library that uses keyword lists as part of its API, it's called Ecto, a library used for working
+
+49
+00:05:15,000 --> 00:05:20,999
+with databases.  Here's an example of code using Ecto to build a query.
+
+50
+00:05:21,000 --> 00:05:31,999
+The where options here are keyword lists and the Elixir code above is translated to the SQL Select statement below.
+
+51
+00:05:32,000 --> 01:00:00,000
+And that's it for this section.  Now it's your turn to play around with keyword lists and default values in the challenges.

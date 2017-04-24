@@ -1,0 +1,175 @@
+﻿1
+00:00:00,000 --> 00:00:09,999
+You're watching Mixing It Up With Elixir.  I'm Carlos Sosa and in this section we'll learn about maps.
+
+2
+00:00:10,000 --> 00:00:15,999
+In Elixir we use maps when we want to work with a collection of key-value pairs, commonly used to represent
+
+3
+00:00:16,000 --> 00:00:21,999
+a structure with named fields, like in this example.  Say we want to create a representation of a person
+
+4
+00:00:22,000 --> 00:00:31,999
+with name and age, we use curly braces with a percent sign to create a map and then each entry is composed of
+
+5
+00:00:32,000 --> 00:00:43,999
+a key and a value.  Here we have a map with two entries, name set to Brooke, and age set to 42.
+
+6
+00:00:44,000 --> 00:00:49,999
+To read values from a map, we can use the fetch function from the map module, available in Elixir's
+
+7
+00:00:50,000 --> 00:00:55,999
+standard library.  Now there are two version of this function, so let's check it out.
+
+8
+00:00:56,000 --> 00:01:01,999
+Map.fetch takes a map as the first argument and a key as the second argument and returns a tuple
+
+9
+00:01:02,000 --> 00:01:07,999
+when the key is present.  In this first example we fetch the name key from the map and what we get back
+
+10
+00:01:08,000 --> 00:01:15,999
+is a tuple with the atom ok and the value Brooke.  Now if we try and fetch a key that's not part of the map,
+
+11
+00:01:16,000 --> 00:01:23,999
+what we get back is a single atom, error.  There's another way to call Map.fetch, which includes an
+
+12
+00:01:24,000 --> 00:01:29,999
+exclamation point at the end.  So calling it with the person map and the name key as the argument,
+
+13
+00:01:30,000 --> 00:01:37,999
+what we get back is the string Brooke.  Now if the key is not present, Elixir raises an error like this one,
+
+14
+00:01:38,000 --> 00:01:44,999
+saying the key is not found in the map used as argument.  So notice the subtle difference, in the first version
+
+15
+00:01:45,000 --> 00:01:50,999
+where the key is present it returns a tuple, when the key is not present it returns an atom.
+
+16
+00:01:51,000 --> 00:01:57,999
+In the second version, when the key is present, it returns just the value, but if the key is not present,
+
+17
+00:01:58,000 --> 00:02:00,999
+it raises an error.
+
+18
+00:02:01,000 --> 00:02:07,999
+Another way that we can read from maps in Elixir is using, wait for it, pattern matching.
+
+19
+00:02:08,000 --> 00:02:13,999
+Here we have the same person map on the first line.  On the second line we use the person variable
+
+20
+00:02:14,000 --> 00:02:21,999
+on the right hand side and on the left hand side we define a map with the keys name and age and use
+
+21
+00:02:22,000 --> 00:02:28,999
+variables for the values.  This will cause the values for name and age on the right hand side to be matched
+
+22
+00:02:29,000 --> 00:02:34,999
+against the empty variables on the left hand side.  If we print the name variable, we can see Brooke
+
+23
+00:02:35,000 --> 00:02:40,999
+printed to the console.  But here's that warning again, age is unused.
+
+24
+00:02:41,000 --> 00:02:47,999
+Now we could replace the age variable with an underscore character, but if all we want to read from this map
+
+25
+00:02:48,000 --> 00:02:52,999
+is the name key, there's something else we can do.
+
+26
+00:02:53,000 --> 00:02:58,999
+Unlike tuples, with maps we can pattern match on only the portions that we're interested in.
+
+27
+00:02:59,000 --> 00:03:03,999
+So let's get rid of the warning, we'll use a map with just the name key.
+
+28
+00:03:04,000 --> 00:03:09,999
+We'll run this code again and we can see the string Brooke and no warnings this time.
+
+29
+00:03:10,000 --> 00:03:16,999
+Remember only maps support partial match, so if we try writing a similar code by using tuples, we'll run
+
+30
+00:03:17,000 --> 00:03:21,999
+into an error like this.
+
+31
+00:03:22,000 --> 00:03:27,999
+Maps support some pretty advanced pattern matching techniques, allowing us to match some keys that are
+
+32
+00:03:28,000 --> 00:03:33,999
+deeply nested within their structure.  In this example we've expanded our first map to include a key
+
+33
+00:03:34,000 --> 00:03:41,999
+for address.  The value for this key is itself another map with keys for city and state.
+
+34
+00:03:42,000 --> 00:03:45,999
+If we wanted to read just the state, we could do something like this.
+
+35
+00:03:46,000 --> 00:03:53,999
+Here on the left hand side we write just the portion of the map that's necessary to get to the stage key.
+
+36
+00:03:54,000 --> 00:03:58,999
+Notice we're not using the name key nor the city key from inside the address.
+
+37
+00:03:59,000 --> 00:04:04,999
+When we run this code we can see it properly prints the value for state.
+
+38
+00:04:05,000 --> 00:04:10,999
+If this is the first time that you're seeing maps and keyword lists, then you're probably questioning
+
+39
+00:04:11,000 --> 00:04:15,999
+when to use each.  This is a common question when learning Elixir, so here's a quick rule of thumb
+
+40
+00:04:16,000 --> 00:04:18,999
+that can help us determine which one to use.
+
+41
+00:04:19,000 --> 00:04:24,999
+We should use keyword lists when we want to pass optional values to functions, like we did with the
+
+42
+00:04:25,000 --> 00:04:32,999
+Account.balance function.  And we should use maps when we need a simple and efficient key value storage,
+
+43
+00:04:33,000 --> 00:04:38,999
+like we did to represent a person with name and age.
+
+44
+00:04:39,000 --> 01:00:00,000
+It's end of this level.  Now it's your turn to play with maps in the challenges.
