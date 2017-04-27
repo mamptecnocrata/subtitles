@@ -1,0 +1,235 @@
+﻿1
+00:00:00,000 --> 00:00:07,999
+Turn up the volume and let's get deep as we all swim down into the sea.
+
+2
+00:00:08,000 --> 00:00:15,999
+We'll imagine a whale and underwater creatures who will be there while we learn Docker's very best features.
+
+3
+00:00:16,000 --> 00:00:28,999
+You'll learn a whole lot - this isn't a shocker.  Now contain your excitement as you Try Docker.
+
+4
+00:00:29,000 --> 00:00:33,999
+Welcome to Try Docker.  I'm Jon Friskics and in this course we'll learn about the basics of working with Docker.
+
+5
+00:00:34,000 --> 00:00:39,999
+We'll start out by talking about containers and images before moving on to Docker files and volumes.
+
+6
+00:00:40,000 --> 00:00:45,999
+At the beginning of each level you'll watch a short video and then you'll dive into some interactive challenges
+
+7
+00:00:46,000 --> 00:00:49,999
+where you'll get to write and run real Docker commands in your browser without having to worry about
+
+8
+00:00:50,000 --> 00:00:53,999
+setting up your computer.  Then once you’ve got a handle on the basics, you can follow along with our
+
+9
+00:00:54,000 --> 00:00:58,999
+watch us build series and get your local development environment all set up.
+
+10
+00:00:59,000 --> 00:00:59,999
+So let's get started.
+
+11
+00:01:00,000 --> 00:01:03,999
+In this first level you'll learn about containers and images.  But before we do that it'll be helpful
+
+12
+00:01:04,000 --> 00:01:09,999
+to understand what a Linux container is.
+
+13
+00:01:10,000 --> 00:01:13,999
+So Linux containers are a way to create isolated environments that run code while sharing a single base
+
+14
+00:01:14,000 --> 00:01:20,999
+operating system.  It works like this, you've got a physical computer or a server somewhere, this might be
+
+15
+00:01:21,000 --> 00:01:25,999
+a server you're paying for from a hosting company or it might even be the laptop or desktop computer
+
+16
+00:01:26,000 --> 00:01:30,999
+that you're currently watching this video on.  That physical server runs an operating system, for now
+
+17
+00:01:31,000 --> 00:01:37,999
+let's assume it's running some version of Linux.  Containers will live on top of that base operating system
+
+18
+00:01:38,000 --> 00:01:42,999
+and they can have their own code dependencies and application code inside of them, but each one of those
+
+19
+00:01:43,000 --> 00:01:47,999
+containers will be completely isolated from any of the other ones that are running and by default they won't
+
+20
+00:01:48,000 --> 00:01:52,999
+even know anything about each other.  These containers have their own file system and useful parts of the
+
+21
+00:01:53,000 --> 00:01:58,999
+operating system that you can customize and control while still sharing the largest parts of the operating system
+
+22
+00:01:59,000 --> 00:02:04,999
+with your host.  That means the containers are really small and therefore really fast.
+
+23
+00:02:05,000 --> 00:02:09,999
+That said, creating Linux containers isn’t easy and requires a lot of specialized knowledge of Unix
+
+24
+00:02:10,000 --> 00:02:15,999
+operating systems, and that's where Docker comes in.
+
+25
+00:02:16,000 --> 00:02:20,999
+Docker is a tool that makes it really easy to work with Linux containers, easy enough that you don’t have to
+
+26
+00:02:21,000 --> 00:02:25,999
+have all that specialized Linux knowledge to get a lot of value out of working with containers.
+
+27
+00:02:26,000 --> 00:02:30,999
+When you install Docker on your computer or server it starts a process called the Docker Engine that
+
+28
+00:02:31,000 --> 00:02:35,999
+will be responsible for managing everything to do with your containers.
+
+29
+00:02:36,000 --> 00:02:40,999
+You might be asking yourself, how can Docker help me as a developer or a system administrator?
+
+30
+00:02:41,000 --> 00:02:46,999
+Well Docker has a lot of different use cases like creating a contained, controlled development environment,
+
+31
+00:02:47,000 --> 00:02:51,999
+creating a reproducible environment that can be shared across your entire team, or even isolating
+
+32
+00:02:52,000 --> 00:02:54,999
+the state of an application to help with debugging and bug reporting.
+
+33
+00:02:55,000 --> 00:02:59,999
+There's also use cases where Docker helps out a lot for IT and Dev Ops scenarios too, like testing
+
+34
+00:03:00,000 --> 00:03:04,999
+and deployment.  But in this course, to help you learn the basics, we're just going to focus on one of
+
+35
+00:03:05,000 --> 00:03:12,999
+those use cases, creating a containerized local development environment.
+
+36
+00:03:13,000 --> 00:03:16,999
+At the time of the filming of this course there's two version of Docker available, Community Edition
+
+37
+00:03:17,000 --> 00:03:22,999
+and Enterprise Edition.  Enterprise Edition contains features that large enterprise companies might expect,
+
+38
+00:03:23,000 --> 00:03:28,999
+like role-based access control and end to end security model and certified containers.
+
+39
+00:03:29,000 --> 00:03:32,999
+Now it's an awesome set of tools if that's what you and your company need, but in this course we're assuming
+
+40
+00:03:33,000 --> 00:03:37,999
+that you're just learning Docker for the first time, so Community Edition will be more than enough for us
+
+41
+00:03:38,000 --> 00:03:42,999
+to get started.  One of the simplest ways to install Docker is by downloading one of the official applications
+
+42
+00:03:43,000 --> 00:03:48,999
+that Docker the company provides.  When you download and run these applications, a Docker Engine and machine
+
+43
+00:03:49,000 --> 00:03:53,999
+will be automatically created and run for you and right away you'll be able to jump into the command line
+
+44
+00:03:54,000 --> 00:03:57,999
+and start writing Docker commands.  Of course you can always download and install Docker right from the
+
+45
+00:03:58,000 --> 00:04:02,999
+command line too, and Docker's installation page contains instructions for a variety of scenarios,
+
+46
+00:04:03,000 --> 00:04:09,999
+like installing on Linux machines, Amazon Web Server, Azure, and Windows Server.
+
+47
+00:04:10,000 --> 00:04:16,999
+You can visit this link here to see all of the installation options that are available.
+
+48
+00:04:17,000 --> 00:04:22,999
+So we know now that containers are this light weight isolated section of a Linux operating system that can be
+
+49
+00:04:23,000 --> 00:04:28,999
+filled up with code, like libraries and application code.  Well images are prepackaged sets of instructions,
+
+50
+00:04:29,000 --> 00:04:32,999
+kind of like blueprints, that can be used to build and run containers.
+
+51
+00:04:33,000 --> 00:04:37,999
+The reason images are so useful is that you can create a custom container and save the state of it as an image
+
+52
+00:04:38,000 --> 00:04:41,999
+that can then be used to recreate the container exactly as described.
+
+53
+00:04:42,000 --> 00:04:45,999
+You can even share images with other developers so that you can easily recreate an exact development
+
+54
+00:04:46,000 --> 00:04:51,999
+environment across multiple people and computers on your team.  Docker publishes a bunch of pre-built images
+
+55
+00:04:52,000 --> 00:04:56,999
+in the Docker Store and by default that's where Docker will look when you try to start a new container
+
+56
+00:04:57,000 --> 00:04:59,999
+based on one of those images.
+
+57
+00:05:00,000 --> 00:05:03,999
+Now it's time for you to jump into some challenges where you'll learn about how to create a container
+
+58
+00:05:04,000 --> 00:05:07,999
+from a preexisting image and run some commands on that container after it's running.
+
+59
+00:05:08,000 --> 01:00:00,000
+Have fun.
