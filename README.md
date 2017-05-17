@@ -27,6 +27,7 @@ your pull request. Wouldn't be surprised if you get some free stuff!!! :-)
 Thank you all so much!
 
 - https://github.com/ricardovsilva
+- https://github.com/omergulen
 
 ## Deployment on Code School
 We will only release new subtitles to a course when all videos for all levels have
