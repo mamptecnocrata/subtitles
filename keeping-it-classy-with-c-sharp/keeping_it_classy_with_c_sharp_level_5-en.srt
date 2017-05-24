@@ -1,0 +1,495 @@
+﻿1
+00:00:00,000 --> 00:00:05,999
+Hey, let’s give C# a try and keep it classy.
+
+2
+00:00:06,000 --> 00:00:10,999
+Our variables and methods will make things very jazzy.
+
+3
+00:00:11,000 --> 00:00:15,999
+Oh, we'll compile that code and make our apps real smart, as we orchestrate
+
+4
+00:00:16,000 --> 00:00:23,999
+and riff on the smooth sounds of C#.
+
+5
+00:00:24,000 --> 00:00:25,999
+Welcome back to Keeping it Classy with C#.
+
+6
+00:00:26,000 --> 00:00:31,999
+My name is Eric Fisher.  In this level we are going to cover method overloads.
+
+7
+00:00:32,000 --> 00:00:35,999
+Let's expand on our Add command.  As you recall, our Add command was set up
+
+8
+00:00:36,000 --> 00:00:39,999
+so we would choose add and it would be very verbose, step by step,
+
+9
+00:00:40,000 --> 00:00:42,999
+on how to add a musician.  For people who have used your application
+
+10
+00:00:43,000 --> 00:00:44,999
+for any length, they probably just want to be able to add the musician
+
+11
+00:00:45,000 --> 00:00:49,999
+in a single command and be done with it.  So let's make both options available.
+
+12
+00:00:50,000 --> 00:00:54,999
+We can have Add go through the step by step or we can have Add the name
+
+13
+00:00:55,000 --> 00:01:02,999
+of the musician, the instrument they play, just add the musician all at once.
+
+14
+00:01:03,000 --> 00:01:07,999
+To accomplish this we're going to add a second method named AddMusician.
+
+15
+00:01:08,000 --> 00:01:11,999
+This method will accept two strings.  As you can see, our first AddMusician
+
+16
+00:01:12,000 --> 00:01:15,999
+method will accept the first parameter for the name of the musician
+
+17
+00:01:16,000 --> 00:01:19,999
+and then the second parameter will be the instrument that musician plays.
+
+18
+00:01:20,000 --> 00:01:25,999
+Using this, we will instantiate a new Musician, set its name to the
+
+19
+00:01:26,000 --> 00:01:29,999
+provided name, set its instrument to the provided instrument, and then
+
+20
+00:01:30,000 --> 00:01:32,999
+add that musician to our list of musicians.
+
+21
+00:01:33,000 --> 00:01:37,999
+Hang on a second, won't having two methods named AddMusician in the same class
+
+22
+00:01:38,000 --> 00:01:42,999
+cause us problems?
+
+23
+00:01:43,000 --> 00:01:46,999
+Actually no.  In C# we can reuse method names in the same class, so long as
+
+24
+00:01:47,000 --> 00:01:50,999
+our method signatures are different.  Reusing a method name with a
+
+25
+00:01:51,000 --> 00:01:54,999
+different method signature is called a method overload.
+
+26
+00:01:55,000 --> 00:01:58,999
+We're also going to add a line that announces the name of musician
+
+27
+00:01:59,000 --> 00:02:06,999
+was added.  What exactly is a method signature?
+
+28
+00:02:07,000 --> 00:02:10,999
+A method signature consists of the method name as well as the parameter's
+
+29
+00:02:11,000 --> 00:02:16,999
+types.  In this example we have a method named Add that returns a data type
+
+30
+00:02:17,000 --> 00:02:22,999
+integer and accepts two parameters, integer a and integer b.
+
+31
+00:02:23,000 --> 00:02:25,999
+When we look at the method signature this would produce, we will see
+
+32
+00:02:26,000 --> 00:02:32,999
+the name Add and then two integers.  We call methods using their signature,
+
+33
+00:02:33,000 --> 00:02:35,999
+which is why signatures must be unique.  Let's give some example of
+
+34
+00:02:36,000 --> 00:02:41,999
+non-conflicting and conflicting signatures.
+
+35
+00:02:42,000 --> 00:02:45,999
+Method signatures are what we use to call methods as well as determine
+
+36
+00:02:46,000 --> 00:02:49,999
+duplication.  Let's look at some code.  Here on the left we have an example
+
+37
+00:02:50,000 --> 00:02:52,999
+of four different methods, all these methods have the same name
+
+38
+00:02:53,000 --> 00:02:56,999
+but accept different parameters.  We have one that has no parameter,
+
+39
+00:02:57,000 --> 00:02:59,999
+one that accepts two integers, one that accepts three integers, and one
+
+40
+00:03:00,000 --> 00:03:04,999
+that accepts two decimals.  Looking in the right, we can see that all of these
+
+41
+00:03:05,000 --> 00:03:10,999
+will result in a different signature.  Now if we were to create a new method
+
+42
+00:03:11,000 --> 00:03:14,999
+that has a return type of decimal, has that same Add name and accepts
+
+43
+00:03:15,000 --> 00:03:18,999
+two decimals, this would be a problem because it will create a conflicting
+
+44
+00:03:19,000 --> 00:03:23,999
+signature as both the fourth and the fifth method have the signature
+
+45
+00:03:24,000 --> 00:03:28,999
+Add and two decimals.  This is a conflict because the return type is not
+
+46
+00:03:29,000 --> 00:03:33,999
+part of the method signature, only the name and the parameter types.
+
+47
+00:03:34,000 --> 00:03:37,999
+Okay let's get back to our code.
+
+48
+00:03:38,000 --> 00:03:40,999
+Looking at our AddMusician methods, there's a lot of duplication here
+
+49
+00:03:41,000 --> 00:03:44,999
+and duplication stinks.  If we look at our AddMusician method that doesn’t
+
+50
+00:03:45,000 --> 00:03:49,999
+accept any parameters compared to our AddMusician method that accepts
+
+51
+00:03:50,000 --> 00:03:55,999
+the two strings, both methods begin with our instantiation of a musician.
+
+52
+00:03:56,000 --> 00:03:59,999
+Very quickly we'll get to the part where we will set the Name variable
+
+53
+00:04:00,000 --> 00:04:03,999
+based on either the input parameter or user input.
+
+54
+00:04:04,000 --> 00:04:06,999
+The instrument will be the same way where we will set it, and in both cases
+
+55
+00:04:07,000 --> 00:04:10,999
+we will add the musician to our list of musicians.
+
+56
+00:04:11,000 --> 00:04:13,999
+These four lines are effectively doing the same thing.
+
+57
+00:04:14,000 --> 00:04:17,999
+In the event we were to change a parameter name or make a change to our
+
+58
+00:04:18,000 --> 00:04:21,999
+musician's list itself, we would have to change this in two different
+
+59
+00:04:22,000 --> 00:04:28,999
+places.  How can we clean up this code to reduce duplication?
+
+60
+00:04:29,000 --> 00:04:32,999
+Let's refactor our AddMusician method that doesn’t accept any parameters
+
+61
+00:04:33,000 --> 00:04:36,999
+to utilize our AddMusician that accepts the two strings.
+
+62
+00:04:37,000 --> 00:04:43,999
+Our other method instantiates a Musician object, so let's get rid of this one.
+
+63
+00:04:44,000 --> 00:04:46,999
+Since we no longer have the Musician variable, we're no longer going to
+
+64
+00:04:47,000 --> 00:04:50,999
+be able to set its name and instrument since it doesn’t exist.
+
+65
+00:04:51,000 --> 00:04:54,999
+Instead let's create a new Name variable and a new Instrument variable
+
+66
+00:04:55,000 --> 00:04:59,999
+to take their place.
+
+67
+00:05:00,000 --> 00:05:02,999
+With our Musician variable gone, let's go ahead and instead of setting
+
+68
+00:05:03,000 --> 00:05:05,999
+the variables on Musician, let's create a Name variable and set it
+
+69
+00:05:06,000 --> 00:05:11,999
+and an Instrument variable and set it.
+
+70
+00:05:12,000 --> 00:05:15,999
+We've created two new variables, our Name variable and our Instrument
+
+71
+00:05:16,000 --> 00:05:20,999
+variable to take place where we were setting the musician's name and instrument.
+
+72
+00:05:21,000 --> 00:05:24,999
+Now instead of using our Add method, we're instead going to use the
+
+73
+00:05:25,000 --> 00:05:28,999
+AddMusician method that accepts two strings.
+
+74
+00:05:29,000 --> 00:05:32,999
+From within our AddMusician method that collects the name and instrument,
+
+75
+00:05:33,000 --> 00:05:35,999
+we'll call our AddMusician method that accepts two strings.
+
+76
+00:05:36,000 --> 00:05:40,999
+The AddMusician method that accepts two strings will then take that data
+
+77
+00:05:41,000 --> 00:05:43,999
+to add the musician to our musicians list.
+
+78
+00:05:44,000 --> 00:05:51,999
+Now we'll create our new Add command to call our new AddMusician method.
+
+79
+00:05:52,000 --> 00:05:54,999
+We now need to add the logic that'll allow the user to use the command
+
+80
+00:05:55,000 --> 00:06:00,999
+Add the musician and the instrument they play to call the AddMusician method.
+
+81
+00:06:01,000 --> 00:06:04,999
+We'll accomplish this by adding an else if statement immediately after
+
+82
+00:06:05,000 --> 00:06:09,999
+our first if statement.  This else if statement will check to see
+
+83
+00:06:10,000 --> 00:06:17,999
+if the action the user provided starts with the string Add.
+
+84
+00:06:18,000 --> 00:06:21,999
+The next thing we're going to do is set the arguments variable using
+
+85
+00:06:22,000 --> 00:06:26,999
+the Split method.  We'll provide the Split method the space character.
+
+86
+00:06:27,000 --> 00:06:29,999
+This will create an array of separate strings split where the provided
+
+87
+00:06:30,000 --> 00:06:33,999
+character is used.
+
+88
+00:06:34,000 --> 00:06:39,999
+So here's what this would look like, if we had the string Add John Drums,
+
+89
+00:06:40,000 --> 00:06:42,999
+and then we called the Split method on the character space, what would happen
+
+90
+00:06:43,000 --> 00:06:47,999
+is the Split method would see the two spaces between Add and John and
+
+91
+00:06:48,000 --> 00:06:53,999
+John and Drums, and then split that string into three separate strings,
+
+92
+00:06:54,000 --> 00:07:02,999
+Add, John, and Drums, that would be returned as an array of strings.
+
+93
+00:07:03,000 --> 00:07:06,999
+Immediately after we run our Split method, we will add an if statement
+
+94
+00:07:07,000 --> 00:07:11,999
+to check if the argument's length is 3.  In the event the argument's length
+
+95
+00:07:12,000 --> 00:07:17,999
+is 3, we will run the AddMusician method providing it with the second
+
+96
+00:07:18,000 --> 00:07:22,999
+and third value in our arguments.  This will be the name and the instrument.
+
+97
+00:07:23,000 --> 00:07:28,999
+In the event our arguments does not equal 3, we will have an else statement
+
+98
+00:07:29,000 --> 00:07:32,999
+that will simply call our old AddMusician method, that way if our user
+
+99
+00:07:33,000 --> 00:07:36,999
+were to happen to type in an Add command that either had too many words
+
+100
+00:07:37,000 --> 00:07:42,999
+or too few words, we would fall back on our step by step guide.
+
+101
+00:07:43,000 --> 00:07:47,999
+Our direct Add command now works.  The user can still type in Add
+
+102
+00:07:48,000 --> 00:07:51,999
+to get a step by step guide in adding a musician, or they can skip
+
+103
+00:07:52,000 --> 00:07:56,999
+right to adding musicians by simply saying Add, the name of the musician,
+
+104
+00:07:57,000 --> 00:08:00,999
+and the instrument for their command.
+
+105
+00:08:01,000 --> 00:08:04,999
+When the user uses our step by step route we will ask them Add, Announce,
+
+106
+00:08:05,000 --> 00:08:09,999
+or Quit?  They will type Add to get into the step by step.
+
+107
+00:08:10,000 --> 00:08:12,999
+We will ask them What is the name of the musician to be added?
+
+108
+00:08:13,000 --> 00:08:15,999
+They'll provide us a name.  We will ask them what instrument does that
+
+109
+00:08:16,000 --> 00:08:20,999
+musician play?  They'll provide us an instrument and then we'll respond with
+
+110
+00:08:21,000 --> 00:08:25,999
+the name of the musician was added.
+
+111
+00:08:26,000 --> 00:08:29,999
+In the direct AddMusician route, we will ask the user Add, Announce,
+
+112
+00:08:30,000 --> 00:08:34,999
+or Quit?  They'll provide, Add, the name of the musician, and the instrument
+
+113
+00:08:35,000 --> 00:08:41,999
+and we'll cut directly to the name of the musician was added.
+
+114
+00:08:42,000 --> 00:08:43,999
+A quick recap on method overloads and signatures.
+
+115
+00:08:44,000 --> 00:08:50,999
+A method signature consists of the name and the parameter types of the method.
+
+116
+00:08:51,000 --> 00:08:55,999
+The method signature does not include the return type and you may reuse
+
+117
+00:08:56,000 --> 00:09:00,999
+method names so long as their signatures are different.
+
+118
+00:09:01,000 --> 00:09:02,999
+That's the end of this level and it's the end of the course.
+
+119
+00:09:03,000 --> 00:09:06,999
+Now it's your turn to use method overloads and identify method signatures
+
+120
+00:09:07,000 --> 00:09:10,999
+in the challenges.  I'll see you in the wrap up video.
+
+121
+00:09:11,000 --> 00:09:12,999
+Sorry, I'm stretching.
+
+122
+00:09:13,000 --> 00:09:15,999
+I've got to hang on for a second.
+
+123
+00:09:16,000 --> 00:09:18,999
+Sorry, I have an itch that must be dealt with.
+
+124
+00:09:19,000 --> 01:00:00,000
+That's it.  That's it?  Okay.

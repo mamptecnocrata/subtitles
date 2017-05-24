@@ -1,0 +1,311 @@
+﻿1
+00:00:00,000 --> 00:00:05,999
+Hey, let’s give C# a try and keep it classy.
+
+2
+00:00:06,000 --> 00:00:10,999
+Our variables and methods will make things very jazzy.
+
+3
+00:00:11,000 --> 00:00:15,999
+Oh, we'll compile the code and make our apps real smart, as we orchestrate
+
+4
+00:00:16,000 --> 00:00:23,999
+and riff on the smooth sounds of C#.
+
+5
+00:00:24,000 --> 00:00:25,999
+Welcome to Try C#.  My name is Eric Fisher.
+
+6
+00:00:26,000 --> 00:00:31,999
+In this course we are going to learn about the C# programming language.
+
+7
+00:00:32,000 --> 00:00:35,999
+Exactly what is C#?  C# is a general purpose object oriented programming
+
+8
+00:00:36,000 --> 00:00:40,999
+language introduced by Microsoft in 2002.  Some notable characteristics
+
+9
+00:00:41,000 --> 00:00:44,999
+of C# is it is a compiled language, which means it can take it from
+
+10
+00:00:45,000 --> 00:00:47,999
+the source code that was as developers can understand and then translate it
+
+11
+00:00:48,000 --> 00:00:51,999
+into machine code, which our computers can understand.
+
+12
+00:00:52,000 --> 00:00:54,999
+It's also a strongly typed language in that anytime we set the data type
+
+13
+00:00:55,000 --> 00:00:58,999
+no something, it will always have that data type.
+
+14
+00:00:59,000 --> 00:01:03,999
+It also a .NET language.  A .NET language is a little bit different than
+
+15
+00:01:04,000 --> 00:01:06,999
+a regular complied language in the sense there is a middle step between
+
+16
+00:01:07,000 --> 00:01:09,999
+our source code and the machine code, that's what's known as byte code
+
+17
+00:01:10,000 --> 00:01:13,999
+or the common intermediate language.  What this lets us do is this lets us
+
+18
+00:01:14,000 --> 00:01:18,999
+use any .NET language together, whether that's C#, F#, VB.NET or
+
+19
+00:01:19,000 --> 00:01:20,999
+so on, where we can use these libraries together without needing to
+
+20
+00:01:21,000 --> 00:01:24,999
+convert.
+
+21
+00:01:25,000 --> 00:01:27,999
+The first thing we're going to do is create a new C# application.
+
+22
+00:01:28,000 --> 00:01:30,999
+We can do this by using the dotnet new command, which will create a new
+
+23
+00:01:31,000 --> 00:01:34,999
+C# application whatever directory we are currently in.
+
+24
+00:01:35,000 --> 00:01:41,999
+This will create a program.cs file, as well as a csproj file.
+
+25
+00:01:42,000 --> 00:01:45,999
+All modern .NET applications will start within the program.cs file,
+
+26
+00:01:46,000 --> 00:01:51,999
+so we're going to go ahead and go there to begin with.
+
+27
+00:01:52,000 --> 00:01:54,999
+When we open our program.cs file we'll see some code that has already
+
+28
+00:01:55,000 --> 00:01:58,999
+been generated for us.  There will be the program class as well as the
+
+29
+00:01:59,000 --> 00:02:02,999
+main method.  Classes allow us to separate our code into objects.
+
+30
+00:02:03,000 --> 00:02:06,999
+Methods contain the actual executable code of our objects.
+
+31
+00:02:07,000 --> 00:02:08,999
+We're not really going to delve into the object oriented side of things
+
+32
+00:02:09,000 --> 00:02:14,999
+right now, but we are going to go through the executable code.
+
+33
+00:02:15,000 --> 00:02:17,999
+When our application is run our execution will start in our main method.
+
+34
+00:02:18,000 --> 00:02:21,999
+This line of code will be the first line of code executed in our application.
+
+35
+00:02:22,000 --> 00:02:27,999
+What Console.WriteLine does is it'll take whatever we pass in as a parameter
+
+36
+00:02:28,000 --> 00:02:32,999
+and write that out to the console.  So let's see how we can run that.
+
+37
+00:02:33,000 --> 00:02:36,999
+Before we can run our application we need to use dotnet restore to restore
+
+38
+00:02:37,000 --> 00:02:41,999
+our dependencies.  Dotnet restore needs to be run before the first time
+
+39
+00:02:42,000 --> 00:02:48,999
+we run the application or any time we change our dependencies.
+
+40
+00:02:49,000 --> 00:02:53,999
+To run our application for the first time we can use the dotnet run command
+
+41
+00:02:54,000 --> 00:02:58,999
+and what we will see is we'll see that Hello World string appear in the console.
+
+42
+00:02:59,000 --> 00:03:00,999
+A string is a collection of characters, typically wrapped in double quotes,
+
+43
+00:03:01,000 --> 00:03:04,999
+like you see here.
+
+44
+00:03:05,000 --> 00:03:08,999
+Let's make our existing application be able to read user input and then
+
+45
+00:03:09,000 --> 00:03:12,999
+use that input as part of its output.  When we run our demo application,
+
+46
+00:03:13,000 --> 00:03:16,999
+we're going to want it to say type a message, we will then be prompted
+
+47
+00:03:17,000 --> 00:03:20,999
+to input a message at which point it will respond with you said, and whatever
+
+48
+00:03:21,000 --> 00:03:25,999
+message you input.  We're going to need two things to accomplish this.
+
+49
+00:03:26,000 --> 00:03:29,999
+We're going to need to be able to accept user input as well as we're going
+
+50
+00:03:30,000 --> 00:03:32,999
+to need to concentrate strings.
+
+51
+00:03:33,000 --> 00:03:37,999
+To read user input we can use the Console.ReadLine method, which will take
+
+52
+00:03:38,000 --> 00:03:41,999
+whatever is typed into the console and return it as a string.
+
+53
+00:03:42,000 --> 00:03:45,999
+We'll add a second Console.WriteLine method call, which will then take
+
+54
+00:03:46,000 --> 00:03:52,999
+a Console.ReadLine method call as its parameter.
+
+55
+00:03:53,000 --> 00:03:55,999
+At this point we want to take that you said string and put that in front of
+
+56
+00:03:56,000 --> 00:03:59,999
+whatever user input we've provided.  We can accomplish this by using
+
+57
+00:04:00,000 --> 00:04:03,999
+the plus character.  This will allow us to concatenate our two strings,
+
+58
+00:04:04,000 --> 00:04:09,999
+that is to combine them.  Let's run the application again using the dotnet run
+
+59
+00:04:10,000 --> 00:04:16,999
+command.  When we do this we will see Type a message, to which we can respond
+
+60
+00:04:17,000 --> 00:04:23,999
+Hello World, and then the application will respond You said Hello World.
+
+61
+00:04:24,000 --> 00:04:26,999
+So what's happening behind the scenes with the string concatenation?
+
+62
+00:04:27,000 --> 00:04:29,999
+What's actually happening is when the user types in their input, it's
+
+63
+00:04:30,000 --> 00:04:34,999
+effectively like they're replacing that input with the string they provided.
+
+64
+00:04:35,000 --> 00:04:38,999
+At that point we would have our two strings with our plus between, after which
+
+65
+00:04:39,000 --> 00:04:42,999
+it will combine those strings into a single string, which is then provided
+
+66
+00:04:43,000 --> 00:04:48,999
+to our Console.WriteLine method call.
+
+67
+00:04:49,000 --> 00:04:51,999
+Before we move on to the challenges, let's do a quick recap of the two
+
+68
+00:04:52,000 --> 00:04:56,999
+dotnet commands we've learned - dotnet new, which creates a new C# application
+
+69
+00:04:57,000 --> 00:05:02,999
+and dotnet run which will compile and run our application.
+
+70
+00:05:03,000 --> 00:05:06,999
+And that's it for this first level.  Now it's your turn to try some C#
+
+71
+00:05:07,000 --> 00:05:09,999
+in the challenges.
+
+72
+00:05:10,000 --> 00:05:11,999
+Without having to go through a bunch of conversions.
+
+73
+00:05:12,000 --> 00:05:13,999
+You said havting.
+
+74
+00:05:14,000 --> 00:05:14,999
+Havting.
+
+75
+00:05:15,000 --> 00:05:18,999
+Or not, that's wrong entirely.  Yeah.
+
+76
+00:05:19,000 --> 00:05:20,999
+Run, we will.
+
+77
+00:05:21,000 --> 00:05:22,999
+Line of code, thaaaa.
+
+78
+00:05:23,000 --> 01:00:00,000
+When our application, it's always the simple ones that get you.
