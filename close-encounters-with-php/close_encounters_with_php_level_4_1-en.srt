@@ -1,0 +1,187 @@
+﻿1
+00:00:00,000 --> 00:00:06,975
+We've got our eyes on the sky searching for PHP life.
+
+2
+00:00:06,976 --> 00:00:11,896
+We'll use POST requests to track extraterrestrial guests.
+
+3
+00:00:11,897 --> 00:00:18,200
+Validation and security will lock things down in a hurry.
+
+4
+00:00:18,201 --> 00:00:30,994
+We want to believe these Close Encounters with PHP.
+
+5
+00:00:30,995 --> 00:00:33,968
+Welcome back.  In this section, we're going to talk about refactoring
+
+6
+00:00:33,969 --> 00:00:39,138
+our code using some PHP standards.
+
+7
+00:00:39,139 --> 00:00:42,743
+A group of project representatives, known as the PHP-FIG,
+
+8
+00:00:42,744 --> 00:00:46,588
+get together and talk about the commonalities of their projects and
+
+9
+00:00:46,589 --> 00:00:49,836
+how they can better work together.  Part of this is providing
+
+10
+00:00:49,837 --> 00:00:53,472
+programming standards to work towards.  These are in the forms of
+
+11
+00:00:53,473 --> 00:00:59,073
+PSRs, or PHP Standards Recommendations.  As of now, there are 6
+
+12
+00:00:59,074 --> 00:01:04,024
+accepted PSRs and over 12 currently in review or draft form.
+
+13
+00:01:04,025 --> 00:01:07,087
+Here are the currently accepted ones.  Let's take a look at the first
+
+14
+00:01:07,088 --> 00:01:13,886
+two, PSR-1 and PSR-2.  To help provide a base to share code across
+
+15
+00:01:13,887 --> 00:01:18,719
+projects, PSR-1 shows us how to use tags, character encoding,
+
+16
+00:01:18,720 --> 00:01:24,192
+naming conventions, and side effects.  PSR-2 expands upon PSR-1 and
+
+17
+00:01:24,193 --> 00:01:28,892
+creates better readability across projects and between multiple developers.
+
+18
+00:01:28,893 --> 00:01:33,349
+Some examples of PSR-2 are the use of whitespace, how to use tabs and
+
+19
+00:01:33,350 --> 00:01:37,711
+line length limits, and class structures.  We'll get to all of this in
+
+20
+00:01:37,712 --> 00:01:46,885
+time, but for now let's focus on PSR-1 and our app.php file.
+
+21
+00:01:46,886 --> 00:01:51,373
+In the basic coding standard, or PSR-1, it recommends that files
+
+22
+00:01:51,374 --> 00:01:55,533
+should either declare symbols, such as functions, or cause side
+
+23
+00:01:55,534 --> 00:01:59,800
+effects, such as echoing output, but it should not do both.
+
+24
+00:01:59,801 --> 00:02:04,630
+Our file, app.php, currently does both, so we're going to need to
+
+25
+00:02:04,631 --> 00:02:10,890
+extract some of this code out and place it into another file.
+
+26
+00:02:10,891 --> 00:02:17,800
+We will start by creating a file for just our validation code and call it validation.php.
+
+27
+00:02:17,801 --> 00:02:22,158
+Create this file in your app/src folder.  Then we're going to move our
+
+28
+00:02:22,159 --> 00:02:28,475
+validate_date function that we've just created into our new validation.php file.
+
+29
+00:02:28,476 --> 00:02:34,071
+Again, this is a PHP only file, so it will not need a closing PHP bracket.
+
+30
+00:02:34,072 --> 00:02:40,737
+Next, we'll return to our app.php file and require our validation.php.
+
+31
+00:02:40,738 --> 00:02:45,672
+However, it's a little different this time.
+
+32
+00:02:45,673 --> 00:02:49,092
+Just like before, we used a require statement, but this time we used
+
+33
+00:02:49,093 --> 00:02:54,041
+something new called a magic constant.  PHP provides a large number of
+
+34
+00:02:54,042 --> 00:02:57,427
+predefined constants to any script that runs.
+
+35
+00:02:57,428 --> 00:03:03,784
+In this case, we're using __DIR__, which will return the directory of
+
+36
+00:03:03,785 --> 00:03:07,544
+the file that we're currently in.  Then we're concatenating this
+
+37
+00:03:07,545 --> 00:03:12,358
+output with the name of our file, or validation.php.
+
+38
+00:03:12,359 --> 00:03:16,984
+Now the validate_date function comes from a completely different file
+
+39
+00:03:16,985 --> 00:03:22,373
+using an absolute path.  More magic constants can be found in the PHP docs.
+
+40
+00:03:22,374 --> 00:03:26,251
+You can get to that through the link below.
+
+41
+00:03:26,252 --> 00:03:29,944
+In this section, we've taken a brief look at refactoring our code to
+
+42
+00:03:29,945 --> 00:03:33,922
+the PSRs, or PHP Standards Recommendations.
+
+43
+00:03:33,923 --> 00:03:37,474
+Let's review what we've looked at.  We now know that PSRs are
+
+44
+00:03:37,475 --> 00:03:43,620
+recommendations made by the PHP Framework Interop Group, or the PHP-FIG.
+
+45
+00:03:43,621 --> 00:03:48,220
+We've cleaned up our code using the PSR-1 basic coding standard and
+
+46
+00:03:48,221 --> 00:03:53,943
+learned how to use the magic constant of __DIR__.
+
+47
+00:03:53,944 --> 01:00:00,000
+Now it's time for you to do some challenges.

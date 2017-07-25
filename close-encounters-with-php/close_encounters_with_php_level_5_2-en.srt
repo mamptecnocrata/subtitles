@@ -1,0 +1,323 @@
+﻿1
+00:00:00,000 --> 00:00:05,906
+Welcome back.  In this section, we're going to learn about another
+
+2
+00:00:05,907 --> 00:00:11,796
+method of if/else called try/catch.
+
+3
+00:00:11,797 --> 00:00:17,501
+Right now we're returning messages or errors to the user by using an if/else statement.
+
+4
+00:00:17,502 --> 00:00:21,325
+But objects, such as our validator objects, have something called
+
+5
+00:00:21,326 --> 00:00:26,688
+exceptions, and exceptions can have messages.
+
+6
+00:00:26,689 --> 00:00:31,287
+Exceptions are thrown when an error occurs inside of our Validator class.
+
+7
+00:00:31,288 --> 00:00:35,366
+We can't use an if/else statement to catch these validation errors.
+
+8
+00:00:35,367 --> 00:00:41,346
+Instead, we'll have to use a new conditional block in PHP called the try/catch block.
+
+9
+00:00:41,347 --> 00:00:44,780
+We'll start with the keyword try followed by curly brackets.
+
+10
+00:00:44,781 --> 00:00:48,035
+Inside of these brackets we're going to add our code.
+
+11
+00:00:48,036 --> 00:00:52,259
+If this code fails and throws an exception, we want to catch it.
+
+12
+00:00:52,260 --> 00:00:55,665
+We'll catch it by using the keyword catch followed by an open and
+
+13
+00:00:55,666 --> 00:01:03,130
+close parenthesis with the class Exception followed by $e inside of the parentheses.
+
+14
+00:01:03,131 --> 00:01:07,923
+What this is is a PHP class called Exception, and then we're assigning
+
+15
+00:01:07,924 --> 00:01:13,042
+this exception to a variable called $e.  Inside of the catch brackets
+
+16
+00:01:13,043 --> 00:01:16,639
+we're going to want to do something useful with this $e object,
+
+17
+00:01:16,640 --> 00:01:20,909
+which is of the Exception type.
+
+18
+00:01:20,910 --> 00:01:26,616
+Where Exception is built into PHP, the Validator class has some custom exceptions.
+
+19
+00:01:26,617 --> 00:01:31,021
+We'll need to bring those into our code with another use statement.
+
+20
+00:01:31,022 --> 00:01:35,445
+Here's our existing code, but now it uses a try/catch statement
+
+21
+00:01:35,446 --> 00:01:39,625
+instead of the if/else.  It's going to catch our custom exception
+
+22
+00:01:39,626 --> 00:01:43,999
+provided by the validation package.  We'll start with using our custom
+
+23
+00:01:44,000 --> 00:01:47,067
+date_validator followed by the method assert.
+
+24
+00:01:47,068 --> 00:01:52,676
+Where validate returned true or false, assert will fail using our custom exception.
+
+25
+00:01:52,677 --> 00:01:56,433
+The next different bit of this code is the NestedValidationException
+
+26
+00:01:56,434 --> 00:02:01,517
+set to $e, which will be thrown if our custom validator fails.
+
+27
+00:02:01,518 --> 00:02:08,085
+So let's say it fails.  We'll dump that to the screen and see what it looks like.
+
+28
+00:02:08,086 --> 00:02:10,537
+As you can see, we've dumped another object.
+
+29
+00:02:10,538 --> 00:02:15,064
+In this case, it's the NestedValidationException object.
+
+30
+00:02:15,065 --> 00:02:18,589
+Let's take a look at what's inside of this object.
+
+31
+00:02:18,590 --> 00:02:22,445
+Inside of the protected name property, you can see we have submitted
+
+32
+00:02:22,446 --> 00:02:26,262
+the string someday, which clearly is not a valid date.
+
+33
+00:02:26,263 --> 00:02:29,675
+You can also see that the rules that it was compared against are below
+
+34
+00:02:29,676 --> 00:02:33,636
+in the rules array.  One is our rule for the date, and the other is
+
+35
+00:02:33,637 --> 00:02:37,394
+the rule for notEmpty.
+
+36
+00:02:37,395 --> 00:02:40,985
+Now that we know we have the Exception object, how can we use this to
+
+37
+00:02:40,986 --> 00:02:44,107
+provide the messages back to our users?
+
+38
+00:02:44,108 --> 00:02:48,196
+Our NestedValidationException has a method called getMessages that
+
+39
+00:02:48,197 --> 00:02:50,544
+will return some useful information to us.
+
+40
+00:02:50,545 --> 00:02:57,416
+Let's submit the same invalid date of someday and see what comes back.
+
+41
+00:02:57,417 --> 00:03:02,648
+Here we've dumped out an array, so getMessages is returning to us an array type.
+
+42
+00:03:02,649 --> 00:03:10,225
+Inside of the array is a string with a message about the failed validation.
+
+43
+00:03:10,226 --> 00:03:13,942
+We could just print the error out, but it's better to return our array
+
+44
+00:03:13,943 --> 00:03:22,040
+of errors so somewhere else in the program can choose how to print the errors out.
+
+45
+00:03:22,041 --> 00:03:25,992
+Here is an example of one method for displaying our errors.
+
+46
+00:03:25,993 --> 00:03:29,979
+We're using a variable called value and setting it equal to the output
+
+47
+00:03:29,980 --> 00:03:35,105
+of our validate_date function and passing through our date data from the form.
+
+48
+00:03:35,106 --> 00:03:39,245
+This is either going to return a date or an array of errors.
+
+49
+00:03:39,246 --> 00:03:44,511
+We can use a PHP function called is_array and pass value to that function.
+
+50
+00:03:44,512 --> 00:03:49,467
+This is going to return a true if it's an array or false if it's anything else.
+
+51
+00:03:49,468 --> 00:03:53,732
+We know that an error will come back as an array, but our correct data
+
+52
+00:03:53,733 --> 00:03:57,993
+will come back as a string.  So we put this inside of an if statement,
+
+53
+00:03:57,994 --> 00:04:03,064
+and we can cycle through that array using the foreach loop.
+
+54
+00:04:03,065 --> 00:04:08,527
+Otherwise, we'll just echo out that value to the screen.
+
+55
+00:04:08,528 --> 00:04:13,861
+Let's look at a better approach to all of this using Respect\Validation.
+
+56
+00:04:13,862 --> 00:04:17,255
+We're no longer going to need our validation file as we don't need our
+
+57
+00:04:17,256 --> 00:04:21,451
+custom function any longer, so now we can just use the app file.
+
+58
+00:04:21,452 --> 00:04:25,704
+We simply remove the require to our validation.php file as we're not
+
+59
+00:04:25,705 --> 00:04:29,893
+going to need it any longer.  Then we move the two use statements from
+
+60
+00:04:29,894 --> 00:04:39,177
+the validation.php file over to our app.php file.
+
+61
+00:04:39,178 --> 00:04:42,840
+Then, using the same try/catch statement, we'll simply add our
+
+62
+00:04:42,841 --> 00:04:47,470
+date_validator, our email_validator, and our desc_validator at the top
+
+63
+00:04:47,471 --> 00:04:52,059
+of the try block.  If all of these pass, then we'll just echo our data
+
+64
+00:04:52,060 --> 00:04:56,213
+like we normally would.  However, if an exception is thrown for any of
+
+65
+00:04:56,214 --> 00:05:00,866
+those three custom validators, we're going to want to catch those errors.
+
+66
+00:05:00,867 --> 00:05:04,492
+Once we catch it, we'll just loop through the errors right then and
+
+67
+00:05:04,493 --> 00:05:10,710
+get all of our messages for each of the validators.
+
+68
+00:05:10,711 --> 00:05:14,521
+Let's take a look back at what we've learned in this section.
+
+69
+00:05:14,522 --> 00:05:16,663
+We've learned how to use a try/catch block.
+
+70
+00:05:16,664 --> 00:05:21,145
+We've learned how to work with exceptions and to import a custom exception.
+
+71
+00:05:21,146 --> 00:05:24,258
+We've learned about the getMessages method for validation errors
+
+72
+00:05:24,259 --> 00:05:29,131
+inside the Validator class.  We've learned how to return errors as an array.
+
+73
+00:05:29,132 --> 00:05:36,094
+And we've refactored our code using a single try/catch block.
+
+74
+00:05:36,095 --> 00:05:40,278
+Congratulations on making it this far.  Before you go, let's do a few
+
+75
+00:05:40,279 --> 00:05:45,055
+challenges, and then I'll see you in the wrap-up video.
+
+76
+00:05:45,056 --> 00:05:47,390
+Thing.  (Laughing)
+
+77
+00:05:47,391 --> 00:05:49,771
+You saw me going, and I was like la, la, la, la.
+
+78
+00:05:49,772 --> 00:05:55,650
+Custom function.  (Laughing).
+
+79
+00:05:55,651 --> 00:05:56,034
+That's a wrap.
+
+80
+00:05:56,035 --> 00:05:57,281
+Drop the mic.
+
+81
+00:05:57,282 --> 01:00:00,000
+Yeah, drop it.

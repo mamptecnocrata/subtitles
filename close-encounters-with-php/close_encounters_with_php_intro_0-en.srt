@@ -1,0 +1,27 @@
+﻿1
+00:00:00,000 --> 00:00:07,089
+Hello, my name is Hampton Paulk, and I'm the instructor for Close
+
+2
+00:00:07,090 --> 00:00:12,859
+Encounters with PHP.  In this course, you'll learn to use GET and POST
+
+3
+00:00:12,860 --> 00:00:18,285
+requests, install and use custom libraries, validate forms,
+
+4
+00:00:18,286 --> 00:00:22,298
+and grow your knowledge working with PHP.
+
+5
+00:00:22,299 --> 00:00:25,477
+Each level of the course starts with a video lesson.
+
+6
+00:00:25,478 --> 00:00:30,772
+After the video, you'll apply what you've just learned by taking a coding challenge.
+
+7
+00:00:30,773 --> 01:00:00,000
+Play our Close Encounters with PHP course now, and start learning by doing.

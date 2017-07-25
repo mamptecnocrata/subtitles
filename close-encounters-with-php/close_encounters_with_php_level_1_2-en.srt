@@ -1,0 +1,195 @@
+﻿1
+00:00:00,000 --> 00:00:06,237
+Welcome back.  Now that you know about requests and forms,
+
+2
+00:00:06,238 --> 00:00:11,150
+let's build something and work with our form data.
+
+3
+00:00:11,151 --> 00:00:15,020
+Let's take a moment to revisit the form that we're going to use.
+
+4
+00:00:15,021 --> 00:00:19,529
+We're going to be gathering three bits of data for our UFO sightings.
+
+5
+00:00:19,530 --> 00:00:21,700
+We're going to be gathering the date of the sighting,
+
+6
+00:00:21,701 --> 00:00:24,762
+an email address of the person reporting the sighting,
+
+7
+00:00:24,763 --> 00:00:28,666
+and then a nice block of descriptive text describing the sighting.
+
+8
+00:00:28,667 --> 00:00:32,500
+We're also going to need an area for errors or messages just in case
+
+9
+00:00:32,501 --> 00:00:38,083
+our form is submitted with incorrect information.
+
+10
+00:00:38,084 --> 00:00:41,100
+Looking at our form in code, we can see that our action will submit
+
+11
+00:00:41,101 --> 00:00:45,480
+back to the page that we're on, or index.php.
+
+12
+00:00:45,481 --> 00:00:48,789
+You could also leave this blank and it will submit to the same page
+
+13
+00:00:48,790 --> 00:00:53,165
+that the form exists on, but we're going to define it here for clarity.
+
+14
+00:00:53,166 --> 00:00:57,690
+So as you can see we have three different inputs with matching labels,
+
+15
+00:00:57,691 --> 00:01:01,425
+two inputs are text labels, one for date and one for email,
+
+16
+00:01:01,426 --> 00:01:07,432
+and the other one is a text area, or a block of text, for our description.
+
+17
+00:01:07,433 --> 00:01:11,534
+Inspecting our form data, we can see that we have a date, an email,
+
+18
+00:01:11,535 --> 00:01:18,419
+and a description all being submitted, but how do we access this data?
+
+19
+00:01:18,420 --> 00:01:23,085
+In PHP, we have some variables known as super global variables,
+
+20
+00:01:23,086 --> 00:01:31,187
+one of which contains the POST data.  To access, we will use $_POST in all caps.
+
+21
+00:01:31,188 --> 00:01:36,433
+Now, let's var dump this to the browser and view the output.
+
+22
+00:01:36,434 --> 00:01:40,424
+Once we dump the form data to the screen, you can see that the POST
+
+23
+00:01:40,425 --> 00:01:45,897
+super global gives us an array.
+
+24
+00:01:45,898 --> 00:01:51,167
+In this case the array has three keys, date, email, and desc,
+
+25
+00:01:51,168 --> 00:01:54,696
+each of them with string data that corresponds to each of our inputs
+
+26
+00:01:54,697 --> 00:01:59,279
+from the form.  Now that we know that the POST data is in the array,
+
+27
+00:01:59,280 --> 00:02:03,488
+we can echo these values just like any other associative array.
+
+28
+00:02:03,489 --> 00:02:07,415
+We'll do this by placing the string key inside the square brackets
+
+29
+00:02:07,416 --> 00:02:11,865
+next to the array variable.
+
+30
+00:02:11,866 --> 00:02:15,290
+However, when we refresh our page without submitting the form,
+
+31
+00:02:15,291 --> 00:02:18,943
+we get some errors.  This is because we're trying to access the POST
+
+32
+00:02:18,944 --> 00:02:22,728
+array items before we have submitted the form.
+
+33
+00:02:22,729 --> 00:02:29,066
+In this case, it's telling us that the POST with the key of date does not exist.
+
+34
+00:02:29,067 --> 00:02:33,707
+We need to use a conditional to make sure that our POST data exists
+
+35
+00:02:33,708 --> 00:02:38,581
+and is not empty.  We're going to do this by using another super
+
+36
+00:02:38,582 --> 00:02:42,835
+global variable from PHP called SERVER.  The SERVER is going to give
+
+37
+00:02:42,836 --> 00:02:45,466
+us information about the server request.
+
+38
+00:02:45,467 --> 00:02:49,690
+In this case, we use an array key of REQUEST_METHOD on the SERVER
+
+39
+00:02:49,691 --> 00:02:54,670
+super global variable, and make sure that it's set equivalent to POST.
+
+40
+00:02:54,671 --> 00:02:58,536
+If this evaluates to true, then we know we have a POST request and we
+
+41
+00:02:58,537 --> 00:03:03,382
+can try to access our POST data.  These values could still not exist
+
+42
+00:03:03,383 --> 00:03:07,302
+and throw an error, but using validation later on, we'll make sure
+
+43
+00:03:07,303 --> 00:03:12,968
+that they exist before we echo them to the screen.
+
+44
+00:03:12,969 --> 00:03:16,394
+Let's tidy up the code a little bit and take a look at the results.
+
+45
+00:03:16,395 --> 00:03:23,290
+We'll transfer the data into some variables to use in a formatted string.
+
+46
+00:03:23,291 --> 00:03:26,094
+Here you can see our data with the new formatted strings,
+
+47
+00:03:26,095 --> 00:03:31,699
+but before we continue, let's jump in and do some challenges.
+
+48
+00:03:31,700 --> 00:03:34,658
+Welcome to  --- ha, ha, ha, ha, ha.
+
+49
+00:03:34,659 --> 01:00:00,000
+Blah.  (Inaudible)

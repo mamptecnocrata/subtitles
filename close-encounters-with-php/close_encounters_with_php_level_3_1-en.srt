@@ -1,0 +1,255 @@
+﻿1
+00:00:00,000 --> 00:00:06,975
+We've got our eyes on the sky searching for PHP life.
+
+2
+00:00:06,976 --> 00:00:11,896
+We'll use POST requests to track extraterrestrial guests.
+
+3
+00:00:11,897 --> 00:00:18,200
+Validation and security will lock things down in a hurry.
+
+4
+00:00:18,201 --> 00:00:31,012
+We want to believe these Close Encounters with PHP.
+
+5
+00:00:31,013 --> 00:00:35,415
+Welcome back.  Right now we have a form where a user can submit data,
+
+6
+00:00:35,416 --> 00:00:38,320
+and then we just echo that data back to the screen.
+
+7
+00:00:38,321 --> 00:00:41,104
+Well, this can cause a lot of problems, so in this level we're going
+
+8
+00:00:41,105 --> 00:00:46,653
+to look at validating and securing that data.
+
+9
+00:00:46,654 --> 00:00:49,786
+From here on out, we're going to focus all of our efforts in regard to
+
+10
+00:00:49,787 --> 00:00:54,755
+code here inside of our app.php file.  Let's take a quick look of what
+
+11
+00:00:54,756 --> 00:00:58,623
+we have so far.  Right now we're checking that the SERVER
+
+12
+00:00:58,624 --> 00:01:02,665
+REQUEST_METHOD is set to POST, and then we're setting our POST
+
+13
+00:01:02,666 --> 00:01:07,082
+variables for date, email, and description to some variables.
+
+14
+00:01:07,083 --> 00:01:10,895
+Then we're just echoing those variables out the screen one at a time.
+
+15
+00:01:10,896 --> 00:01:15,056
+This can cause a lot of issues.
+
+16
+00:01:15,057 --> 00:01:20,174
+Echoing our data directly to the screen is a bad idea, especially without validation.
+
+17
+00:01:20,175 --> 00:01:23,034
+Most of the time we're not going to echo to the screen; we're going to
+
+18
+00:01:23,035 --> 00:01:27,086
+send it to a database.  If we were to store null values or empty
+
+19
+00:01:27,087 --> 00:01:33,456
+values to a database, that's going to wreak havoc on our system.
+
+20
+00:01:33,457 --> 00:01:38,083
+Not just null values, but invalid values can also cause trouble.
+
+21
+00:01:38,084 --> 00:01:41,967
+We want to make sure we have a valid data and a valid email when we
+
+22
+00:01:41,968 --> 00:01:47,480
+get our form submission.  We're also going to need to get rid of any
+
+23
+00:01:47,481 --> 00:01:52,853
+HTML or other code.  This is mostly for security, but also for formatting.
+
+24
+00:01:52,854 --> 00:01:56,172
+If any of these things go wrong, we want to redirect the user back to
+
+25
+00:01:56,173 --> 00:02:02,002
+our form and then provide some error messages for them.
+
+26
+00:02:02,003 --> 00:02:05,746
+For all of this, let's create a validation checklist.
+
+27
+00:02:05,747 --> 00:02:09,231
+That way we can step through each of the following items.
+
+28
+00:02:09,232 --> 00:02:13,111
+We want to make sure that our date exists, that our email exists,
+
+29
+00:02:13,112 --> 00:02:17,066
+that our description exists.  We want to remove any whitespace,
+
+30
+00:02:17,067 --> 00:02:20,682
+we want to sanitize our output, we want to validate our email,
+
+31
+00:02:20,683 --> 00:02:25,115
+and validate our date.  First, let's check to see if each of the items
+
+32
+00:02:25,116 --> 00:02:29,070
+has any data inside of them.  We can do that by using the empty
+
+33
+00:02:29,071 --> 00:02:34,375
+function in PHP.  We place a not operator, or an exclamation point,
+
+34
+00:02:34,376 --> 00:02:38,631
+in front of the empty keyword to make sure that it is not empty.
+
+35
+00:02:38,632 --> 00:02:43,097
+Now our echo statement inside of the if conditional will only run if
+
+36
+00:02:43,098 --> 00:02:47,176
+not empty evaluates to true.  So now we can check off that the date
+
+37
+00:02:47,177 --> 00:02:54,120
+exists on our checklist.  We don't want to output anything from our
+
+38
+00:02:54,121 --> 00:02:58,215
+form if any of the data is missing from our fields.
+
+39
+00:02:58,216 --> 00:03:02,473
+We'll accomplish this by adding more not empty conditionals and then
+
+40
+00:03:02,474 --> 00:03:07,588
+chain them together with the two ampersand, or the and operator,
+
+41
+00:03:07,589 --> 00:03:12,396
+inside of PHP.  Now we're able to check off that our email exists and
+
+42
+00:03:12,397 --> 00:03:16,382
+that our description exists.
+
+43
+00:03:16,383 --> 00:03:20,134
+Sometimes data can be submitted with some type of whitespace in front
+
+44
+00:03:20,135 --> 00:03:26,375
+of or behind the data.  We can solve for this by using the PHP trim function.
+
+45
+00:03:26,376 --> 00:03:30,207
+The trim function in PHP will remove any leading or trailing
+
+46
+00:03:30,208 --> 00:03:34,867
+whitespace from any variable or data that you put inside of the parentheses.
+
+47
+00:03:34,868 --> 00:03:38,294
+So now that we've done that, we can check off our next item on the list.
+
+48
+00:03:38,295 --> 00:03:42,848
+We've removed all the whitespace.
+
+49
+00:03:42,849 --> 00:03:46,337
+So far we've only been filtering input.  Now we're going to sanitize
+
+50
+00:03:46,338 --> 00:03:50,287
+some output by using HTML special characters.
+
+51
+00:03:50,288 --> 00:03:54,173
+This will remove any HTML markup or code from our form data,
+
+52
+00:03:54,174 --> 00:03:57,692
+but it will encode our greater than, question marks, or any other
+
+53
+00:03:57,693 --> 00:04:02,647
+special characters into HTML entities.  This way the text will look
+
+54
+00:04:02,648 --> 00:04:10,104
+like code, but will not be parsed by the HTML or PHP interpreters.
+
+55
+00:04:10,105 --> 00:04:14,569
+For example, if a user was to submit an h1 with ALIENS inside of it,
+
+56
+00:04:14,570 --> 00:04:21,609
+it would actually show the h1 tags and not render it.
+
+57
+00:04:21,610 --> 00:04:24,984
+When a user submits input, we're going to want to filter out any
+
+58
+00:04:24,985 --> 00:04:29,894
+information that we don't want before we would store it to a database.
+
+59
+00:04:29,895 --> 00:04:33,850
+Valid email is needed to send notifications, allow users to contact
+
+60
+00:04:33,851 --> 00:04:37,194
+each other, and perhaps as a login for an application.
+
+61
+00:04:37,195 --> 00:04:44,594
+And validates architecture needed for sorting and organizing our data.
+
+62
+00:04:44,595 --> 00:04:48,318
+When we output data to the browser, we want to sanitize that
+
+63
+00:04:48,319 --> 00:04:57,637
+information for security, as well as for consistency in the user experience.
+
+64
+00:04:57,638 --> 01:00:00,000
+Let's do some challenges, and when you return we'll tackle email and date validation.

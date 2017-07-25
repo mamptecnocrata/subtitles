@@ -1,0 +1,231 @@
+﻿1
+00:00:00,000 --> 00:00:06,975
+We've got our eyes on the sky searching for PHP life.
+
+2
+00:00:06,976 --> 00:00:11,896
+We'll use POST requests to track extraterrestrial guests.
+
+3
+00:00:11,897 --> 00:00:18,200
+Validation and security will lock things down in a hurry.
+
+4
+00:00:18,201 --> 00:00:31,365
+We want to believe these Close Encounters with PHP.
+
+5
+00:00:31,366 --> 00:00:34,970
+Welcome to Close Encounters with PHP.  I'm Hampton Paulk.
+
+6
+00:00:34,971 --> 00:00:39,113
+Let's take a look at what we're going to be covering in this course.
+
+7
+00:00:39,114 --> 00:00:42,985
+In level one, we're going to be looking at two different HTTP requests
+
+8
+00:00:42,986 --> 00:00:47,492
+with GET and POST.  In level two, we're going to cover includes and
+
+9
+00:00:47,493 --> 00:00:51,465
+requires within our code and when to use each of these.
+
+10
+00:00:51,466 --> 00:00:54,844
+In level three, we're going to look at writing some custom validation
+
+11
+00:00:54,845 --> 00:00:58,565
+and touch on form security.  In level four, we're going to cover
+
+12
+00:00:58,566 --> 00:01:01,684
+Composer, a package management tool for PHP.
+
+13
+00:01:01,685 --> 00:01:05,258
+Then, in level five, we'll install a validation package and use it to
+
+14
+00:01:05,259 --> 00:01:08,888
+validate our form input.
+
+15
+00:01:08,889 --> 00:01:15,453
+This course assumes you have introductory knowledge of HTML, CSS, and basic PHP.
+
+16
+00:01:15,454 --> 00:01:19,413
+Though they are not required, we highly advise that you take or have
+
+17
+00:01:19,414 --> 00:01:24,064
+taken Front-end Foundations and Front-end Formations, as well as the
+
+18
+00:01:24,065 --> 00:01:28,000
+Try PHP course.
+
+19
+00:01:28,001 --> 00:01:33,209
+In this course, we'll be creating a form to submit UFO sightings.
+
+20
+00:01:33,210 --> 00:01:37,311
+We're going to learn how to gather data from a form, validate that it
+
+21
+00:01:37,312 --> 00:01:43,414
+contains the data that we want, and then echo that data to the screen.
+
+22
+00:01:43,415 --> 00:01:49,652
+Let's get started by building a form and looking at some HTTP requests.
+
+23
+00:01:49,653 --> 00:01:53,682
+We are going to want to look at the first of two HTTP requests.
+
+24
+00:01:53,683 --> 00:01:57,569
+The GET request, which is the most commonly used request method,
+
+25
+00:01:57,570 --> 00:02:00,307
+has a few things that you should keep in mind.
+
+26
+00:02:00,308 --> 00:02:06,353
+First and foremost, the GET request is used to request data from a resource.
+
+27
+00:02:06,354 --> 00:02:11,139
+They also show the query strings and the values in the URL.
+
+28
+00:02:11,140 --> 00:02:16,538
+GET requests can be bookmarked, can be cached, and will remain in your history.
+
+29
+00:02:16,539 --> 00:02:21,787
+The main thing to keep in mind is that GET requests are only for retrieving data.
+
+30
+00:02:21,788 --> 00:02:28,333
+The best way for us to understand a GET request is to take a look at an example.
+
+31
+00:02:28,334 --> 00:02:32,527
+Whenever we want to pass a query var or a variable item from the URL
+
+32
+00:02:32,528 --> 00:02:36,617
+using a GET request, we can do it using the following pattern.
+
+33
+00:02:36,618 --> 00:02:41,409
+A question mark after the destination starts the query var callout.
+
+34
+00:02:41,410 --> 00:02:45,902
+State is the name of our query var to use within the request,
+
+35
+00:02:45,903 --> 00:02:52,120
+and California is the value of the query var state.
+
+36
+00:02:52,121 --> 00:02:55,938
+Looking at the URL after submission, we can see that the data is
+
+37
+00:02:55,939 --> 00:03:00,508
+exposed in the URL.  If we inspect the request we have just sent,
+
+38
+00:03:00,509 --> 00:03:04,297
+you can see that the Request Method is GET and the Query String
+
+39
+00:03:04,298 --> 00:03:10,490
+Parameters are state with a value of California.
+
+40
+00:03:10,491 --> 00:03:14,035
+Now that we know about the GET request, let's take a look at the next
+
+41
+00:03:14,036 --> 00:03:18,128
+most commonly used request method, the POST method.
+
+42
+00:03:18,129 --> 00:03:22,685
+Where the GET method is used mostly to request data, we use the POST
+
+43
+00:03:22,686 --> 00:03:27,724
+to send the data.  Keep in mind that POST data shows query names and
+
+44
+00:03:27,725 --> 00:03:32,645
+values only in the body of the request.  The POST requests are never
+
+45
+00:03:32,646 --> 00:03:37,084
+bookmarked, they're never cached, and they will not remain in your history.
+
+46
+00:03:37,085 --> 00:03:41,825
+Let's take a look at an example of this.
+
+47
+00:03:41,826 --> 00:03:45,071
+To use a POST request, we're going to want to build a form.
+
+48
+00:03:45,072 --> 00:03:48,999
+This form is going to have the action set to the page or file we want
+
+49
+00:03:49,000 --> 00:03:53,699
+to submit our data to.  In this case, it's state.php.
+
+50
+00:03:53,700 --> 00:04:02,992
+The default method for forms is get, but we want to set ours to post.
+
+51
+00:04:02,993 --> 00:04:07,221
+As you can see in the input, name equal to state is how we address the
+
+52
+00:04:07,222 --> 00:04:14,990
+data in the form so we are able to access it within the POST request.
+
+53
+00:04:14,991 --> 00:04:18,169
+Taking a look at this request, we can see that the Request Method is
+
+54
+00:04:18,170 --> 00:04:22,882
+now POST, and instead of a query string, we have Form Data.
+
+55
+00:04:22,883 --> 00:04:26,519
+Also, an important thing to take note of is that no data has been
+
+56
+00:04:26,520 --> 00:04:31,659
+exposed inside of our URL.
+
+57
+00:04:31,660 --> 00:04:36,347
+Now that you understand the basics of POST and GET, let's go take a few challenges.
+
+58
+00:04:36,348 --> 01:00:00,000
+And then when you come back, we'll start building something.
