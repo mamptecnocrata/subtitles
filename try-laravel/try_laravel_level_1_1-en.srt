@@ -1,0 +1,299 @@
+﻿1
+00:00:00,000 --> 00:00:10,470
+Lettuce head to the farm and get deep into the CRUD.
+
+2
+00:00:10,471 --> 00:00:15,599
+No need to be alarmed — the data's cleaner than the mud.
+
+3
+00:00:15,600 --> 00:00:19,653
+We'll pep up our app, yes we will.  It's going to be real swell,
+
+4
+00:00:19,654 --> 00:00:31,097
+so swell, so swell.  Learning MVC is a snap when you're using Laravel.
+
+5
+00:00:31,098 --> 00:00:34,937
+Hello, I'm Hampton Paulk, and welcome to Try Laravel.
+
+6
+00:00:34,938 --> 00:00:40,354
+We're going to learn about the Laravel framework.
+
+7
+00:00:40,355 --> 00:00:43,894
+Before we begin, let's take a moment to talk about some prerequisites
+
+8
+00:00:43,895 --> 00:00:47,199
+for the course.  It will be very helpful to you as you progress
+
+9
+00:00:47,200 --> 00:00:50,757
+through this course to have a good understanding of the basics of the
+
+10
+00:00:50,758 --> 00:00:56,074
+PHP language, including some knowledge of object-oriented PHP and
+
+11
+00:00:56,075 --> 00:01:00,443
+basic database knowledge.  If you'd like to learn these basics or just
+
+12
+00:01:00,444 --> 00:01:05,686
+have a refresher, please play our Try PHP, Close Encounters With PHP,
+
+13
+00:01:05,687 --> 00:01:10,748
+and Try SQL courses here at Code School.
+
+14
+00:01:10,749 --> 00:01:16,099
+Now that we know what we need to get started, let's learn a little bit about Laravel.
+
+15
+00:01:16,100 --> 00:01:20,472
+Laravel is an open source web framework built in PHP.
+
+16
+00:01:20,473 --> 00:01:24,805
+It was first released in 2011 by Taylor Otwell and has been heavily
+
+17
+00:01:24,806 --> 00:01:28,650
+developed ever since.  The current version sits, at the time of this
+
+18
+00:01:28,651 --> 00:01:33,806
+recording, in version 5.4.  Laravel helps you build web applications
+
+19
+00:01:33,807 --> 00:01:39,071
+by using the MVC, or Model-View-Controller, architecture pattern.
+
+20
+00:01:39,072 --> 00:01:44,749
+Laravel also helps us work with databases easily using a mapper called Eloquent.
+
+21
+00:01:44,750 --> 00:01:49,618
+There's so much to learn, so let's dive in.
+
+22
+00:01:49,619 --> 00:01:53,054
+To best understand the basics of Laravel, we'll be walking through a
+
+23
+00:01:53,055 --> 00:01:57,597
+simple database-backed application.  In our example, we'll be working
+
+24
+00:01:57,598 --> 00:02:01,782
+with a listing of local farmers markets.  We'll be able to list all
+
+25
+00:02:01,783 --> 00:02:04,471
+markets, or all farms,
+
+26
+00:02:04,472 --> 00:02:07,142
+create new markets,
+
+27
+00:02:07,143 --> 00:02:10,194
+view details about each market,
+
+28
+00:02:10,195 --> 00:02:14,794
+and edit or delete our existing markets.  With these few pages,
+
+29
+00:02:14,795 --> 00:02:22,136
+we're able to fully manage a database of farms and markets using Laravel.
+
+30
+00:02:22,137 --> 00:02:26,075
+Just like a spreadsheet, a database will have a table name, some rows,
+
+31
+00:02:26,076 --> 00:02:29,933
+and some columns just like this example you see here.
+
+32
+00:02:29,934 --> 00:02:33,323
+In our case, we'll have the name of a market, the website of that
+
+33
+00:02:33,324 --> 00:02:36,355
+market, and the city that it's located in.
+
+34
+00:02:36,356 --> 00:02:40,708
+Each item in the row will also have an ID, or the numerical
+
+35
+00:02:40,709 --> 00:02:47,503
+identification of the location of each market's data.
+
+36
+00:02:47,504 --> 00:02:52,455
+To work efficiently with data, Laravel has a data type called a collection.
+
+37
+00:02:52,456 --> 00:02:58,146
+A collection, put simply, is a PHP array with lots of extra functionality.
+
+38
+00:02:58,147 --> 00:03:02,255
+To create a collection, we could use a helper function called collect,
+
+39
+00:03:02,256 --> 00:03:06,974
+and then inside that function we'll pass an array as an argument.
+
+40
+00:03:06,975 --> 00:03:11,071
+This array can be simple as in the first example, or it can be an
+
+41
+00:03:11,072 --> 00:03:16,863
+array of arrays with key value pairs.  Just like in our data table,
+
+42
+00:03:16,864 --> 00:03:23,473
+here commas help us separate out rows and columns.
+
+43
+00:03:23,474 --> 00:03:27,543
+Instead of calling data by requesting a numerically indexed key,
+
+44
+00:03:27,544 --> 00:03:30,901
+we can use built-in methods to the collection class.
+
+45
+00:03:30,902 --> 00:03:35,201
+Here we're using first to get the first item in the collection or last
+
+46
+00:03:35,202 --> 00:03:39,292
+to get the last item of the collection.
+
+47
+00:03:39,293 --> 00:03:44,012
+What if we only want the name from a larger and more complex collection?
+
+48
+00:03:44,013 --> 00:03:48,269
+We can use the method fetch followed by the key that we want to fetch.
+
+49
+00:03:48,270 --> 00:03:52,891
+This will return to us an array of all data associated with that key
+
+50
+00:03:52,892 --> 00:03:57,266
+for each item.
+
+51
+00:03:57,267 --> 00:04:02,125
+To retrieve information from our database is our first real challenge.
+
+52
+00:04:02,126 --> 00:04:06,500
+We want to request an item from our database with the ID of 3 and get
+
+53
+00:04:06,501 --> 00:04:13,337
+a collection back containing the data for that single entry in the database.
+
+54
+00:04:13,338 --> 00:04:17,218
+We could always write SQL queries to get the data we want, or we can
+
+55
+00:04:17,219 --> 00:04:21,089
+accomplish this common task by using the Eloquent ORM.
+
+56
+00:04:21,090 --> 00:04:24,273
+Eloquent is built for Laravel to help us work with the data in our
+
+57
+00:04:24,274 --> 00:04:30,076
+database using simple language methods instead of long database query strings.
+
+58
+00:04:30,077 --> 00:04:33,913
+Here we can access that third record by calling a static method.
+
+59
+00:04:33,914 --> 00:04:39,237
+Notice the two colons named find and passing it the argument of the ID
+
+60
+00:04:39,238 --> 00:04:43,034
+of the item we want data on.  In this case, number 3.
+
+61
+00:04:43,035 --> 00:04:46,097
+The class that we called the method on is Market.
+
+62
+00:04:46,098 --> 00:04:51,023
+Market is directly tied to the name of our table markets.
+
+63
+00:04:51,024 --> 00:04:55,775
+By default in Laravel, we'll have an uppercase singular class that
+
+64
+00:04:55,776 --> 00:04:59,724
+matches the lowercase plural name in the database.
+
+65
+00:04:59,725 --> 00:05:04,203
+For example, if our table was lowercase markets plural,
+
+66
+00:05:04,204 --> 00:05:08,082
+our class would be uppercase Market singular.
+
+67
+00:05:08,083 --> 00:05:11,504
+Once we request the data with the find method, we'll get back a
+
+68
+00:05:11,505 --> 00:05:14,514
+collection containing the market's information.
+
+69
+00:05:14,515 --> 00:05:18,732
+Now we can use it like an array, or we can use each key as a property
+
+70
+00:05:18,733 --> 00:05:24,183
+and access it using the object operator.
+
+71
+00:05:24,184 --> 00:05:28,640
+So far in this section, we've learned about the Laravel framework,
+
+72
+00:05:28,641 --> 00:05:32,953
+Laravel's collection class, and reading information from the database
+
+73
+00:05:32,954 --> 00:05:37,061
+using Laravel's Eloquent.
+
+74
+00:05:37,062 --> 00:05:40,928
+Now it's time for you to play around with Laravel in the challenges.
+
+75
+00:05:40,929 --> 01:00:00,000
+Have fun.
