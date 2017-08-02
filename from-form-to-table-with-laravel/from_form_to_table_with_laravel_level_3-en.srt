@@ -1,0 +1,451 @@
+﻿1
+00:00:00,000 --> 00:00:07,953
+Lettuce head to the farm
+
+2
+00:00:07,954 --> 00:00:10,804
+and get deep into the CRUD
+
+3
+00:00:10,805 --> 00:00:13,242
+No need to be alarmed—
+
+4
+00:00:13,243 --> 00:00:15,890
+our data's cleaner than the mud.
+
+5
+00:00:15,891 --> 00:00:19,642
+We'll pep up our app, yes we will, it's gonna be real swell.
+
+6
+00:00:19,643 --> 00:00:21,212
+So swell, so swell.
+
+7
+00:00:21,213 --> 00:00:31,627
+Learning MVC is a snap when you're using Laravel.
+
+8
+00:00:31,628 --> 00:00:38,574
+Welcome back!  In this level, let's work with controllers and views.
+
+9
+00:00:38,575 --> 00:00:41,729
+In order to get our Market app up and running, we'll need to display
+
+10
+00:00:41,730 --> 00:00:45,412
+a list of all the markets.  But to do that, we're going to need to get
+
+11
+00:00:45,413 --> 00:00:49,125
+our controllers, routing, and views all set up.
+
+12
+00:00:49,126 --> 00:00:53,092
+In this level, we'll create our controller, create RESTful methods for
+
+13
+00:00:53,093 --> 00:00:58,298
+CRUD, or Create/Read/Update/Delete, connect our routes to the
+
+14
+00:00:58,299 --> 00:01:02,560
+controller through the routing file.  Then we'll set up our view by
+
+15
+00:01:02,561 --> 00:01:07,291
+querying all the markets and passing that along to a view from within the controller.
+
+16
+00:01:07,292 --> 00:01:14,412
+We'll need to create that view and use Blade to loop through all the results.
+
+17
+00:01:14,413 --> 00:01:17,969
+In order to create our controller, we'll need to go back to our
+
+18
+00:01:17,970 --> 00:01:22,056
+Artisan command line tool.  Once we're in the terminal, we'll need to
+
+19
+00:01:22,057 --> 00:01:28,305
+run the following command--php artisan help make:controller.
+
+20
+00:01:28,306 --> 00:01:32,778
+By using help before our command, we'll see the documentation on the
+
+21
+00:01:32,779 --> 00:01:35,584
+command, and we're able to look at some of our options.
+
+22
+00:01:35,585 --> 00:01:39,813
+Here, the argument that's required is the name of the controller.
+
+23
+00:01:39,814 --> 00:01:45,131
+But we can also pass the option of -m and the model name to create a
+
+24
+00:01:45,132 --> 00:01:49,076
+resource controller for that model.
+
+25
+00:01:49,077 --> 00:01:52,166
+In our case, we're going to want to pass the market model to the
+
+26
+00:01:52,167 --> 00:01:55,864
+command to generate the MarketController.
+
+27
+00:01:55,865 --> 00:01:59,666
+To do this, we'll run the same command as before without the word
+
+28
+00:01:59,667 --> 00:02:03,986
+help and then follow that with a -m and the name of the model, Market.
+
+29
+00:02:03,987 --> 00:02:08,868
+And for the name, we'll use MarketController in CamelCase.
+
+30
+00:02:08,869 --> 00:02:15,270
+Once you press Enter, you will have created the MarketController.
+
+31
+00:02:15,271 --> 00:02:18,186
+If we open the controller that was just created located at
+
+32
+00:02:18,187 --> 00:02:25,950
+app/Http/Controllers and the name MarketController.php, we'll see our
+
+33
+00:02:25,951 --> 00:02:30,510
+new resource controller.  By passing the -m flag,
+
+34
+00:02:30,511 --> 00:02:35,540
+it automatically created our index, show, create, save, and destroy
+
+35
+00:02:35,541 --> 00:02:39,437
+methods for us with the expected arguments, such as the response and
+
+36
+00:02:39,438 --> 00:02:44,396
+request objects and our models.
+
+37
+00:02:44,397 --> 00:02:48,605
+In order to link our URLs to our controller, we'll need to work on
+
+38
+00:02:48,606 --> 00:02:52,871
+our routes file in the routes directory and web.php.
+
+39
+00:02:52,872 --> 00:02:57,649
+We've looked at routes before in Try Laravel where we can link URLs to
+
+40
+00:02:57,650 --> 00:03:02,343
+anonymous functions to return data.  But in this case, we want to use
+
+41
+00:03:02,344 --> 00:03:04,993
+the resource route so that we can create all the routes needed to work
+
+42
+00:03:04,994 --> 00:03:10,255
+with a model resource.  Here we will add the Route class followed
+
+43
+00:03:10,256 --> 00:03:12,932
+by the resource method followed by two arguments.
+
+44
+00:03:12,933 --> 00:03:17,209
+The first argument is the name of the URL pattern to look for,
+
+45
+00:03:17,210 --> 00:03:20,038
+which is markets, then the controller name to route through.
+
+46
+00:03:20,039 --> 00:03:25,341
+Here it's MarketController.  Close that line with a semicolon,
+
+47
+00:03:25,342 --> 00:03:28,052
+and we now have access to all of these routes.
+
+48
+00:03:28,053 --> 00:03:31,872
+For example, if you navigate to the markets URL, it will be a GET
+
+49
+00:03:31,873 --> 00:03:37,115
+request that then directs to the MarketController and the index action.
+
+50
+00:03:37,116 --> 00:03:40,751
+We also have ones for create, which maps to the create action.
+
+51
+00:03:40,752 --> 00:03:46,191
+We also have a POST request to markets that allow us to store using
+
+52
+00:03:46,192 --> 00:03:49,094
+the MarketController and the store action.
+
+53
+00:03:49,095 --> 00:03:53,253
+You'll also see similar actions for the URLs for destroy, update,
+
+54
+00:03:53,254 --> 00:03:56,903
+show, and edit.
+
+55
+00:03:56,904 --> 00:04:00,974
+Another way to see all of our routes and at the same time check that
+
+56
+00:04:00,975 --> 00:04:05,563
+our routes file is providing all the correct routes is to use Artisan.
+
+57
+00:04:05,564 --> 00:04:09,565
+To see all the routes in the application, you'll run php artisan
+
+58
+00:04:09,566 --> 00:04:15,503
+route:list, and then press Enter.  Now you can see the method,
+
+59
+00:04:15,504 --> 00:04:19,983
+URL pattern, controller, and action pair, as well as the context of
+
+60
+00:04:19,984 --> 00:04:24,345
+each route in the application.
+
+61
+00:04:24,346 --> 00:04:28,488
+The first method that we'll be modifying is the index method,
+
+62
+00:04:28,489 --> 00:04:31,723
+which is used to display all of the markets in the application.
+
+63
+00:04:31,724 --> 00:04:36,062
+The first line of code inside the index action will be our call to
+
+64
+00:04:36,063 --> 00:04:42,149
+query the model for all markets and then store it in a collection named $markets.
+
+65
+00:04:42,150 --> 00:04:46,478
+Then we'll want to return a view.  We can do this by returning the
+
+66
+00:04:46,479 --> 00:04:51,661
+output of a view helper in Laravel.  The view helper will take two arguments.
+
+67
+00:04:51,662 --> 00:04:55,736
+The first is the template folder file name in dot notation.
+
+68
+00:04:55,737 --> 00:05:01,339
+Here we're using the markets folder and then the index.blade.php view,
+
+69
+00:05:01,340 --> 00:05:06,354
+which we'll create soon.  Then we'll pass an array of arguments to that view.
+
+70
+00:05:06,355 --> 00:05:11,817
+In this case, our only argument is the markets collection $markets.
+
+71
+00:05:11,818 --> 00:05:16,938
+We'll pass that with a key of markets.
+
+72
+00:05:16,939 --> 00:05:21,533
+The index view will be created in a new folder named markets under
+
+73
+00:05:21,534 --> 00:05:25,786
+the resource/views folder.  All new market-related views should be
+
+74
+00:05:25,787 --> 00:05:31,446
+created under this markets folder.  Our index file should be named
+
+75
+00:05:31,447 --> 00:05:37,559
+index.blade.php so that we can use the Blade template syntax.
+
+76
+00:05:37,560 --> 00:05:41,479
+Next, we'll need to create some basic HTML and then place an unordered
+
+77
+00:05:41,480 --> 00:05:49,187
+list tag set in the middle of our body.  Using Blade syntax,
+
+78
+00:05:49,188 --> 00:05:53,681
+we'll create a foreach loop and loop through all of our markets.
+
+79
+00:05:53,682 --> 00:05:58,080
+Start with the @ symbol, add foreach, and then in a set of
+
+80
+00:05:58,081 --> 00:06:03,846
+parentheses, you'll loop through all $markets as $market.
+
+81
+00:06:03,847 --> 00:06:09,065
+Then you'll close that loop with @endforeach.
+
+82
+00:06:09,066 --> 00:06:13,480
+Each time the loop runs, the data in $market will change to reflect
+
+83
+00:06:13,481 --> 00:06:19,274
+the item in the $markets collection.
+
+84
+00:06:19,275 --> 00:06:22,266
+Now let's create a link to each of the markets.
+
+85
+00:06:22,267 --> 00:06:26,655
+We can do this with a list item inside the foreach loop block,
+
+86
+00:06:26,656 --> 00:06:29,504
+and then each of the list items you'll add an anchor tag.
+
+87
+00:06:29,505 --> 00:06:34,839
+We can do this with a list item inside of the foreach loop block.
+
+88
+00:06:34,840 --> 00:06:38,961
+And in each of the list items, you'll add an anchor tag.
+
+89
+00:06:38,962 --> 00:06:43,106
+The anchor tag's value will be the name property of the market object.
+
+90
+00:06:43,107 --> 00:06:48,516
+We can access this with the Blade curly mustache syntax, and then the
+
+91
+00:06:48,517 --> 00:06:51,197
+name $market followed by the object operator, and then the property
+
+92
+00:06:51,198 --> 00:06:57,012
+name, which is name.
+
+93
+00:06:57,013 --> 00:07:00,768
+Now let's use the route helper and create the URL that we want to
+
+94
+00:07:00,769 --> 00:07:04,692
+link to for each of the markets.  We can do this again with the
+
+95
+00:07:04,693 --> 00:07:07,871
+mustache syntax and a call to the route helper.
+
+96
+00:07:07,872 --> 00:07:10,324
+The first argument will be the name of the route.
+
+97
+00:07:10,325 --> 00:07:14,655
+Remember, named routes are created for you when you use the resource
+
+98
+00:07:14,656 --> 00:07:18,469
+route type in the routes file.  The second argument is the object
+
+99
+00:07:18,470 --> 00:07:23,344
+itself, which Laravel will use to extract the ID of the market.
+
+100
+00:07:23,345 --> 00:07:27,612
+This command will create a string URL for you that will link to the
+
+101
+00:07:27,613 --> 00:07:30,527
+market by ID.
+
+102
+00:07:30,528 --> 00:07:33,782
+Let's review all that we've learned in this level.
+
+103
+00:07:33,783 --> 00:07:38,502
+We've learned how to create a controller using the php artisan CLI.
+
+104
+00:07:38,503 --> 00:07:43,323
+We've learned how to use the -m flag to generate a resource controller.
+
+105
+00:07:43,324 --> 00:07:47,850
+We've configured a resource route to map CRUD actions to our routes.
+
+106
+00:07:47,851 --> 00:07:51,743
+We've used the CLI to view all the routes in our application.
+
+107
+00:07:51,744 --> 00:07:54,966
+We've learned how to query our database for all markets.
+
+108
+00:07:54,967 --> 00:07:58,781
+We've passed the query results to a view for display.
+
+109
+00:07:58,782 --> 00:08:01,842
+We've created an index template using Blade.
+
+110
+00:08:01,843 --> 00:08:04,691
+We've looped through all of our markets with Blade.
+
+111
+00:08:04,692 --> 00:08:10,664
+And we've displayed a link to the market show page.
+
+112
+00:08:10,665 --> 00:08:14,403
+Now it's time for you to take some challenges, and I will see you in
+
+113
+00:08:14,404 --> 01:00:00,000
+the next level.

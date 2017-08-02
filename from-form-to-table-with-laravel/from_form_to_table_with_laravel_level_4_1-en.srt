@@ -1,0 +1,331 @@
+﻿1
+00:00:00,000 --> 00:00:07,953
+Lettuce head to the farm
+
+2
+00:00:07,954 --> 00:00:10,804
+and get deep into the CRUD
+
+3
+00:00:10,805 --> 00:00:13,242
+No need to be alarmed—
+
+4
+00:00:13,243 --> 00:00:15,890
+our data's cleaner than the mud.
+
+5
+00:00:15,891 --> 00:00:19,642
+We'll pep up our app, yes we will, it's gonna be real swell.
+
+6
+00:00:19,643 --> 00:00:21,212
+So swell, so swell.
+
+7
+00:00:21,213 --> 00:00:32,318
+Learning MVC is a snap when you're using Laravel.
+
+8
+00:00:32,319 --> 00:00:37,875
+Welcome back!  In this section, we'll be talking about layouts,
+
+9
+00:00:37,876 --> 00:00:41,811
+forms, and CSRF protection.
+
+10
+00:00:41,812 --> 00:00:45,550
+To continue and build out our CRUD for the markets model,
+
+11
+00:00:45,551 --> 00:00:49,408
+we'll need to do a little housekeeping.  We'll take this time to
+
+12
+00:00:49,409 --> 00:00:53,007
+create a layout for the app so that way we can DRY up our code,
+
+13
+00:00:53,008 --> 00:00:57,168
+where DRY means Don't Repeat Yourself.  Then we'll build out our
+
+14
+00:00:57,169 --> 00:01:02,013
+show method and template, build out our create and new methods,
+
+15
+00:01:02,014 --> 00:01:06,546
+and then code up a form to create some new markets.
+
+16
+00:01:06,547 --> 00:01:10,427
+Let's get started by creating a new folder named layouts in the
+
+17
+00:01:10,428 --> 00:01:18,383
+resources/views folder.  Then create a new field in that folder called app.blade.php.
+
+18
+00:01:18,384 --> 00:01:23,187
+From here let's move over all the framing HTML and body tags that we
+
+19
+00:01:23,188 --> 00:01:27,799
+used in our index template leaving behind the content itself.
+
+20
+00:01:27,800 --> 00:01:32,589
+Then where we want our content to appear, we'll place an @yield tag
+
+21
+00:01:32,590 --> 00:01:37,702
+with a single string argument of main to define our main content area.
+
+22
+00:01:37,703 --> 00:01:41,819
+This string can be called anything, and we can have several yield
+
+23
+00:01:41,820 --> 00:01:48,137
+tags in one layout.  In our example, we'll only need the one.
+
+24
+00:01:48,138 --> 00:01:52,116
+Now moving over to the index template, we can use a few commands in
+
+25
+00:01:52,117 --> 00:01:56,548
+Blade to extend our new layout file.  Using the @extends command,
+
+26
+00:01:56,549 --> 00:02:01,477
+we can add a string argument that calls our layouts folder and dot
+
+27
+00:02:01,478 --> 00:02:07,674
+our file name, which is app.  Then we can use a section block with
+
+28
+00:02:07,675 --> 00:02:12,793
+the @section and @endsection tags surrounding our content.
+
+29
+00:02:12,794 --> 00:02:17,248
+We'll pass the string of main to the @section tag to signify where
+
+30
+00:02:17,249 --> 00:02:23,054
+the content should be displayed on our layout file.
+
+31
+00:02:23,055 --> 00:02:27,178
+Next, using the same @extends and @section blocks, we'll want to
+
+32
+00:02:27,179 --> 00:02:33,594
+create a new file in the markets folder named show.blade.php.
+
+33
+00:02:33,595 --> 00:02:38,340
+This show file will be used to display the data from a single market,
+
+34
+00:02:38,341 --> 00:02:42,508
+which will be passed to this view as $market.
+
+35
+00:02:42,509 --> 00:02:48,198
+Knowing this, we can echo our three columns as properties of the $market object.
+
+36
+00:02:48,199 --> 00:02:53,043
+The name, city, and website should be displayed using the mustache
+
+37
+00:02:53,044 --> 00:02:59,758
+syntax and the object operator just as before on the index page.
+
+38
+00:02:59,759 --> 00:03:03,811
+Now that we have a show template, we need to pass some data to that
+
+39
+00:03:03,812 --> 00:03:07,466
+view using the controller.  Let's modify our show method, which has an
+
+40
+00:03:07,467 --> 00:03:13,995
+argument, typeset to be a $market object and stored in a variable named market.
+
+41
+00:03:13,996 --> 00:03:18,617
+Laravel will automatically find the $market object for us or return a
+
+42
+00:03:18,618 --> 00:03:23,636
+404 error if nothing is found all before we even make it into the
+
+43
+00:03:23,637 --> 00:03:28,163
+show action code.  Now that we are in the show action with a $market
+
+44
+00:03:28,164 --> 00:03:32,766
+object, all we need to do is pass that object off to our view helper.
+
+45
+00:03:32,767 --> 00:03:37,083
+The first argument is still pointing to the markets folder.
+
+46
+00:03:37,084 --> 00:03:41,618
+But now we want the show.blade.php file that we just created.
+
+47
+00:03:41,619 --> 00:03:49,344
+We will also pass the $market object with a key of market in the argument's array.
+
+48
+00:03:49,345 --> 00:03:53,960
+Now that we have a show, an index action, and templates, we need to
+
+49
+00:03:53,961 --> 00:03:57,294
+add the ability to create a new $market object.
+
+50
+00:03:57,295 --> 00:04:01,269
+Let's start with generating the form for creation.
+
+51
+00:04:01,270 --> 00:04:04,048
+In the controller, we will not need to work with the model at all.
+
+52
+00:04:04,049 --> 00:04:08,952
+We only need to pass a view helper to the markets.create template.
+
+53
+00:04:08,953 --> 00:04:12,231
+Let's create that now.
+
+54
+00:04:12,232 --> 00:04:16,487
+Now it's time to create our template for the create action in our controller.
+
+55
+00:04:16,488 --> 00:04:19,847
+We'll need to open up our form and use the route helper again to
+
+56
+00:04:19,848 --> 00:04:25,855
+create a URL to post to, as well as defining the method as post.
+
+57
+00:04:25,856 --> 00:04:29,291
+Then we'll need to add three fields--one for the Market Name,
+
+58
+00:04:29,292 --> 00:04:34,487
+one for the market city, and one for the market website--all as input fields.
+
+59
+00:04:34,488 --> 00:04:39,372
+Finally, we need to add our Submit button, close out our form,
+
+60
+00:04:39,373 --> 00:04:44,796
+and end our main section.
+
+61
+00:04:44,797 --> 00:04:49,263
+Now that we have a create action and a create temple, it's time to
+
+62
+00:04:49,264 --> 00:04:53,039
+build out the store action.  The store action is where the form
+
+63
+00:04:53,040 --> 00:04:57,661
+request is sent so we will be processing a $request object as the argument.
+
+64
+00:04:57,662 --> 00:05:02,316
+We will then pass the request collection with the method all as an
+
+65
+00:05:02,317 --> 00:05:04,930
+argument to the create method on our Market class.
+
+66
+00:05:04,931 --> 00:05:09,571
+We did this same thing in our Tinker example earlier in the course.
+
+67
+00:05:09,572 --> 00:05:13,510
+Here the request all will be the same as our $data array from Tinker.
+
+68
+00:05:13,511 --> 00:05:18,308
+Once we create the new object in the database, we'll want to return
+
+69
+00:05:18,309 --> 00:05:25,090
+a redirect to the markets URL using the redirect helper.
+
+70
+00:05:25,091 --> 00:05:28,224
+Our form is good and now creates a new market.
+
+71
+00:05:28,225 --> 00:05:32,244
+But we need to add a little security feature to complete the form.
+
+72
+00:05:32,245 --> 00:05:38,355
+We'll use a helper function called csrf_field inside of our form to
+
+73
+00:05:38,356 --> 00:05:43,325
+create a hidden input field for a token.  This token will help us
+
+74
+00:05:43,326 --> 00:05:46,400
+protect against cross-site request forgery.
+
+75
+00:05:46,401 --> 00:05:50,841
+Laravel will then process this token during the store action inside of
+
+76
+00:05:50,842 --> 00:05:56,015
+the request and make sure that the post did indeed come from within
+
+77
+00:05:56,016 --> 00:05:58,931
+our own application.
+
+78
+00:05:58,932 --> 00:06:05,550
+Let's review what we've done so far.  We've created a layout to DRY up our code.
+
+79
+00:06:05,551 --> 00:06:08,418
+We've created a show method and a template.
+
+80
+00:06:08,419 --> 00:06:13,617
+We've created our create and new methods.  We've coded a form in Blade
+
+81
+00:06:13,618 --> 00:06:18,232
+to create new markets.  And we've protected against cross-site request
+
+82
+00:06:18,233 --> 00:06:21,295
+forgery using a built-in Laravel helper.
+
+83
+00:06:21,296 --> 01:00:00,000
+Now it's time for you to take some challenges, and I'll see you in the next section.

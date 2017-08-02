@@ -1,0 +1,323 @@
+﻿1
+00:00:00,000 --> 00:00:07,953
+Lettuce head to the farm
+
+2
+00:00:07,954 --> 00:00:10,804
+and get deep into the CRUD
+
+3
+00:00:10,805 --> 00:00:13,242
+No need to be alarmed—
+
+4
+00:00:13,243 --> 00:00:15,890
+our data's cleaner than the mud.
+
+5
+00:00:15,891 --> 00:00:19,642
+We'll pep up our app, yes we will, it's gonna be real swell.
+
+6
+00:00:19,643 --> 00:00:21,212
+So swell, so swell.
+
+7
+00:00:21,213 --> 00:00:32,708
+Learning MVC is a snap when you're using Laravel.
+
+8
+00:00:32,709 --> 00:00:37,030
+Hi!  I'm Hampton Paulk.  Welcome to From Form to Table with Laravel.
+
+9
+00:00:37,031 --> 00:00:40,200
+In this level, we'll be working with the Laravel installation and the
+
+10
+00:00:40,201 --> 00:00:44,191
+setup of a new project.
+
+11
+00:00:44,192 --> 00:00:47,289
+In this first section, we're going to download the Laravel installer
+
+12
+00:00:47,290 --> 00:00:52,633
+using Composer, create a new application called Market, start up a
+
+13
+00:00:52,634 --> 00:00:59,245
+local server, and review Laravel's CLI or command line interface.
+
+14
+00:00:59,246 --> 00:01:02,726
+The first step is to download the latest version of the Laravel
+
+15
+00:01:02,727 --> 00:01:06,936
+installer with Composer.  We're going to install it globally to our
+
+16
+00:01:06,937 --> 00:01:09,920
+system so that we can create a new application.
+
+17
+00:01:09,921 --> 00:01:13,887
+Begin by navigating to the folder you want to keep the project in.
+
+18
+00:01:13,888 --> 00:01:18,143
+I'll be creating it in the Home folder, but you can create the
+
+19
+00:01:18,144 --> 00:01:21,658
+application wherever you like.  Next, we'll want to run the following
+
+20
+00:01:21,659 --> 00:01:26,386
+command:  composer global require, followed by the installer vendor
+
+21
+00:01:26,387 --> 00:01:32,597
+and package, which is laravel/installer.  This may take a little time.
+
+22
+00:01:32,598 --> 00:01:37,985
+But once it's complete, you will find something similar to the following.
+
+23
+00:01:37,986 --> 00:01:42,330
+Now that our installer is ready, we can run the command laravel new,
+
+24
+00:01:42,331 --> 00:01:45,954
+followed by the name of our app, which I will call market.
+
+25
+00:01:45,955 --> 00:01:51,296
+Once this command runs, you'll be back to the prompt.
+
+26
+00:01:51,297 --> 00:01:55,208
+In order to change directory to our market, we'll use the CD,
+
+27
+00:01:55,209 --> 00:01:58,616
+or change directory, command followed by the folder that was just
+
+28
+00:01:58,617 --> 00:02:03,219
+created, which is market.  Once we're in the folder, we can test the
+
+29
+00:02:03,220 --> 00:02:07,312
+installation by running the local server.  Type the following command:
+
+30
+00:02:07,313 --> 00:02:13,145
+php artisan serve.  The server will take over the terminal,
+
+31
+00:02:13,146 --> 00:02:16,675
+so when you're wanting to exit the server, press the Ctrl+C keys to
+
+32
+00:02:16,676 --> 00:02:21,368
+terminate the server.  While the server is running, you can visit
+
+33
+00:02:21,369 --> 00:02:32,250
+127.0.0.1:8000, which is telling us we're visiting the local host at port 8000.
+
+34
+00:02:32,251 --> 00:02:39,746
+Once you navigate to the URL, localhost:8000 or 127.0.0.1:8000,
+
+35
+00:02:39,747 --> 00:02:43,129
+you should see the following page.  This simple splash page will
+
+36
+00:02:43,130 --> 00:02:48,765
+give you a link to the documentation and other helpful sites.
+
+37
+00:02:48,766 --> 00:02:52,958
+Our next step will be to create a model so that we can interact
+
+38
+00:02:52,959 --> 00:02:54,385
+with our database through our application.
+
+39
+00:02:54,386 --> 00:02:59,526
+We'll do this by using Laravel's Artisan command line interface.
+
+40
+00:02:59,527 --> 00:03:03,896
+We will use the make command to create a model and at the same time
+
+41
+00:03:03,897 --> 00:03:07,687
+create a migration, which will help us manage our database table row
+
+42
+00:03:07,688 --> 00:03:11,526
+and column structure.  We'll talk more on this in a few.
+
+43
+00:03:11,527 --> 00:03:17,366
+All of the following items will be done from our terminal.
+
+44
+00:03:17,367 --> 00:03:24,066
+To start, we'll type php artisan, and the help make:model.
+
+45
+00:03:24,067 --> 00:03:28,515
+You can use help without a command, or you can place help in front of
+
+46
+00:03:28,516 --> 00:03:31,263
+any command to get information about that command.
+
+47
+00:03:31,264 --> 00:03:35,495
+Here we can see that the command takes some optional arguments and
+
+48
+00:03:35,496 --> 00:03:38,393
+one required field for the name of the model we want to create.
+
+49
+00:03:38,394 --> 00:03:42,123
+If we want to create a migration to go along with our model,
+
+50
+00:03:42,124 --> 00:03:46,206
+we can pass the -m flag as our option.
+
+51
+00:03:46,207 --> 00:03:54,950
+Now we can run php artisan make:model -m, and the singular
+
+52
+00:03:54,951 --> 00:04:00,306
+capitalized model name of Market.  This will create our Market and a migration.
+
+53
+00:04:00,307 --> 00:04:03,917
+Using Laravel's standard naming, it will call our table markets,
+
+54
+00:04:03,918 --> 00:04:08,989
+which is the lowercase plural of our model name.
+
+55
+00:04:08,990 --> 00:04:12,322
+Here's what our new model looks like out of the box.
+
+56
+00:04:12,323 --> 00:04:15,638
+It's under the namespace App, and we're extending the Eloquent\Model
+
+57
+00:04:15,639 --> 00:04:20,660
+class so that we get all the awesome functionality of the Eloquent ORM.
+
+58
+00:04:20,661 --> 00:04:24,270
+Now all we need to do is configure our database.
+
+59
+00:04:24,271 --> 00:04:28,479
+We do that with migrations.
+
+60
+00:04:28,480 --> 00:04:31,945
+Our migration file will be in the database parent folder and then in
+
+61
+00:04:31,946 --> 00:04:38,325
+the migrations folder.  You'll see the name create_markets_table
+
+62
+00:04:38,326 --> 00:04:41,771
+prefaced by the date and timestamp that it was created.
+
+63
+00:04:41,772 --> 00:04:46,394
+Our migration files allow us to version control our database and
+
+64
+00:04:46,395 --> 00:04:50,088
+tightly control what each table contains.
+
+65
+00:04:50,089 --> 00:04:52,918
+By default, the markets table will be created with an
+
+66
+00:04:52,919 --> 00:04:58,468
+auto-incrementing ID and timestamps for created and modified times.
+
+67
+00:04:58,469 --> 00:05:04,270
+We'll need to extend this a bit to include our own fields.
+
+68
+00:05:04,271 --> 00:05:07,656
+To begin with, we'll add a column of a string type and call it name.
+
+69
+00:05:07,657 --> 00:05:11,388
+This will be the name of our farmer's market.
+
+70
+00:05:11,389 --> 00:05:15,911
+We'll also want this name to be unique so that no two entries can
+
+71
+00:05:15,912 --> 00:05:19,582
+have the same market name.  Then we'll add two more columns of the
+
+72
+00:05:19,583 --> 00:05:27,031
+same string type, one for the city and one for the website.
+
+73
+00:05:27,032 --> 00:05:30,767
+In this level, we've learned about installing Laravel's installer with
+
+74
+00:05:30,768 --> 00:05:35,853
+Composer, using Laravel's installer to create a new application.
+
+75
+00:05:35,854 --> 00:05:40,640
+We've learned about Artisan serve to create a local web server.
+
+76
+00:05:40,641 --> 00:05:44,050
+And we've learned how to create a model with migrations.
+
+77
+00:05:44,051 --> 00:05:50,107
+Now it's time for you to do some challenges, and I'll see you in the next level.
+
+78
+00:05:50,108 --> 00:05:56,709
+That was terrible.  It was like I just swallowed localhost.
+
+79
+00:05:56,710 --> 00:05:59,977
+(Laughing)
+
+80
+00:05:59,978 --> 00:06:03,117
+We're going to drop the base, the database.
+
+81
+00:06:03,118 --> 01:00:00,000
+Photo of our ---.

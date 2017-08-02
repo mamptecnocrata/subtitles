@@ -1,0 +1,371 @@
+﻿1
+00:00:00,000 --> 00:00:06,178
+Welcome back!  Now that we have a relationship, let's make it work
+
+2
+00:00:06,179 --> 00:00:09,997
+with a form.
+
+3
+00:00:09,998 --> 00:00:13,352
+To make our relationship work better, we'll use a form.
+
+4
+00:00:13,353 --> 00:00:18,594
+We can do this by creating an update method to add the markets to the
+
+5
+00:00:18,595 --> 00:00:22,784
+farm, creating a form for updating our farms, us the form to associate
+
+6
+00:00:22,785 --> 00:00:29,968
+markets to the farm, and then keep these associations in sync through our controller.
+
+7
+00:00:29,969 --> 00:00:33,844
+Our first step is to modify the existing edit action.
+
+8
+00:00:33,845 --> 00:00:37,528
+Here we're querying for a farm, but we'll need to add a query to get
+
+9
+00:00:37,529 --> 00:00:41,795
+the markets too.
+
+10
+00:00:41,796 --> 00:00:46,317
+We can do this by calling Get followed by a call to pluck.
+
+11
+00:00:46,318 --> 00:00:50,709
+With pluck, we can just query for specific values or columns in the table.
+
+12
+00:00:50,710 --> 00:00:55,384
+Here we want only name and ID, and then we'll sort them by name.
+
+13
+00:00:55,385 --> 00:00:59,950
+This way our markets variable is a collection of market names as the
+
+14
+00:00:59,951 --> 00:01:04,346
+value, and the ID of that market as a key.
+
+15
+00:01:04,347 --> 00:01:09,059
+Then we'll return the same view call but modify it a bit to now
+
+16
+00:01:09,060 --> 00:01:13,802
+include our markets.  We're using a new function called compact.
+
+17
+00:01:13,803 --> 00:01:19,183
+In this case, compact and a string of farm, string of markets,
+
+18
+00:01:19,184 --> 00:01:23,829
+is a shorthand way of writing an array with a key of farm with a
+
+19
+00:01:23,830 --> 00:01:32,490
+value of $farm, and then a key of markets with a value of $markets.
+
+20
+00:01:32,491 --> 00:01:36,585
+Next, we'll head into our edit.blade.php file.
+
+21
+00:01:36,586 --> 00:01:41,097
+Here we'll have a route helper calling the update function to update
+
+22
+00:01:41,098 --> 00:01:44,980
+an existing farm.  The difference between this form and the create
+
+23
+00:01:44,981 --> 00:01:48,895
+form is that we're sending along a custom method called patch.
+
+24
+00:01:48,896 --> 00:01:54,345
+This let's Laravel know that we want to update an existing object.
+
+25
+00:01:54,346 --> 00:01:58,265
+Then in this form, we want to loop through all the markets.
+
+26
+00:01:58,266 --> 00:02:02,634
+Remember that our keys are the ID of the market, and the value is
+
+27
+00:02:02,635 --> 00:02:09,176
+just the market name.  Next, we'll create an input as a checkbox
+
+28
+00:02:09,177 --> 00:02:13,265
+where the value is the ID of the market.  We set the name of the
+
+29
+00:02:13,266 --> 00:02:18,233
+checkbox to market with two square brackets like an array so that each
+
+30
+00:02:18,234 --> 00:02:23,014
+ID that's checked will be sent back to the form as an array of IDs
+
+31
+00:02:23,015 --> 00:02:29,216
+into the $request object so that we can process it in the update action.
+
+32
+00:02:29,217 --> 00:02:33,636
+Now that we have a way to send the checked markets back to the
+
+33
+00:02:33,637 --> 00:02:37,242
+request, we need a way to check the ones that are already associated.
+
+34
+00:02:37,243 --> 00:02:40,497
+The way to do this is with a ternary if statement.
+
+35
+00:02:40,498 --> 00:02:45,351
+We want to run a test first, and that test is to see if the $farm
+
+36
+00:02:45,352 --> 00:02:50,291
+object markets related IDs contains the ID that we're currently
+
+37
+00:02:50,292 --> 00:02:55,393
+looping through on the foreach.  If it is true or the ID is contained,
+
+38
+00:02:55,394 --> 00:02:59,670
+then it will print the text checked.  Otherwise, it will print nothing.
+
+39
+00:02:59,671 --> 00:03:03,799
+This way the box will already be checked if the market ID is already
+
+40
+00:03:03,800 --> 00:03:08,019
+associated with the farm.
+
+41
+00:03:08,020 --> 00:03:11,815
+Let's look at the ternary if statement a bit closer.
+
+42
+00:03:11,816 --> 00:03:14,899
+The if statement is separated into three parts.
+
+43
+00:03:14,900 --> 00:03:18,583
+The first part is the test or what would normally be inside the
+
+44
+00:03:18,584 --> 00:03:23,190
+parentheses following the if keyword.  Here we want to test that a is
+
+45
+00:03:23,191 --> 00:03:27,553
+equal to the integer 1.  The second part is what we want the value
+
+46
+00:03:27,554 --> 00:03:31,197
+or result to be if the test evaluates to true.
+
+47
+00:03:31,198 --> 00:03:35,465
+Here we're setting a string to say a is equal to 1.
+
+48
+00:03:35,466 --> 00:03:39,434
+The second part is what we want if the value or result of the test
+
+49
+00:03:39,435 --> 00:03:45,165
+evaluates to false, which is to say that a is not equal to 1.
+
+50
+00:03:45,166 --> 00:03:49,539
+This way we can write simple code to check our checkbox if the market
+
+51
+00:03:49,540 --> 00:03:52,755
+in the loop is already related to our farm.
+
+52
+00:03:52,756 --> 00:03:56,844
+In the future, we might want to write a helper function for this
+
+53
+00:03:56,845 --> 00:04:01,845
+as we'll need it again for the market's CRUD.
+
+54
+00:04:01,846 --> 00:04:05,586
+Next, let's modify the update method on the farms controller.
+
+55
+00:04:05,587 --> 00:04:10,425
+Here's the default for just farms.  We would get the request and then
+
+56
+00:04:10,426 --> 00:04:14,787
+pass it through to the update method on the $farm, then redirect to
+
+57
+00:04:14,788 --> 00:04:19,457
+the farms page.  In between these two, we'll need to process our new
+
+58
+00:04:19,458 --> 00:04:23,839
+market's relationship data.
+
+59
+00:04:23,840 --> 00:04:28,150
+To process our new relationships, we need to make a call to $farm
+
+60
+00:04:28,151 --> 00:04:33,356
+object operator markets method, and then a new method called sync.
+
+61
+00:04:33,357 --> 00:04:36,573
+Here we'll pass the $request object and a call to the markets
+
+62
+00:04:36,574 --> 00:04:44,146
+property, which if you recall will be an array of market IDs that are checked.
+
+63
+00:04:44,147 --> 00:04:47,766
+Now that we've come to the end of the project, let's do a video
+
+64
+00:04:47,767 --> 00:04:51,899
+walkthrough of the CRUD process for our markets and farms.
+
+65
+00:04:51,900 --> 00:04:55,568
+So here's a quick walkthrough of what we've done in this course.
+
+66
+00:04:55,569 --> 00:05:00,043
+As you can see if we go to the main URL, it will give us our listing of markets.
+
+67
+00:05:00,044 --> 00:05:05,124
+This is due to our routing table, our root route being a /markets route.
+
+68
+00:05:05,125 --> 00:05:08,126
+So this will give us a listing of all of our markets.
+
+69
+00:05:08,127 --> 00:05:10,355
+From here, we can click on an individual market.
+
+70
+00:05:10,356 --> 00:05:14,279
+As you can see it'll go to the URL markets and then /3.
+
+71
+00:05:14,280 --> 00:05:17,346
+That will give us a market with the ID of 3.
+
+72
+00:05:17,347 --> 00:05:20,546
+From here we can also edit, see the Edit button here.
+
+73
+00:05:20,547 --> 00:05:23,980
+We can edit, which will give you the option of a form to change anything.
+
+74
+00:05:23,981 --> 00:05:27,434
+So we can do Downtown Market and then do plural.
+
+75
+00:05:27,435 --> 00:05:31,771
+We can do the URL as well, downtownsorlando, and hit Update.
+
+76
+00:05:31,772 --> 00:05:33,739
+This is going to submit a patch
+
+77
+00:05:33,740 --> 00:05:37,299
+or a request to change that.  And as you can see when we come back to
+
+78
+00:05:37,300 --> 00:05:41,226
+our listing at /markets, you'll see Downtown Markets.
+
+79
+00:05:41,227 --> 00:05:45,922
+The other thing we can do is to go markets/create and create
+
+80
+00:05:45,923 --> 00:05:48,627
+our own new market.  So you can see we have some placeholders here.
+
+81
+00:05:48,628 --> 00:05:51,543
+And as we start typing, we will replace this.
+
+82
+00:05:51,544 --> 00:06:02,813
+So this is a New Market and then New City and then newmarket.com and hit Create.
+
+83
+00:06:02,814 --> 00:06:05,075
+As you can see, it says that New Market was created.
+
+84
+00:06:05,076 --> 00:06:08,177
+And you'll see right here, New Market.  So we can click on it,
+
+85
+00:06:08,178 --> 00:06:12,294
+and this will have an ID of 11.  If we don't want this market any
+
+86
+00:06:12,295 --> 00:06:16,312
+longer, we can simply hit the Delete key and delete the market.
+
+87
+00:06:16,313 --> 00:06:20,123
+And that will be the full walkthrough of our system.
+
+88
+00:06:20,124 --> 00:06:23,848
+Thanks for playing the From Form to Table with Laravel course.
+
+89
+00:06:23,849 --> 00:06:31,197
+Let's do some challenges, and I'll see you in the wrap-up video.
+
+90
+00:06:31,198 --> 00:06:35,826
+Add ---.
+
+91
+00:06:35,827 --> 00:06:38,780
+My stomach's going ---.
+
+92
+00:06:38,781 --> 00:06:41,696
+(Laughing)
+
+93
+00:06:41,697 --> 01:00:00,000
+Sorry.

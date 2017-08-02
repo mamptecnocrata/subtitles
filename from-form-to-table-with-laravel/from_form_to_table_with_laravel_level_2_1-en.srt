@@ -1,0 +1,191 @@
+﻿1
+00:00:00,000 --> 00:00:07,953
+Lettuce head to the farm
+
+2
+00:00:07,954 --> 00:00:10,804
+and get deep into the CRUD
+
+3
+00:00:10,805 --> 00:00:13,242
+No need to be alarmed—
+
+4
+00:00:13,243 --> 00:00:15,890
+our data's cleaner than the mud.
+
+5
+00:00:15,891 --> 00:00:19,642
+We'll pep up our app, yes we will, it's gonna be real swell.
+
+6
+00:00:19,643 --> 00:00:21,212
+So swell, so swell.
+
+7
+00:00:21,213 --> 00:00:32,174
+Learning MVC is a snap when you're using Laravel.
+
+8
+00:00:32,175 --> 00:00:35,323
+Welcome back to From Form to Table with Laravel.
+
+9
+00:00:35,324 --> 00:00:40,676
+This level is all about setting up our database.
+
+10
+00:00:40,677 --> 00:00:44,024
+To set up our database, we're going to need to configure the database
+
+11
+00:00:44,025 --> 00:00:49,035
+connection information, create our actual database with MySQL,
+
+12
+00:00:49,036 --> 00:00:54,397
+and then run our migration to set up our table and columns.
+
+13
+00:00:54,398 --> 00:00:59,403
+To create our database, we'll use the MySQL command line tool or CLI.
+
+14
+00:00:59,404 --> 00:01:03,643
+If you don't have MySQL installed on your machine, you can go to the
+
+15
+00:01:03,644 --> 00:01:07,765
+link below to get directions on how to install a local development copy.
+
+16
+00:01:07,766 --> 00:01:13,822
+Start by typing mysql -u, and then the username, which is root,
+
+17
+00:01:13,823 --> 00:01:18,101
+and then -p to signal that you want to use a password for access.
+
+18
+00:01:18,102 --> 00:01:22,668
+Enter your root user password for MySQL, and then press Enter.
+
+19
+00:01:22,669 --> 00:01:26,388
+This will place you inside of the MySQL monitor.
+
+20
+00:01:26,389 --> 00:01:30,450
+Then we're going to run the command create database market followed by
+
+21
+00:01:30,451 --> 00:01:35,246
+a semicolon.  This instructs MySQL to create a database named market.
+
+22
+00:01:35,247 --> 00:01:42,327
+Once we've done this, we can type exit to exit the CLI.
+
+23
+00:01:42,328 --> 00:01:46,159
+Now that our database has been created, we'll need to configure
+
+24
+00:01:46,160 --> 00:01:49,605
+Laravel to use the market database.  We'll accomplish this by using a
+
+25
+00:01:49,606 --> 00:01:54,662
+.env or environment file.  Our .env file can be found in the root
+
+26
+00:01:54,663 --> 00:01:59,487
+folder of our project, and it already has some configurations set up
+
+27
+00:01:59,488 --> 00:02:02,347
+for us by default.  We'll need to change the database field to reflect
+
+28
+00:02:02,348 --> 00:02:07,333
+our database name, which is market.  We'll also need to enter our
+
+29
+00:02:07,334 --> 00:02:11,275
+user, root, and our password.  In this case, it's also password.
+
+30
+00:02:11,276 --> 00:02:15,987
+Laravel will now read this file when running our local development
+
+31
+00:02:15,988 --> 00:02:18,345
+server using Artisan.
+
+32
+00:02:18,346 --> 00:02:22,872
+The last step in configuring the database is to run our migrations
+
+33
+00:02:22,873 --> 00:02:27,031
+for the markets table.  We can accomplish this by using Artisan and
+
+34
+00:02:27,032 --> 00:02:29,265
+running the command migrate with no arguments.
+
+35
+00:02:29,266 --> 00:02:32,583
+This will run all migrations waiting to be run.
+
+36
+00:02:32,584 --> 00:02:38,288
+Once the migration is run, you should get a success message.
+
+37
+00:02:38,289 --> 00:02:42,817
+To verify that our migrations ran, we can go back to our MySQL
+
+38
+00:02:42,818 --> 00:02:46,386
+monitor or CLI.  Once you log in to the monitor, you can run the
+
+39
+00:02:46,387 --> 00:02:50,101
+command use market followed by a semicolon.
+
+40
+00:02:50,102 --> 00:02:55,945
+This command will set the monitor to run all queries against the markets table.
+
+41
+00:02:55,946 --> 00:03:00,237
+Now we can run the command show tables followed by a semicolon,
+
+42
+00:03:00,238 --> 00:03:02,611
+and all tables in the market will be listed.
+
+43
+00:03:02,612 --> 00:03:06,887
+You should see a markets table, as well as a migrations table
+
+44
+00:03:06,888 --> 00:03:12,974
+that helps keep track of all migrations made to the database.
+
+45
+00:03:12,975 --> 00:03:17,705
+As a review, we've configured our database inside of Laravel by using
+
+46
+00:03:17,706 --> 00:03:23,509
+a .env file.  We've created a database in the MySQL monitor.
+
+47
+00:03:23,510 --> 00:03:28,687
+Then we ran all migrations on the newly setup database.
+
+48
+00:03:28,688 --> 01:00:00,000
+Now it's time to do some challenges, and I'll see you in the next section.
