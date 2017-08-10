@@ -775,7 +775,7 @@ when the document loads.
 
 162
 00:08:06,650 --> 00:08:10,770
-The modules isn't doing anything
+The module isn't doing anything
 yet, but just by including it,
 
 163
@@ -869,4 +869,3 @@ putting them all together
 00:09:12,350 --> 00:09:15,870
 in the challenges and I'll
 see you in the next section.
-
