@@ -1,0 +1,283 @@
+﻿1
+00:00:00,000 --> 00:00:04,261
+Our Candy Coded store sells sweet treats galore.
+
+2
+00:00:04,262 --> 00:00:10,814
+How do we get it on the map?  Let's build a sugar-coated Android app!
+
+3
+00:00:10,815 --> 00:00:17,015
+With tasty layouts and views full of delicious candy hues,
+
+4
+00:00:17,016 --> 00:00:27,297
+our users will be overjoyed by our super sweet apps powered with Android.
+
+5
+00:00:27,298 --> 00:00:35,054
+Welcome back.  In Level 4, we'll be covering event listeners and toasts.
+
+6
+00:00:35,055 --> 00:00:38,031
+Before we get started with event listeners, let's improve the
+
+7
+00:00:38,032 --> 00:00:42,849
+appearance of our ListView first.  We'd like to add some padding to
+
+8
+00:00:42,850 --> 00:00:47,160
+our ListView and update the font and text size.
+
+9
+00:00:47,161 --> 00:00:51,897
+Let's jump over to Android Studio to see how to do that.
+
+10
+00:00:51,898 --> 00:00:56,299
+To add padding to our ListView, we'll go into the design view for
+
+11
+00:00:56,300 --> 00:01:02,029
+activity_main and select the ListView.  Then we'll find the padding
+
+12
+00:01:02,030 --> 00:01:09,222
+property and add padding around the whole view by using this general padding property.
+
+13
+00:01:09,223 --> 00:01:14,759
+We could type in 16dp for the padding value, but we'll use our saved
+
+14
+00:01:14,760 --> 00:01:18,647
+activity_padding dimension we used before.
+
+15
+00:01:18,648 --> 00:01:22,601
+Then we can see the list changed in the preview, but let's run our app
+
+16
+00:01:22,602 --> 00:01:26,745
+to see how it actually looks with our list items.
+
+17
+00:01:26,746 --> 00:01:30,852
+It looks better on the sides, but we still need some padding between
+
+18
+00:01:30,853 --> 00:01:37,907
+list items, and let's also update the font and text size while we're here.
+
+19
+00:01:37,908 --> 00:01:46,910
+We'll go into list_item_candy layout and add paddingTop set to
+
+20
+00:01:46,911 --> 00:01:52,551
+activity_padding and the same for paddingBottom.
+
+21
+00:01:52,552 --> 00:02:01,214
+We'll set the fontFamily to casual, the textSize to 18dp, and select Bold.
+
+22
+00:02:01,215 --> 00:02:05,486
+If we run our app again, that looks much better and like the final app
+
+23
+00:02:05,487 --> 00:02:09,260
+we wanted to create.
+
+24
+00:02:09,261 --> 00:02:12,639
+Now that we have our layout looking nice, let's get back to making our
+
+25
+00:02:12,640 --> 00:02:16,687
+list items actually do something.  You've probably seen this in apps
+
+26
+00:02:16,688 --> 00:02:20,129
+where you click on an item in the list and it opens another screen
+
+27
+00:02:20,130 --> 00:02:24,790
+with some details.  We'd like to do that eventually, but as a first
+
+28
+00:02:24,791 --> 00:02:28,824
+step, when a user clicks on an item in our list, we're going to show a
+
+29
+00:02:28,825 --> 00:02:35,462
+pop-up message with the position of that item in the list.
+
+30
+00:02:35,463 --> 00:02:39,977
+We're going to display a toast, which is a small pop-up message that
+
+31
+00:02:39,978 --> 00:02:46,435
+leaves the activity beneath it interactive and visible.
+
+32
+00:02:46,436 --> 00:02:50,361
+First, let's create a simple toast when the app loads, and then we'll
+
+33
+00:02:50,362 --> 00:02:55,212
+create one for clicks on the list items.  We'll add our toast code to
+
+34
+00:02:55,213 --> 00:03:03,340
+the bottom of the onCreate method after we set our adapter.
+
+35
+00:03:03,341 --> 00:03:08,554
+To create a toast, we need to know the context, text, and duration.
+
+36
+00:03:08,555 --> 00:03:13,005
+The context is where this toast will run, which for us is the
+
+37
+00:03:13,006 --> 00:03:21,066
+MainActivity, so we can just use the keyword this since we're in the MainActivity class.
+
+38
+00:03:21,067 --> 00:03:24,259
+The text is whatever message you want to display.
+
+39
+00:03:24,260 --> 00:03:28,852
+For us, we'll say Hello toast!  And the duration is either
+
+40
+00:03:28,853 --> 00:03:35,604
+Toast.LENGTH_SHORT or Toast.LENGTH_LONG.  We'll use Toast.LENGTH_SHORT.
+
+41
+00:03:35,605 --> 00:03:40,306
+Then the method Toast.makeText takes in those parameters,
+
+42
+00:03:40,307 --> 00:03:46,442
+and toast.show displays the toast.
+
+43
+00:03:46,443 --> 00:03:53,688
+If we demo our app, we can see our Hello toast comes up when the app starts.
+
+44
+00:03:53,689 --> 00:03:59,789
+Now we want to show a toast when a list item is clicked.
+
+45
+00:03:59,790 --> 00:04:04,371
+To trigger a toast on a click event, we can use an event listener.
+
+46
+00:04:04,372 --> 00:04:08,755
+An event listener contains a single callback method, which gets called
+
+47
+00:04:08,756 --> 00:04:13,922
+when a user triggers the event.  What happens is a user clicks on an
+
+48
+00:04:13,923 --> 00:04:18,987
+item in the list, the listener receives the click event, and then the
+
+49
+00:04:18,988 --> 00:04:24,134
+listener calls the callback method.  Inside of that callback method is
+
+50
+00:04:24,135 --> 00:04:29,426
+where we'll put our code to display our toast.
+
+51
+00:04:29,427 --> 00:04:33,018
+To do this in code, it looks somewhat complex, so let's break it down
+
+52
+00:04:33,019 --> 00:04:37,760
+step by step.  We have our ListView, and the first thing we need to do
+
+53
+00:04:37,761 --> 00:04:42,567
+is called the setOnItemClickListener method.
+
+54
+00:04:42,568 --> 00:04:47,138
+That method accepts one argument of type ClickListener,
+
+55
+00:04:47,139 --> 00:04:50,847
+so we'll create that with the new keyword.
+
+56
+00:04:50,848 --> 00:04:56,754
+Then inside that we'll create the onItemClick callback method,
+
+57
+00:04:56,755 --> 00:05:04,033
+which is where we'll trigger our toast.  One of the parameters for
+
+58
+00:05:04,034 --> 00:05:10,235
+onItemClick is int i, and that's the position of the item.
+
+59
+00:05:10,236 --> 00:05:16,139
+So when we create our toast, we're going to display i to show that's
+
+60
+00:05:16,140 --> 00:05:20,229
+the position of that item in the list.  You can see that for the
+
+61
+00:05:20,230 --> 00:05:26,310
+context for the toast we used MainActivity.this and not just this as
+
+62
+00:05:26,311 --> 00:05:31,763
+we did before, and that's because we're inside of the ClickListener,
+
+63
+00:05:31,764 --> 00:05:38,474
+so we need to tell it to display the toast in our MainActivity.
+
+64
+00:05:38,475 --> 00:05:43,536
+If we demo our app, we can see that our toast pops up showing the
+
+65
+00:05:43,537 --> 00:05:48,211
+position of each item in our list.
+
+66
+00:05:48,212 --> 00:05:51,782
+Thanks for trying Android with us.  Good luck in the final challenges,
+
+67
+00:05:51,783 --> 00:05:56,045
+and I'll see you in the wrap-up video.
+
+68
+00:05:56,046 --> 00:06:00,244
+I'm like let's jump over.  Let's jump over.
+
+69
+00:06:00,245 --> 00:06:04,347
+Add a little pot --- padding to the top of my potting.
+
+70
+00:06:04,348 --> 00:06:07,073
+Probably --- I can't talk.
+
+71
+00:06:07,074 --> 01:00:00,000
+Thanks.  I don't know.

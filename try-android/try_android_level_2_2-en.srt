@@ -1,0 +1,207 @@
+﻿1
+00:00:00,000 --> 00:00:09,183
+Welcome back.  In this section, we'll be editing the layout with Java code.
+
+2
+00:00:09,184 --> 00:00:14,601
+Previously, we set properties like text and images in the layout file,
+
+3
+00:00:14,602 --> 00:00:19,216
+but we can also change them while the app is running in Java code.
+
+4
+00:00:19,217 --> 00:00:26,935
+Let's see how to do this by setting the TextView's text in MainActivity.java.
+
+5
+00:00:26,936 --> 00:00:31,279
+In order to see that we've actually updated the TextViews's text
+
+6
+00:00:31,280 --> 00:00:37,502
+property, we'll set it to say Temporary Text now and then update it to
+
+7
+00:00:37,503 --> 00:00:43,217
+say Products in the Java code.
+
+8
+00:00:43,218 --> 00:00:49,155
+Let's get familiar with what's already in our MainActivity.java file.
+
+9
+00:00:49,156 --> 00:00:54,295
+First we have our package name, then other packages we need to import,
+
+10
+00:00:54,296 --> 00:01:00,695
+and then our class MainActivity that extends from AppCompatActivity,
+
+11
+00:01:00,696 --> 00:01:07,631
+which is the base class for all activities and provides standard functionality.
+
+12
+00:01:07,632 --> 00:01:11,599
+If you're not a Java expert and this code looks weird to you, don't worry.
+
+13
+00:01:11,600 --> 00:01:17,948
+We're going to provide you with all of the Java code you need to build this app.
+
+14
+00:01:17,949 --> 00:01:22,417
+The next code you see is a method called onCreate, which gets called
+
+15
+00:01:22,418 --> 00:01:26,893
+when our activity is starting.  The first line of that method calls
+
+16
+00:01:26,894 --> 00:01:32,363
+super.onCreate, which calls the base class' onCreate method to take
+
+17
+00:01:32,364 --> 00:01:36,925
+care of some basic activity setup.  Then the second line calls
+
+18
+00:01:36,926 --> 00:01:42,585
+setContentView, which sets the activity's content to what's already in
+
+19
+00:01:42,586 --> 00:01:47,482
+our activity's layout file.  If you're wondering how the layout just
+
+20
+00:01:47,483 --> 00:01:54,669
+magically appeared on the screen, that line of code is how it was done.
+
+21
+00:01:54,670 --> 00:01:58,018
+So all of the code that was there is going to stay there,
+
+22
+00:01:58,019 --> 00:02:02,490
+but we're going to add code to the bottom of the onCreate method.
+
+23
+00:02:02,491 --> 00:02:08,111
+That's where we'll update the text for our TextView.
+
+24
+00:02:08,112 --> 00:02:11,934
+First we need to find our TextView.  To find a view in Java,
+
+25
+00:02:11,935 --> 00:02:17,087
+you use the findViewById method.  We'll call the method from this
+
+26
+00:02:17,088 --> 00:02:24,668
+activity using the this keyword, and we also need to pass an ID as a parameter.
+
+27
+00:02:24,669 --> 00:02:32,116
+But we actually never defined an ID for our TextView, so let's do that now.
+
+28
+00:02:32,117 --> 00:02:41,847
+In our layout file, we'll set the TextView's id property equal to @+id/text_view_title.
+
+29
+00:02:41,848 --> 00:02:48,103
+The @+id means this ID will be added as an ID resource at runtime,
+
+30
+00:02:48,104 --> 00:02:52,943
+and the text_view_title is the name we chose for the actual ID.
+
+31
+00:02:52,944 --> 00:03:03,082
+Then in our findViewById method we can reference this ID with R.id.text_view_title.
+
+32
+00:03:03,083 --> 00:03:11,040
+The R.id means we're looking up the ID in the app's resources.
+
+33
+00:03:11,041 --> 00:03:16,634
+Now we have findViewById returning a general view, but we want to save
+
+34
+00:03:16,635 --> 00:03:27,076
+it to a TextView variable, so we also need to cast it as a TextView.
+
+35
+00:03:27,077 --> 00:03:30,665
+Something to notice is that as soon as we type TextView,
+
+36
+00:03:30,666 --> 00:03:35,887
+Android Studio automatically imports TextView from the widget's
+
+37
+00:03:35,888 --> 00:03:44,931
+library for us.  This is a nice timesaving feature that Android does for us.
+
+38
+00:03:44,932 --> 00:03:48,679
+Now that we have our TextView in a variable, we can set its text to
+
+39
+00:03:48,680 --> 00:03:55,728
+say Products with the setText method.  If we run our app, we can see
+
+40
+00:03:55,729 --> 00:04:04,174
+our TextView says Products, not Temporary Text, so our program actually worked.
+
+41
+00:04:04,175 --> 00:04:08,180
+But remember the best practice we covered in Level 1 that we don't
+
+42
+00:04:08,181 --> 00:04:13,446
+want a hardcode strings?  Let's remove the product string here and
+
+43
+00:04:13,447 --> 00:04:19,214
+instead reference that products_title string we created in Level 1.
+
+44
+00:04:19,215 --> 00:04:27,145
+We can do that by replacing the string with R.string.products_title.
+
+45
+00:04:27,146 --> 00:04:30,781
+If we run our app again, we can see this is still working because our
+
+46
+00:04:30,782 --> 00:04:35,129
+TextView says Products.
+
+47
+00:04:35,130 --> 00:04:38,573
+That's it for Level 2.  Now it's time for you to write some Java code
+
+48
+00:04:38,574 --> 00:04:42,761
+in the challenges.
+
+49
+00:04:42,762 --> 00:04:44,857
+Is that good?  I don't know.
+
+50
+00:04:44,858 --> 00:04:47,547
+Sweeter and sweeter.  I don't know.
+
+51
+00:04:47,548 --> 00:04:49,096
+Utensils.
+
+52
+00:04:49,097 --> 01:00:00,000
+You want to maybe say ---

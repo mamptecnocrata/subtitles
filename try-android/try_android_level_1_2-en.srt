@@ -1,0 +1,287 @@
+﻿1
+00:00:00,000 --> 00:00:10,043
+Welcome back to Section 2 where we'll be covering activities, layouts, and resources.
+
+2
+00:00:10,044 --> 00:00:13,751
+Each screen in our app is called an activity and is controlled by a
+
+3
+00:00:13,752 --> 00:00:18,922
+Java file and a layout file.  The first screen in our app is launched
+
+4
+00:00:18,923 --> 00:00:27,530
+by the MainActivity.java file, and it displays the layout defined in activity_main.xml.
+
+5
+00:00:27,531 --> 00:00:31,611
+It's important to note that files have different naming conventions.
+
+6
+00:00:31,612 --> 00:00:36,514
+Java files use PascalCase where each word starts with a capital
+
+7
+00:00:36,515 --> 00:00:41,164
+letter, and layout files use snake_case where separate words are
+
+8
+00:00:41,165 --> 00:00:46,190
+separated by underscores and everything is lowercase and the first
+
+9
+00:00:46,191 --> 00:00:51,782
+word is the type of layout.  So the Java file is called MainActivty,
+
+10
+00:00:51,783 --> 00:00:58,332
+and the layout that goes with it is called activity_main.
+
+11
+00:00:58,333 --> 00:01:03,254
+A layout describes the visual structure of everything you'll see on this screen.
+
+12
+00:01:03,255 --> 00:01:08,552
+A layout can contain things like buttons, text, and images to display,
+
+13
+00:01:08,553 --> 00:01:12,261
+but how do we get those things to actually do something?
+
+14
+00:01:12,262 --> 00:01:17,020
+That's where the Java file comes in.
+
+15
+00:01:17,021 --> 00:01:21,892
+The activity is a Java file that controls behaviors for things like
+
+16
+00:01:21,893 --> 00:01:30,342
+managing layouts, event handling, putting data in lists, and opening other activities.
+
+17
+00:01:30,343 --> 00:01:34,219
+Let's jump over to Android Studio and edit our layout to adjust the
+
+18
+00:01:34,220 --> 00:01:37,537
+text in the TextView.
+
+19
+00:01:37,538 --> 00:01:43,546
+An activity is a Java file where you can write code to control behaviors.
+
+20
+00:01:43,547 --> 00:01:49,647
+Our activity is in MainActivity.java, which we'll update later.
+
+21
+00:01:49,648 --> 00:01:55,897
+A layout is an XML file where you configure what's displayed in the activity.
+
+22
+00:01:55,898 --> 00:02:01,547
+Our layout is in activity_main.xml.  Layouts have a design view,
+
+23
+00:02:01,548 --> 00:02:08,115
+which shows a preview, and a TextView that shows the raw XML code.
+
+24
+00:02:08,116 --> 00:02:13,988
+Now we want to update the text Hello World to say Products.
+
+25
+00:02:13,989 --> 00:02:18,334
+To do this, we select the TextView.  You can see it's also selected in
+
+26
+00:02:18,335 --> 00:02:26,502
+the Component Tree.  Then go to its properties and find the text property.
+
+27
+00:02:26,503 --> 00:02:32,490
+Then we just type in Products.  The text property with the wrench is
+
+28
+00:02:32,491 --> 00:02:39,543
+for changes to the preview only, not in our app, so we won't be using that.
+
+29
+00:02:39,544 --> 00:02:44,522
+We could've also updated the text property in the raw XML code,
+
+30
+00:02:44,523 --> 00:02:50,187
+which we can see has changed to Products now as well.
+
+31
+00:02:50,188 --> 00:02:56,324
+While we're here, we'll also update the textSize to 24sp.
+
+32
+00:02:56,325 --> 00:03:00,762
+Now we can apply these new changes to our running emulator using the
+
+33
+00:03:00,763 --> 00:03:07,705
+Apply Changes button that looks like a lightning bolt next to the Run button.
+
+34
+00:03:07,706 --> 00:03:11,372
+This allows you to apply changes to your running app without building
+
+35
+00:03:11,373 --> 00:03:16,936
+a new APK file, so it's faster than the Run button alone.
+
+36
+00:03:16,937 --> 00:03:20,802
+You can still use the Run button if you want to push your changes and
+
+37
+00:03:20,803 --> 00:03:25,904
+force an app restart.  We can see our TextView's text now says
+
+38
+00:03:25,905 --> 00:03:29,804
+Products and is larger.
+
+39
+00:03:29,805 --> 00:03:34,845
+We just set our text size to 24sp, but what does that mean?
+
+40
+00:03:34,846 --> 00:03:38,027
+Android supports a lot of different dimension units.
+
+41
+00:03:38,028 --> 00:03:44,470
+We'll use dp and sp in our app.  Dp stands for density-independent
+
+42
+00:03:44,471 --> 00:03:49,966
+pixels, which means that for phones with different pixel densities or
+
+43
+00:03:49,967 --> 00:03:54,695
+sizes, like the Moto X and Google Pixel shown here,
+
+44
+00:03:54,696 --> 00:04:00,260
+the view dimensions in your layout will resize properly for both.
+
+45
+00:04:00,261 --> 00:04:06,179
+Sp, or scale-independent pixels, is the same as dp, but also scaled by
+
+46
+00:04:06,180 --> 00:04:14,462
+the user's font size preference, so we'll use sp for fonts.
+
+47
+00:04:14,463 --> 00:04:18,254
+Looking at the TextView code in detail, we see that the layout_width
+
+48
+00:04:18,255 --> 00:04:22,925
+and layout_height are set to wrap_content by default.
+
+49
+00:04:22,926 --> 00:04:26,831
+Wrap_content means the view will only be large enough to enclose its
+
+50
+00:04:26,832 --> 00:04:31,770
+content, so the TextView will only be wide enough and tall enough to
+
+51
+00:04:31,771 --> 00:04:36,950
+hold the string, Products.
+
+52
+00:04:36,951 --> 00:04:40,841
+Looking at the text property that contains the string, Products,
+
+53
+00:04:40,842 --> 00:04:45,576
+we can see it's actually highlighted in yellow and shows a warning,
+
+54
+00:04:45,577 --> 00:04:50,437
+that hardcoded strings should use a string resource.
+
+55
+00:04:50,438 --> 00:04:54,335
+So instead of hardcoding the string, we'll create a variable called
+
+56
+00:04:54,336 --> 00:05:02,008
+products_title to store the string, Products, in a string resource file.
+
+57
+00:05:02,009 --> 00:05:07,479
+Let's jump over to Android Studio to see how that works.
+
+58
+00:05:07,480 --> 00:05:11,888
+If we hover over the text, Products, it's highlighted yellow,
+
+59
+00:05:11,889 --> 00:05:15,769
+and we see a warning that it's a hardcoded value.
+
+60
+00:05:15,770 --> 00:05:20,215
+To fix this, we can open our strings.xml file.
+
+61
+00:05:20,216 --> 00:05:28,394
+This is under the res, values directory.  And now we can add a new string value.
+
+62
+00:05:28,395 --> 00:05:40,273
+We'll add a string with the name products_title and value Products and
+
+63
+00:05:40,274 --> 00:05:49,684
+then update our layout XML code to use @string/products_title to
+
+64
+00:05:49,685 --> 00:05:57,156
+reference that variable.  We also hardcoded the textSize to 24sp,
+
+65
+00:05:57,157 --> 00:06:03,902
+so we can add a new value to dimens.xml, which stands for dimensions,
+
+66
+00:06:03,903 --> 00:06:08,434
+but there's a shortcut for that.  We can click on the quick-fix light
+
+67
+00:06:08,435 --> 00:06:14,205
+bulb and select Extract dimension resource.
+
+68
+00:06:14,206 --> 00:06:19,190
+Then it will help us enter the resource name as title_size, and we hit
+
+69
+00:06:19,191 --> 00:06:25,343
+OK, and that's it.  Then if we look in dimens.xml, we can see the
+
+70
+00:06:25,344 --> 00:06:30,699
+title_size resource we just added.
+
+71
+00:06:30,700 --> 00:06:33,723
+That's it for Level 1.  It's time for you to practice what you learned
+
+72
+00:06:33,724 --> 01:00:00,000
+in the challenges.  Good luck!
