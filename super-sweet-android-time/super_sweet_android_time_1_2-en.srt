@@ -1,0 +1,131 @@
+﻿1
+00:00:00,000 --> 00:00:05,807
+Welcome back.  In this section we're going to pass data to an
+
+2
+00:00:05,808 --> 00:00:10,427
+activity through an intent.
+
+3
+00:00:10,428 --> 00:00:14,752
+We have the detail activity starting, but we need to pass data to it,
+
+4
+00:00:14,753 --> 00:00:21,440
+like the candy name, so we know what candy to show.
+
+5
+00:00:21,441 --> 00:00:25,495
+We can pass data in an intent with the putExtra method.
+
+6
+00:00:25,496 --> 00:00:30,698
+The putExtra method takes a key value pair, so we'll use the key
+
+7
+00:00:30,699 --> 00:00:36,046
+candy_name paired with a string containing the candy name.
+
+8
+00:00:36,047 --> 00:00:42,888
+But how do we know which candy item was selected from the list?
+
+9
+00:00:42,889 --> 00:00:47,841
+Remember that we created an ArrayList named candyList to store our
+
+10
+00:00:47,842 --> 00:00:52,390
+candy names, then the ItemClickListener callback method has a
+
+11
+00:00:52,391 --> 00:00:59,297
+parameter i that represents the position of the item selected in that list.
+
+12
+00:00:59,298 --> 00:01:09,339
+So we can get the selected candy item with candyList.get i.
+
+13
+00:01:09,340 --> 00:01:13,714
+That was how to send data through an intent from the main activity.
+
+14
+00:01:13,715 --> 00:01:18,566
+Now we can get the intent in the detail activity with the getIntent
+
+15
+00:01:18,567 --> 00:01:22,825
+method, and then get the data stored with the intent with the
+
+16
+00:01:22,826 --> 00:01:27,854
+getStringExtra method.  So if the user selected Berry Bouncer in
+
+17
+00:01:27,855 --> 00:01:34,298
+this list, the candy_name string would be Berry Bouncer.
+
+18
+00:01:34,299 --> 00:01:38,171
+In case that intent doesn't have that key for some reason,
+
+19
+00:01:38,172 --> 00:01:42,849
+it's good practice to check that it has that extra value first so
+
+20
+00:01:42,850 --> 00:01:49,895
+our program doesn't crash.  Finally, we have that candy name in the
+
+21
+00:01:49,896 --> 00:01:57,332
+detail activity, so we can set the TextView's text to that candy to display it.
+
+22
+00:01:57,333 --> 00:02:02,144
+First we'll find the TextView by its ID, then we can set its text
+
+23
+00:02:02,145 --> 00:02:07,044
+with the setText method.  Let's jump over to Android Studio to demo
+
+24
+00:02:07,045 --> 00:02:12,844
+the detail activity displaying the candy name.
+
+25
+00:02:12,845 --> 00:02:17,534
+In MainActivity.java we create our detail intent at the bottom of
+
+26
+00:02:17,535 --> 00:02:21,050
+the onCreate method in our event listener.
+
+27
+00:02:21,051 --> 00:02:26,802
+This is where we added the extra candy name data to our intent.
+
+28
+00:02:26,803 --> 00:02:31,342
+Then in DetailActivity.java we can get this extra data from the
+
+29
+00:02:31,343 --> 00:02:40,174
+intent by looking up its candy_name data, and then we set the text for the TextView.
+
+30
+00:02:40,175 --> 00:02:44,118
+If we run our app, we can see that the detail activity's text
+
+31
+00:02:44,119 --> 00:02:51,521
+changes to the name of the candy when we click on different candy items.
+
+32
+00:02:51,522 --> 00:02:55,440
+That's it for level 1.  Now it's time for you to practice passing data
+
+33
+00:02:55,441 --> 01:00:00,000
+through an intent in the challenges.  Good luck.

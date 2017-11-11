@@ -1,0 +1,115 @@
+﻿1
+00:00:00,000 --> 00:00:05,911
+Welcome back.  In this section we're actually going to store candy
+
+2
+00:00:05,912 --> 00:00:09,670
+data in our database.
+
+3
+00:00:09,671 --> 00:00:13,834
+We want to save candies to the database after we get the candy array
+
+4
+00:00:13,835 --> 00:00:19,151
+from the API.  Remember the code we wrote for our network request?
+
+5
+00:00:19,152 --> 00:00:26,842
+The onSuccess callback method is where we'll add candies to our database.
+
+6
+00:00:26,843 --> 00:00:31,125
+We'll create a method, addCandiesToDatabase, to save each candy to
+
+7
+00:00:31,126 --> 00:00:39,405
+the database and call that at the bottom of the onSuccess method.
+
+8
+00:00:39,406 --> 00:00:44,087
+Before we create that method, we'll also add a candyDbHelper
+
+9
+00:00:44,088 --> 00:00:48,950
+variable to the top of the MainActivity class so that we can access
+
+10
+00:00:48,951 --> 00:00:55,227
+it throughout the main activity.  Now let's define that
+
+11
+00:00:55,228 --> 00:01:00,729
+addCandiesToDatabase method at the bottom of the MainActivity class.
+
+12
+00:01:00,730 --> 00:01:04,765
+The return type will be void since we don't need to return anything,
+
+13
+00:01:04,766 --> 00:01:09,841
+we're just adding to the database, and we need to pass in our array
+
+14
+00:01:09,842 --> 00:01:16,783
+of candy so that we can add each one to the database.
+
+15
+00:01:16,784 --> 00:01:21,008
+To access our database, we can use the getWritableDatabase method
+
+16
+00:01:21,009 --> 00:01:26,171
+from our candyDbHelper, and we'll store a reference to that database
+
+17
+00:01:26,172 --> 00:01:31,628
+in a SQLiteDatabase variable called db.
+
+18
+00:01:31,629 --> 00:01:35,650
+Since we'll need to access each candy individually to add it to the
+
+19
+00:01:35,651 --> 00:01:40,598
+database, we'll create a loop that accesses each candy one at a time
+
+20
+00:01:40,599 --> 00:01:47,116
+from the candies array.  The ContentValues class will help us insert
+
+21
+00:01:47,117 --> 00:01:51,569
+values into the database by doing some data validation and ensuring
+
+22
+00:01:51,570 --> 00:01:56,692
+data gets inserted in the correct format.
+
+23
+00:01:56,693 --> 00:02:01,706
+We then put each column name and value into the ContentValues object
+
+24
+00:02:01,707 --> 00:02:09,820
+with the put method, and we'll do this same thing for the rest of our candy's properties.
+
+25
+00:02:09,821 --> 00:02:13,936
+Finally, we can use the insert method to insert the new candy row
+
+26
+00:02:13,937 --> 00:02:18,307
+into our database.
+
+27
+00:02:18,308 --> 00:02:22,295
+Now that we have our candies in our database, the next step is to use
+
+28
+00:02:22,296 --> 00:02:26,257
+them in our app.  But first, it's time for you to practice adding
+
+29
+00:02:26,258 --> 01:00:00,000
+data to your database in the challenges.

@@ -1,0 +1,335 @@
+﻿1
+00:00:00,000 --> 00:00:04,245
+Our Candy Coded store sells sweet treats galore.
+
+2
+00:00:04,246 --> 00:00:06,726
+How do we get it on the map?
+
+3
+00:00:06,727 --> 00:00:10,746
+Let's build a sugar-coated Android app!
+
+4
+00:00:10,747 --> 00:00:14,122
+With tasty layouts and views,
+
+5
+00:00:14,123 --> 00:00:16,867
+full of delicious candy hues,
+
+6
+00:00:16,868 --> 00:00:26,914
+our users will be overjoyed by our super sweet apps powered with Android.
+
+7
+00:00:26,915 --> 00:00:32,294
+Welcome back.  In this level we'll be storing our candy data in a database.
+
+8
+00:00:32,295 --> 00:00:35,176
+But first, why do we want to store our candy data?
+
+9
+00:00:35,177 --> 00:00:38,504
+Can't we always just do a network request?
+
+10
+00:00:38,505 --> 00:00:42,239
+Sometimes your users will want data offline, like if they're on an
+
+11
+00:00:42,240 --> 00:00:46,192
+airplane or they might have a slow connection and not want to wait
+
+12
+00:00:46,193 --> 00:00:50,108
+for the most up-to-date results.  For times like these,
+
+13
+00:00:50,109 --> 00:00:57,839
+you'll want to store the candy from the most recent network requests locally.
+
+14
+00:00:57,840 --> 00:01:01,681
+There are two common ways to store data in Android apps,
+
+15
+00:01:01,682 --> 00:01:06,617
+a SharedPreferences object or a SQL database.
+
+16
+00:01:06,618 --> 00:01:12,014
+SharedPreferences store small amounts of data in key value pairs.
+
+17
+00:01:12,015 --> 00:01:15,952
+For instance, storing your location in a weather app.
+
+18
+00:01:15,953 --> 00:01:20,368
+A SQL database stores structured data, like our candy data,
+
+19
+00:01:20,369 --> 00:01:25,080
+where each column is a property, like Name, Price, Description,
+
+20
+00:01:25,081 --> 00:01:29,373
+and Image, and each row is a different candy.
+
+21
+00:01:29,374 --> 00:01:33,344
+Since we have a lot of candies that can be easily organized into a
+
+22
+00:01:33,345 --> 00:01:40,390
+database, we'll use that instead of SharedPreferences.
+
+23
+00:01:40,391 --> 00:01:44,171
+To use a database we need to write some SQL commands to create a
+
+24
+00:01:44,172 --> 00:01:50,241
+table and eventually perform operations like inserting, reading, and deleting.
+
+25
+00:01:50,242 --> 00:01:53,724
+If you're not familiar with SQL databases, we'll cover everything you
+
+26
+00:01:53,725 --> 00:01:58,265
+need for this course.  But if you want to learn more database concepts,
+
+27
+00:01:58,266 --> 00:02:03,260
+check out our Try SQL course.
+
+28
+00:02:03,261 --> 00:02:06,624
+But where do we write this SQL?  When you're writing Android apps,
+
+29
+00:02:06,625 --> 00:02:10,628
+the convention is to create a Contract class to store information
+
+30
+00:02:10,629 --> 00:02:16,522
+about your database.  Just like defining a SQL database's organization
+
+31
+00:02:16,523 --> 00:02:22,180
+in a schema, you can do the same thing in a Contract class with Android.
+
+32
+00:02:22,181 --> 00:02:25,832
+We're going to create a Contract class to define constants like the
+
+33
+00:02:25,833 --> 00:02:29,552
+table and column names.
+
+34
+00:02:29,553 --> 00:02:33,191
+We can create a new class by right-clicking the Java folder and
+
+35
+00:02:33,192 --> 00:02:40,703
+selecting New, Java Class, and we'll name it CandyContract.
+
+36
+00:02:40,704 --> 00:02:45,448
+In that CandyContract Java file, we'll define our database name,
+
+37
+00:02:45,449 --> 00:02:50,383
+database version, table name, and column names.
+
+38
+00:02:50,384 --> 00:02:54,077
+A good rule is to put your definitions that are global to your whole
+
+39
+00:02:54,078 --> 00:02:58,734
+database in the root level of that class, then we'll have classes
+
+40
+00:02:58,735 --> 00:03:03,956
+inside that class for each table.  So right now, the CandyEntry
+
+41
+00:03:03,957 --> 00:03:11,284
+class for the candy table that lists its name and columns.
+
+42
+00:03:11,285 --> 00:03:15,269
+We'll define our column names by setting properties in that inner
+
+43
+00:03:15,270 --> 00:03:19,976
+CandyEntry class.  We also need to implement the BaseColumns
+
+44
+00:03:19,977 --> 00:03:25,044
+interface so that our CandyEntry class inherits a primary key field
+
+45
+00:03:25,045 --> 00:03:30,317
+called ID that we'll need later.  It's not required, but this can
+
+46
+00:03:30,318 --> 00:03:37,192
+help your database work seamlessly with the Android framework.
+
+47
+00:03:37,193 --> 00:03:41,611
+We're going to use our raw SQL code to create our candies table.
+
+48
+00:03:41,612 --> 00:03:45,423
+As a review, the create table command creates a table in our
+
+49
+00:03:45,424 --> 00:03:50,338
+database with the specified columns and data types.
+
+50
+00:03:50,339 --> 00:03:56,493
+So this SQL command would generate the following table structure.
+
+51
+00:03:56,494 --> 00:04:01,581
+We can take this create table SQL code and combine it with our static
+
+52
+00:04:01,582 --> 00:04:06,186
+CandyEntry class properties that represent our different table and
+
+53
+00:04:06,187 --> 00:04:11,480
+column names, and then store that command in a new string variable
+
+54
+00:04:11,481 --> 00:04:17,025
+named SQL_CREATE_ENTRIES.  Now whenever we need to create this table,
+
+55
+00:04:17,026 --> 00:04:24,084
+we can reference this variable.  We'll also create the variable
+
+56
+00:04:24,085 --> 00:04:28,580
+SQL_DELETE_ENTRIES, which we'll use to delete our table.
+
+57
+00:04:28,581 --> 00:04:31,089
+This is also how we'll update our table.
+
+58
+00:04:31,090 --> 00:04:34,843
+We'll just delete it and create a new one since we'll be pulling all
+
+59
+00:04:34,844 --> 00:04:38,596
+of the current candies from our Candy API.
+
+60
+00:04:38,597 --> 00:04:46,911
+Now that we have our contract set up, we want to actually create our database.
+
+61
+00:04:46,912 --> 00:04:52,572
+We'll use the SQLiteOpenHelper class to manage database creation.
+
+62
+00:04:52,573 --> 00:04:56,199
+It will take care of opening the database if it exists,
+
+63
+00:04:56,200 --> 00:05:03,835
+creating it if it doesn't, and upgrading it as necessary.
+
+64
+00:05:03,836 --> 00:05:08,277
+To use the SQLiteOpenHelper class, we need to create a new Java
+
+65
+00:05:08,278 --> 00:05:13,698
+class that inherits from it, which we'll call CandyDBHelper.
+
+66
+00:05:13,699 --> 00:05:21,668
+When we create the class we can select SQLiteOpenHelper as the superclass.
+
+67
+00:05:21,669 --> 00:05:25,950
+The CandyDBHelper needs a constructor and needs to override the
+
+68
+00:05:25,951 --> 00:05:32,901
+onCreate and onUpgrade methods.
+
+69
+00:05:32,902 --> 00:05:36,644
+Our constructor will call the super method, which just calls the
+
+70
+00:05:36,645 --> 00:05:41,051
+SQLiteOpenHelper's constructor.  The constructor takes in the
+
+71
+00:05:41,052 --> 00:05:44,632
+context, the database name, and the database version.
+
+72
+00:05:44,633 --> 00:05:48,501
+Remember we created those in the CandyContract class earlier,
+
+73
+00:05:48,502 --> 00:05:52,268
+so we can use those here.  Null is for the optional CursorFactory,
+
+74
+00:05:52,269 --> 00:05:56,293
+which we won't be using.
+
+75
+00:05:56,294 --> 00:06:02,268
+The onCreate method makes a handle to the database named db available,
+
+76
+00:06:02,269 --> 00:06:06,625
+then we can use that db object to call the exacSQL method,
+
+77
+00:06:06,626 --> 00:06:11,882
+which will take in a command as a string and run it against the database.
+
+78
+00:06:11,883 --> 00:06:15,545
+The command we're executing here is the SQL_CREATE_ENTRIES
+
+79
+00:06:15,546 --> 00:06:23,356
+statement we made earlier to create our table with the columns we defined.
+
+80
+00:06:23,357 --> 00:06:27,728
+To implement our onUpgrade method to upgrade our database,
+
+81
+00:06:27,729 --> 00:06:31,562
+we'll simply execute our statement to delete the table,
+
+82
+00:06:31,563 --> 00:06:35,703
+and then recreate our table.  Now we have everything in place to
+
+83
+00:06:35,704 --> 00:06:40,038
+begin using our database to store data, but first it's time for
+
+84
+00:06:40,039 --> 01:00:00,000
+you to practice setting up a database in the challenges.

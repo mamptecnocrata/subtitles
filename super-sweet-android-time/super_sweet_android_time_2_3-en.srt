@@ -1,0 +1,171 @@
+﻿1
+00:00:00,000 --> 00:00:06,764
+Welcome back.  We've requested some JSON data, we've parsed it into
+
+2
+00:00:06,765 --> 00:00:10,574
+an array of candy objects, and now we'd like to pass some of that
+
+3
+00:00:10,575 --> 00:00:13,881
+data to the detail activity.
+
+4
+00:00:13,882 --> 00:00:18,429
+Right now our detail activity is only showing the candy name,
+
+5
+00:00:18,430 --> 00:00:22,711
+but we'd like it to also show the price, description, and image that
+
+6
+00:00:22,712 --> 00:00:26,893
+we got from our Candy API.  To do that, we can get the image, price,
+
+7
+00:00:26,894 --> 00:00:34,695
+and description from the array of candy objects and send it to the detail activity.
+
+8
+00:00:34,696 --> 00:00:38,873
+We can pass these properties to the detail activity with the intent
+
+9
+00:00:38,874 --> 00:00:43,630
+like we originally did with the name.  This would be in the onItemClick
+
+10
+00:00:43,631 --> 00:00:48,261
+callback method.  We'll also want to use the candies array we just
+
+11
+00:00:48,262 --> 00:00:53,145
+created, so we'll change it to a class variable by declaring it at the
+
+12
+00:00:53,146 --> 00:00:57,531
+top of the MainActivity class.  This will allow us to access the
+
+13
+00:00:57,532 --> 00:01:01,633
+candies array and all of the methods in this class, not just the
+
+14
+00:01:01,634 --> 00:01:06,412
+onSuccess callback method.  We can use the putExtra method to
+
+15
+00:01:06,413 --> 00:01:10,808
+pass the image, price, and description by referencing those properties
+
+16
+00:01:10,809 --> 00:01:16,869
+from the candies array, like this.
+
+17
+00:01:16,870 --> 00:01:20,271
+Back in the DetailActivity class, we can get the image,
+
+18
+00:01:20,272 --> 00:01:24,325
+price, and description we passed in after we display the candy
+
+19
+00:01:24,326 --> 00:01:28,316
+name in the TextView.  But before we display them to the screen in
+
+20
+00:01:28,317 --> 00:01:35,426
+our app, let's first log them to make sure they're coming in correctly.
+
+21
+00:01:35,427 --> 00:01:38,773
+We can get our passed in values from the intent with the same
+
+22
+00:01:38,774 --> 00:01:43,607
+getStringExtra method we used for the candy name, then we'll log
+
+23
+00:01:43,608 --> 00:01:51,611
+these properties with the Log.d method to make sure they look correct.
+
+24
+00:01:51,612 --> 00:01:54,407
+Like before, we also want to add some checks to make sure these
+
+25
+00:01:54,408 --> 00:01:58,203
+values actually exist to prevent errors.
+
+26
+00:01:58,204 --> 00:02:01,733
+Now we should have our values logging in the detail activity.
+
+27
+00:02:01,734 --> 00:02:05,529
+Let's jump over to Android Studio to see if those values are coming
+
+28
+00:02:05,530 --> 00:02:09,217
+into the detail activity.
+
+29
+00:02:09,218 --> 00:02:14,363
+If we look at our DetailActivity.java file in our onCreate method at
+
+30
+00:02:14,364 --> 00:02:20,942
+the bottom, we can see our log message logging the image, price, and description.
+
+31
+00:02:20,943 --> 00:02:24,703
+Let's see this working by running our app, then to start our
+
+32
+00:02:24,704 --> 00:02:28,246
+DetailActivity we need to click on a candy.
+
+33
+00:02:28,247 --> 00:02:32,428
+Now if we go into our Android monitor under the logcat tab,
+
+34
+00:02:32,429 --> 00:02:37,743
+we should see our log message.  There it is marked DetailActivity,
+
+35
+00:02:37,744 --> 00:02:43,956
+and it shows the Intent data with the image URL, price, and description.
+
+36
+00:02:43,957 --> 00:02:47,566
+Now we know that this data is being passed correctly to the detail
+
+37
+00:02:47,567 --> 00:02:54,157
+activity and we can work on actually displaying it in the user interface.
+
+38
+00:02:54,158 --> 00:02:57,864
+That's it for level 2.  Now it's time for you to practice passing your
+
+39
+00:02:57,865 --> 00:03:02,131
+response data to an activity.
+
+40
+00:03:02,132 --> 00:03:05,841
+Get it with the.
+
+41
+00:03:05,842 --> 00:03:08,609
+We need to write some.
+
+42
+00:03:08,610 --> 00:03:11,574
+To delete our tabrle.
+
+43
+00:03:11,575 --> 01:00:00,000
+Challenges.

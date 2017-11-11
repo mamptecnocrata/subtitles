@@ -1,0 +1,151 @@
+﻿1
+00:00:00,000 --> 00:00:05,793
+Welcome back.  In this section we'll be getting our data from the
+
+2
+00:00:05,794 --> 00:00:10,553
+database into the detail activity.
+
+3
+00:00:10,554 --> 00:00:15,109
+Instead of passing each of these values, the candy name, price, image,
+
+4
+00:00:15,110 --> 00:00:20,303
+and description, individually to the detail activity, we're passing the
+
+5
+00:00:20,304 --> 00:00:28,593
+row that was selected in the ListView to use in a database query.
+
+6
+00:00:28,594 --> 00:00:33,169
+Before we were passing in each value to display, but now we need to
+
+7
+00:00:33,170 --> 00:00:41,261
+query the database instead, so we can remove this code.
+
+8
+00:00:41,262 --> 00:00:46,939
+First we'll make sure our intent has that extra position value we passed in.
+
+9
+00:00:46,940 --> 00:00:50,926
+We can then get the position value, which is the row that was selected,
+
+10
+00:00:50,927 --> 00:00:58,376
+in the ListView.  We can get the candy row we want by first querying
+
+11
+00:00:58,377 --> 00:01:05,159
+all candies using the rawQuery method with SELECT * FROM candy.
+
+12
+00:01:05,160 --> 00:01:13,247
+Then we can move our cursor to the selected position with the moveToPosition method.
+
+13
+00:01:13,248 --> 00:01:18,574
+We want the value in the name column so that we can display the candy's name.
+
+14
+00:01:18,575 --> 00:01:26,095
+We can use the getColumnIndexOrThrow method to get the index of our Name column.
+
+15
+00:01:26,096 --> 00:01:30,038
+The orThrow means it will throw an error if it's not there.
+
+16
+00:01:30,039 --> 00:01:34,053
+As a reminder, Android Studio should automatically import the
+
+17
+00:01:34,054 --> 00:01:38,385
+CandyEntry class when we try to use it, but if it doesn't,
+
+18
+00:01:38,386 --> 00:01:44,397
+you can manually import it yourself.  Then we can get the candy's
+
+19
+00:01:44,398 --> 00:01:51,579
+name with the getString method and pass the columnIndex.
+
+20
+00:01:51,580 --> 00:01:56,319
+We want to do the same thing for the price, image, and description values.
+
+21
+00:01:56,320 --> 00:02:01,044
+We can also combine getting the column index and getting the string
+
+22
+00:02:01,045 --> 00:02:08,068
+into one statement, like you see here.  Now that we have the values,
+
+23
+00:02:08,069 --> 00:02:12,730
+we need to find each view and set its value, but since we're just
+
+24
+00:02:12,731 --> 00:02:16,683
+refactoring code that was already in the detail activity,
+
+25
+00:02:16,684 --> 00:02:20,588
+we've already written the code to find the three TextViews and single
+
+26
+00:02:20,589 --> 00:02:24,992
+ImageView and set their values.  Since our variable names for the
+
+27
+00:02:24,993 --> 00:02:33,879
+candy properties haven't changed, all of this code should still work like before.
+
+28
+00:02:33,880 --> 00:02:37,533
+Now if we run our app, we can see our detail activity working with the
+
+29
+00:02:37,534 --> 00:02:46,111
+data we queried from our database.
+
+30
+00:02:46,112 --> 00:02:49,291
+That's it for Super Sweet Android Time.  Now it's time for you to
+
+31
+00:02:49,292 --> 00:02:53,474
+practice working with your database data in your detail activity.
+
+32
+00:02:53,475 --> 00:02:58,400
+And make sure to stick around for the wrap-up video.
+
+33
+00:02:58,401 --> 00:03:02,917
+Candy to database to save.
+
+34
+00:03:02,918 --> 00:03:05,695
+Auto manually importing.
+
+35
+00:03:05,696 --> 00:03:06,268
+Perfect.
+
+36
+00:03:06,269 --> 00:03:07,301
+Okay.
+
+37
+00:03:07,302 --> 00:03:08,076
+That's a wrap.
+
+38
+00:03:08,077 --> 01:00:00,000
+Cool.
