@@ -1,0 +1,407 @@
+﻿1
+00:00:00,000 --> 00:00:08,440
+Yeah, cruise down that strip and take in the neon lights baby,
+
+2
+00:00:08,441 --> 00:00:13,618
+as we get well equipped to take our apps to new heights, yeah!
+
+3
+00:00:13,619 --> 00:00:18,811
+We'll create records, take in the view — our route is surely scenic too.
+
+4
+00:00:18,812 --> 00:00:22,545
+We'll use Elixir as we travel through On Fire With Phoenix,
+
+5
+00:00:22,546 --> 00:00:29,045
+On Fire With Phoenix, On Fire With Phoenix, yeah!
+
+6
+00:00:29,046 --> 00:00:32,967
+You're watching On Fire With Phoenix.  I'm Carlos Souza, and in this
+
+7
+00:00:32,968 --> 00:00:40,259
+section we'll learn how to write Phoenix code that outputs HTML forms.
+
+8
+00:00:40,260 --> 00:00:45,767
+So far we've written code to read from the database and list videos on a page.
+
+9
+00:00:45,768 --> 00:00:50,640
+Now we need a new page so users can type data in a form,
+
+10
+00:00:50,641 --> 00:00:57,498
+submit the form, and then see the newly created video listed on the page.
+
+11
+00:00:57,499 --> 00:01:00,492
+In this level, we'll learn how to do just that.
+
+12
+00:01:00,493 --> 00:01:06,027
+This will involve three major steps.  First we'll add two new routes,
+
+13
+00:01:06,028 --> 00:01:10,402
+one to render the form page and one that will receive the form
+
+14
+00:01:10,403 --> 00:01:14,854
+submission and create a new record.  Next, we'll learn how to use
+
+15
+00:01:14,855 --> 00:01:20,016
+Phoenix's form helpers to generate HTML forms more efficiently.
+
+16
+00:01:20,017 --> 00:01:24,736
+Finally, we'll learn how a typical create action looks in a controller.
+
+17
+00:01:24,737 --> 00:01:30,574
+This is where we read user submitted data and create new records in the database.
+
+18
+00:01:30,575 --> 00:01:34,243
+This is how the workflow looks from another perspective.
+
+19
+00:01:34,244 --> 00:01:41,166
+First, to render the form, we make a get request to /videos/new.
+
+20
+00:01:41,167 --> 00:01:45,560
+For example, by typing the URL in a browser.
+
+21
+00:01:45,561 --> 00:01:50,995
+The router routes the request to the VideoController.new function or
+
+22
+00:01:50,996 --> 00:01:56,639
+action, which then renders the form.  When the form is submitted,
+
+23
+00:01:56,640 --> 00:02:03,765
+then a post request is made to /videos.  The router routes the request
+
+24
+00:02:03,766 --> 00:02:08,436
+to the VideoController.create function, which reads user data,
+
+25
+00:02:08,437 --> 00:02:13,636
+creates the new video, and redirects back to the video listing page
+
+26
+00:02:13,637 --> 00:02:18,484
+where we see the newly created video.
+
+27
+00:02:18,485 --> 00:02:23,171
+Let's start with the entry point to our application, the router.
+
+28
+00:02:23,172 --> 00:02:28,351
+Using the router DSL, we can use the get and post functions.
+
+29
+00:02:28,352 --> 00:02:34,080
+Both take the URL path, controller, and action as arguments.
+
+30
+00:02:34,081 --> 00:02:40,861
+On get requests to /videos/new, we'll use the VideoController module
+
+31
+00:02:40,862 --> 00:02:45,675
+in the new function.  For post requests to /videos, we'll use the
+
+32
+00:02:45,676 --> 00:02:51,890
+VideoController module in the create function.
+
+33
+00:02:51,891 --> 00:02:56,204
+By parsing the router, Phoenix dynamically creates helper functions we
+
+34
+00:02:56,205 --> 00:03:02,141
+can use in controllers and templates that return URL paths.
+
+35
+00:03:02,142 --> 00:03:05,936
+These functions are called path helpers, and they are dynamically
+
+36
+00:03:05,937 --> 00:03:10,422
+generated, derived from each controller in the router.
+
+37
+00:03:10,423 --> 00:03:14,738
+As we can see in this example, our controller is VideoController,
+
+38
+00:03:14,739 --> 00:03:22,901
+hence we can use the video_path function to return each one of these URL paths.
+
+39
+00:03:22,902 --> 00:03:26,658
+The first argument to the path helper functions is the connection,
+
+40
+00:03:26,659 --> 00:03:30,918
+which is available from the controller, as we'll see in just a moment.
+
+41
+00:03:30,919 --> 00:03:34,671
+The second argument to the function is the action we want to generate
+
+42
+00:03:34,672 --> 00:03:43,496
+the URL path for.  This can be either index, new, or create.
+
+43
+00:03:43,497 --> 00:03:47,868
+Back to VideoController, we define a function called new.
+
+44
+00:03:47,869 --> 00:03:52,558
+Requests to videos/new will be routed to this function.
+
+45
+00:03:52,559 --> 00:03:56,280
+All controller functions invoked by the router will always take the
+
+46
+00:03:56,281 --> 00:04:00,890
+connection as the first argument.  We'll call it conn.
+
+47
+00:04:00,891 --> 00:04:04,074
+There's a second argument, but since we don't need it for now,
+
+48
+00:04:04,075 --> 00:04:08,903
+we'll use an underscore and ignore it.
+
+49
+00:04:08,904 --> 00:04:14,543
+Next, we create a changeset.  A changeset is a struct representing
+
+50
+00:04:14,544 --> 00:04:20,338
+changes made to the underlying scheme.  In this example, video.
+
+51
+00:04:20,339 --> 00:04:26,887
+We create a changeset using the change function from the Ecto.Changeset module.
+
+52
+00:04:26,888 --> 00:04:30,142
+To use functions from this module inside VideoController,
+
+53
+00:04:30,143 --> 00:04:34,732
+we must import the module.  With the empty changeset in hand,
+
+54
+00:04:34,733 --> 00:04:38,409
+we call the render function, passing it the connection as the first
+
+55
+00:04:38,410 --> 00:04:42,862
+argument in a keyword list, including the changeset as the last
+
+56
+00:04:42,863 --> 00:04:49,468
+argument, which will be made available to the template.
+
+57
+00:04:49,469 --> 00:04:53,069
+From the new action in the VideoController, we render this template
+
+58
+00:04:53,070 --> 00:05:03,967
+right here, new.html.eex under the folder lib/fire_starter_web/templates/video.
+
+59
+00:05:03,968 --> 00:05:09,187
+In the template, we can use the form_for function to create the form.
+
+60
+00:05:09,188 --> 00:05:14,235
+This function takes three arguments.  The first one is the changeset
+
+61
+00:05:14,236 --> 00:05:19,438
+available via @changeset.  The second argument is the path we'll
+
+62
+00:05:19,439 --> 00:05:24,015
+submit the form to.  Better than hard coding a string value,
+
+63
+00:05:24,016 --> 00:05:28,364
+we call the path helper function, video_path, passing the connection
+
+64
+00:05:28,365 --> 00:05:32,368
+and the action we want to submit to, create.
+
+65
+00:05:32,369 --> 00:05:37,261
+This function returns the string /videos.  The third argument is an
+
+66
+00:05:37,262 --> 00:05:40,820
+anonymous function that takes one argument.
+
+67
+00:05:40,821 --> 00:05:45,899
+Inside this anonymous function is where we'll define the body of our form.
+
+68
+00:05:45,900 --> 00:05:50,360
+As you can see, we have an h3 for New Video.
+
+69
+00:05:50,361 --> 00:05:55,255
+Now let's learn how to create input fields.
+
+70
+00:05:55,256 --> 00:05:58,155
+One of the form helper functions available in Phoenix for creating
+
+71
+00:05:58,156 --> 00:06:03,237
+HTML inputs is called text_input.  As the name implies,
+
+72
+00:06:03,238 --> 00:06:07,511
+this function creates an HTML input of type text.
+
+73
+00:06:07,512 --> 00:06:10,849
+The first argument to this function and to all other helper functions
+
+74
+00:06:10,850 --> 00:06:15,752
+available in Phoenix is the argument we get from the anonymous function.
+
+75
+00:06:15,753 --> 00:06:20,677
+Phoenix parses the changeset given to form_for and passes the result
+
+76
+00:06:20,678 --> 00:06:24,518
+as the argument to the anonymous function, which is used by form
+
+77
+00:06:24,519 --> 00:06:28,923
+helper functions, like text_input, to generate the proper names for
+
+78
+00:06:28,924 --> 00:06:34,292
+the input fields.  In this example, we create an input for the title
+
+79
+00:06:34,293 --> 00:06:39,473
+property from our changeset.  The text_input function generates an
+
+80
+00:06:39,474 --> 00:06:47,003
+input of type text and with the name attribute set to video, brackets, title.
+
+81
+00:06:47,004 --> 00:06:55,461
+This is the exact format expected by VideoController once we submit the form.
+
+82
+00:06:55,462 --> 00:06:59,537
+The remaining two fields from the form are all of type text,
+
+83
+00:06:59,538 --> 00:07:04,880
+so we'll go ahead and add them now, one for Url and one for Duration.
+
+84
+00:07:04,881 --> 00:07:11,269
+Lastly, we use the submit function to create a button that submits the form.
+
+85
+00:07:11,270 --> 00:07:16,839
+This button will be set with the value Create.
+
+86
+00:07:16,840 --> 00:07:22,020
+Once the form is rendered, this is what it will look like.
+
+87
+00:07:22,021 --> 00:07:25,603
+Phoenix not only renders the form with the expected input fields and
+
+88
+00:07:25,604 --> 00:07:30,553
+their proper attributes, but it also gives us some added features.
+
+89
+00:07:30,554 --> 00:07:35,028
+Let's talk about them.  First one is protection against cross-site
+
+90
+00:07:35,029 --> 00:07:40,672
+request forgery attacks, also known as CSRF attacks.
+
+91
+00:07:40,673 --> 00:07:44,461
+This is when third party websites try and submit malicious forms to
+
+92
+00:07:44,462 --> 00:07:49,597
+our Phoenix app.  To prevent these attacks, Phoenix embeds a special
+
+93
+00:07:49,598 --> 00:07:54,652
+token in the form and uses that token to validate the form submission.
+
+94
+00:07:54,653 --> 00:07:59,861
+There's also another hidden input that forces browsers to use UTF-8 as
+
+95
+00:07:59,862 --> 00:08:04,720
+the charset, which is today's standard for modern applications.
+
+96
+00:08:04,721 --> 00:08:08,979
+And last, but not least, here's the name attribute for title,
+
+97
+00:08:08,980 --> 00:08:12,906
+known as the convention, which is used across all other inputs in the
+
+98
+00:08:12,907 --> 00:08:19,445
+form, and it'll help us read this data from our controller.
+
+99
+00:08:19,446 --> 00:08:24,812
+The first step is done.  Now when we visit /videos/new,
+
+100
+00:08:24,813 --> 00:08:34,145
+the request hits Phoenix, and we see the new video form properly generated.
+
+101
+00:08:34,146 --> 00:08:38,361
+That's it for this first section.  It's your turn to code some forms
+
+102
+00:08:38,362 --> 01:00:00,000
+in the challenges.

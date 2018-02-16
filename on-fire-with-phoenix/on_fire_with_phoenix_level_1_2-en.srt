@@ -1,0 +1,307 @@
+﻿1
+00:00:00,000 --> 00:00:05,869
+Welcome back.  You're watching On Fire With Phoenix, and in this
+
+2
+00:00:05,870 --> 00:00:12,107
+section we'll learn other ways to read data from the database.
+
+3
+00:00:12,108 --> 00:00:16,612
+In the previous section, we learned how to fetch all videos from the database.
+
+4
+00:00:16,613 --> 00:00:20,858
+In this section, we'll learn how to fetch a single video by its ID and
+
+5
+00:00:20,859 --> 00:00:26,149
+how to filter videos based on a condition.
+
+6
+00:00:26,150 --> 00:00:30,561
+In order to fetch a video by ID, we use the get function.
+
+7
+00:00:30,562 --> 00:00:35,390
+This function takes two arguments, a previously defined schema and an
+
+8
+00:00:35,391 --> 00:00:40,547
+integer, and returns a single record.  In this example, we call the
+
+9
+00:00:40,548 --> 00:00:44,939
+get function, passing it a Video and the number 2.
+
+10
+00:00:44,940 --> 00:00:49,266
+When we run this code, Ecto will run a SQL statement similar to this
+
+11
+00:00:49,267 --> 00:00:57,666
+one, SELECT * FROM "videos" WHERE id = 2.  It finds the record with ID 2,
+
+12
+00:00:57,667 --> 00:01:02,188
+maps it to Elixir, and what we'll receive back as a return value is a
+
+13
+00:01:02,189 --> 00:01:06,839
+struct that looks like this.  This is the first time that we mention
+
+14
+00:01:06,840 --> 00:01:13,051
+this data type, a struct.  Let's talk about it for a second before we move on.
+
+15
+00:01:13,052 --> 00:01:18,202
+The schema modules we learned about in the previous section are actually structs.
+
+16
+00:01:18,203 --> 00:01:23,424
+A struct is a data type in Elixir that is an extension built on top of
+
+17
+00:01:23,425 --> 00:01:30,999
+maps and provides a couple of nice features, most importantly compile-time checks.
+
+18
+00:01:31,000 --> 00:01:34,502
+Let's see a quick example comparing maps and structs.
+
+19
+00:01:34,503 --> 00:01:39,159
+First, here's a map.  In this example, we wanted to assign a value to
+
+20
+00:01:39,160 --> 00:01:44,544
+a key named title, but unfortunately we misspelled title.
+
+21
+00:01:44,545 --> 00:01:48,749
+Elixir is actually okay with that.  In a map, we can pretty much
+
+22
+00:01:48,750 --> 00:01:53,359
+create any keys we want.  When working with maps, errors like this
+
+23
+00:01:53,360 --> 00:01:57,770
+won't arise until we run the code and try and read from the key.
+
+24
+00:01:57,771 --> 00:02:03,134
+If we try and read a value from the title key, then we'll see a runtime error.
+
+25
+00:02:03,135 --> 00:02:07,224
+Using structs, on the other hand, Elixir is able to check whether a
+
+26
+00:02:07,225 --> 00:02:12,514
+key we're assigning to actually exists.  In this example, as soon as
+
+27
+00:02:12,515 --> 00:02:16,609
+we try and assign a value to a property that wasn't previously
+
+28
+00:02:16,610 --> 00:02:21,281
+defined, Elixir raises a compile-time error.
+
+29
+00:02:21,282 --> 00:02:26,567
+Then you might ask how does it know whether or not a property was previously defined?
+
+30
+00:02:26,568 --> 00:02:32,482
+Well, it does so by looking at the property or keys or fields that we
+
+31
+00:02:32,483 --> 00:02:39,055
+define in our Schema module using the field function.
+
+32
+00:02:39,056 --> 00:02:42,419
+Now let's look at what happens when an ID we're looking for doesn't
+
+33
+00:02:42,420 --> 00:02:46,539
+exist in the database.  When that happens using the get function,
+
+34
+00:02:46,540 --> 00:02:52,846
+what we get back is nil.  No error is raised; just nil is returned.
+
+35
+00:02:52,847 --> 00:02:56,636
+Sometimes we might want to raise an error, in which case we can use
+
+36
+00:02:56,637 --> 00:02:59,720
+the get function with an exclamation mark.
+
+37
+00:02:59,721 --> 00:03:03,517
+When we use this function and look for an ID that does not exist in
+
+38
+00:03:03,518 --> 00:03:09,733
+the database, then Ecto will raise an error.
+
+39
+00:03:09,734 --> 00:03:13,325
+We know how to fetch all videos and just learned how to fetch a video
+
+40
+00:03:13,326 --> 00:03:19,771
+by its ID.  Now let's learn how to filter videos based on a condition.
+
+41
+00:03:19,772 --> 00:03:23,353
+For example, say we want to list all records from the videos table
+
+42
+00:03:23,354 --> 00:03:27,605
+that have a duration that's less than 800 seconds.
+
+43
+00:03:27,606 --> 00:03:30,774
+If we were writing a SQL query for that, it would look something like
+
+44
+00:03:30,775 --> 00:03:37,079
+this:  SELECT * FROM "videos" WHERE duration is less than 800.
+
+45
+00:03:37,080 --> 00:03:42,087
+Let's see how we can do that by using Phoenix and Ecto.
+
+46
+00:03:42,088 --> 00:03:45,953
+Let's go back to the Schema module.  First thing we'll do is define a
+
+47
+00:03:45,954 --> 00:03:53,070
+new function called short_duration.  Then we'll import the Ecto.Query module.
+
+48
+00:03:53,071 --> 00:03:59,222
+This module provides a domain-specific language, or DSL, for querying data.
+
+49
+00:03:59,223 --> 00:04:02,981
+Importing this DSL means we'll have access to functions that create
+
+50
+00:04:02,982 --> 00:04:09,199
+queries straight from our Schema module.  One of these functions is called from.
+
+51
+00:04:09,200 --> 00:04:13,860
+The from function takes two arguments.  First one is called an in
+
+52
+00:04:13,861 --> 00:04:18,332
+expression, and the second one is a keyword list.
+
+53
+00:04:18,333 --> 00:04:22,171
+The in expression will be used to figure out which table we're
+
+54
+00:04:22,172 --> 00:04:27,347
+querying and will namespace the properties used in the keyword list argument.
+
+55
+00:04:27,348 --> 00:04:31,024
+In order to avoid duplicating the name of the module, we use the
+
+56
+00:04:31,025 --> 00:04:37,668
+__MODULE__ macro, which returns the name of the enclosing module.
+
+57
+00:04:37,669 --> 00:04:41,935
+Then we'll filter our records by passing the where key and saying we
+
+58
+00:04:41,936 --> 00:04:50,478
+only want videos whose duration property is less than 800.
+
+59
+00:04:50,479 --> 00:04:55,927
+And this is the Elixir code that translates to the WHERE SQL query we started with.
+
+60
+00:04:55,928 --> 00:05:00,893
+To run this query, we call Video.short_duration, which, as we've seen,
+
+61
+00:05:00,894 --> 00:05:05,620
+builds and returns a query, and then we pipe the result to the
+
+62
+00:05:05,621 --> 00:05:09,789
+Repo.all function, which executes the query.
+
+63
+00:05:09,790 --> 00:05:15,883
+We run this code, and the result we see is a list of structs.
+
+64
+00:05:15,884 --> 00:05:19,443
+Before we wrap up this section, let's do a quick recap on the
+
+65
+00:05:19,444 --> 00:05:23,487
+differences between alias, use, and import.
+
+66
+00:05:23,488 --> 00:05:27,297
+Alias was the first one we learned, and it helps us refer to modules
+
+67
+00:05:27,298 --> 00:05:30,511
+using shorter names.  We give it the full module,
+
+68
+00:05:30,512 --> 00:05:35,817
+like FireStarter.Repo or FireStarter.Video, and then we can refer to
+
+69
+00:05:35,818 --> 00:05:41,227
+these modules as Repo and Video.  Import allows easy access to
+
+70
+00:05:41,228 --> 00:05:45,776
+functions from other modules without using the fully-qualified name,
+
+71
+00:05:45,777 --> 00:05:49,537
+like we do here inside the short_duration function calling the from
+
+72
+00:05:49,538 --> 00:05:54,892
+function, part of the Ecto.Query module.  Finally, use is similar to
+
+73
+00:05:54,893 --> 00:06:00,104
+import, but it gives module authors more control over what's imported,
+
+74
+00:06:00,105 --> 00:06:04,962
+and it allows for injecting code, also known as metaprogramming,
+
+75
+00:06:04,963 --> 00:06:10,180
+a more advanced feature we won't cover in this course.
+
+76
+00:06:10,181 --> 00:06:12,810
+We've reached the end of this level.  It's time for you to get your
+
+77
+00:06:12,811 --> 01:00:00,000
+hands dirty and write some query code in the challenges.

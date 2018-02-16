@@ -1,0 +1,211 @@
+﻿1
+00:00:00,000 --> 00:00:06,157
+You're watching On Fire With Phoenix.  I'm Carlos Souza, and in this
+
+2
+00:00:06,158 --> 00:00:12,776
+section we'll learn how to use contexts to create new videos.
+
+3
+00:00:12,777 --> 00:00:16,895
+This is the current code for the new action in our VideoController.
+
+4
+00:00:16,896 --> 00:00:20,999
+As you can see in this example, the controller needs to explicitly
+
+5
+00:00:21,000 --> 00:00:26,476
+import Ecto.Changeset and then call the change function in order to
+
+6
+00:00:26,477 --> 00:00:31,376
+create a changeset.  This illustrates how the controller is tightly
+
+7
+00:00:31,377 --> 00:00:36,137
+coupled to the Ecto library for generating new video forms.
+
+8
+00:00:36,138 --> 00:00:41,768
+This is bad design.  Let's see how we can fix this.
+
+9
+00:00:41,769 --> 00:00:46,799
+We'll start by moving the changeset code over to the Video schema.
+
+10
+00:00:46,800 --> 00:00:51,626
+Notice the Video module is now part of the Screencasts namespace.
+
+11
+00:00:51,627 --> 00:00:55,990
+In other words, Video is a submodule of Screencasts.
+
+12
+00:00:55,991 --> 00:00:59,510
+We'll slightly change the code for creating a changeset.
+
+13
+00:00:59,511 --> 00:01:03,735
+Instead of using the change function, we'll now use cast.
+
+14
+00:01:03,736 --> 00:01:07,413
+We've used this function previously for creating new videos before
+
+15
+00:01:07,414 --> 00:01:10,813
+adding them to the database, but it's also valid for creating
+
+16
+00:01:10,814 --> 00:01:15,368
+changesets to be used in forms.  By doing it this way, we can later
+
+17
+00:01:15,369 --> 00:01:20,062
+reuse the changeset function.
+
+18
+00:01:20,063 --> 00:01:24,660
+In order to call cast and reference Video as just video, we need these
+
+19
+00:01:24,661 --> 00:01:35,480
+two lines as well, import Ecto.Changeset and alias FireStarter.Screencasts.Video.
+
+20
+00:01:35,481 --> 00:01:39,997
+In the Screencasts module, we'll define a change_video function taking
+
+21
+00:01:39,998 --> 00:01:44,319
+a Video schema as an argument.  Inside this function we'll call
+
+22
+00:01:44,320 --> 00:01:49,702
+Video.changeset, the function we've just created in the Schema module.
+
+23
+00:01:49,703 --> 00:01:53,110
+We'll give it the video and an empty map as arguments.
+
+24
+00:01:53,111 --> 00:02:00,045
+This change_video function will be called from the VideoController.
+
+25
+00:02:00,046 --> 00:02:03,478
+Inside the new action of VideoController, we now call
+
+26
+00:02:03,479 --> 00:02:08,850
+Screencasts.change_video in order to create a changeset, giving it the
+
+27
+00:02:08,851 --> 00:02:13,406
+Video schema as argument.  In this example, it's fine to reference the
+
+28
+00:02:13,407 --> 00:02:18,291
+schema as an argument like this.  As you can see, the index action no
+
+29
+00:02:18,292 --> 00:02:24,455
+longer relies on Ecto for creating a changeset.
+
+30
+00:02:24,456 --> 00:02:28,616
+Lastly, let's decouple the code that creates new videos.
+
+31
+00:02:28,617 --> 00:02:32,697
+Here in the create action we can see the code is highly coupled with
+
+32
+00:02:32,698 --> 00:02:38,874
+Ecto by calling the cast function and Repo by calling the insert function.
+
+33
+00:02:38,875 --> 00:02:43,473
+That's one example of VideoController knowing too many details about
+
+34
+00:02:43,474 --> 00:02:50,021
+how new videos are created.  Let's fix this.
+
+35
+00:02:50,022 --> 00:02:55,402
+Inside the Screencasts context, we'll define the create_video function.
+
+36
+00:02:55,403 --> 00:03:01,194
+This function takes a map with the user submitted attributes as its single argument.
+
+37
+00:03:01,195 --> 00:03:05,844
+Inside its body, it uses the Video schema along with the user data to
+
+38
+00:03:05,845 --> 00:03:10,683
+create the changeset and then pipes that into the Repo.insert
+
+39
+00:03:10,684 --> 00:03:16,298
+function, returning a tuple expected by the case statement in the controller.
+
+40
+00:03:16,299 --> 00:03:24,190
+As we can see in this example, it's okay to call Repo from the context module.
+
+41
+00:03:24,191 --> 00:03:27,600
+Back to the controller, we can replace the old code in the create
+
+42
+00:03:27,601 --> 00:03:32,865
+action with a single call to the Screencasts.create_video function.
+
+43
+00:03:32,866 --> 00:03:36,384
+That's the only thing that needs to change in the create action.
+
+44
+00:03:36,385 --> 00:03:41,986
+Calling create_video still returns a tuple expected by the case statement.
+
+45
+00:03:41,987 --> 00:03:46,163
+As you can see, the create_video function is all VideoController needs
+
+46
+00:03:46,164 --> 00:03:50,582
+to know in order to create a new video.  The code in the controller is
+
+47
+00:03:50,583 --> 00:03:57,677
+now shorter and fully decoupled from Repo and Schema.
+
+48
+00:03:57,678 --> 00:04:00,596
+We've reached the end of the course.  It's your turn to practice some
+
+49
+00:04:00,597 --> 00:04:06,266
+more context in the challenges, and I'll see you back in the wrap-up video.
+
+50
+00:04:06,267 --> 00:04:08,674
+The list rexis, bleh.
+
+51
+00:04:08,675 --> 00:04:10,895
+Rexis.  Oh my gosh.  Rex.
+
+52
+00:04:10,896 --> 00:04:13,834
+Some relationship code.  Relationship code.
+
+53
+00:04:13,835 --> 01:00:00,000
+That sounds so deep.

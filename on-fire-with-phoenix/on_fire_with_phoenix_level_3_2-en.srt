@@ -1,0 +1,311 @@
+﻿1
+00:00:00,000 --> 00:00:05,829
+You're watching On Fire With Phoenix.  I'm Carlos Souza, and in this
+
+2
+00:00:05,830 --> 00:00:13,928
+section we'll learn how to read user submitted data and create new records.
+
+3
+00:00:13,929 --> 00:00:17,684
+Back in the previous section, we learned how to render the form.
+
+4
+00:00:17,685 --> 00:00:21,396
+Once the user fills in the form and hits the Submit button,
+
+5
+00:00:21,397 --> 00:00:26,422
+our Phoenix app will receive a post request to the /videos URL and
+
+6
+00:00:26,423 --> 00:00:33,723
+with the user submitted data.  This will route the request to the VideoController.create action.
+
+7
+00:00:33,724 --> 00:00:37,550
+That's where the magic happens.  We'll read the form data,
+
+8
+00:00:37,551 --> 00:00:42,112
+create the new record, and redirect back to the video listing page
+
+9
+00:00:42,113 --> 00:00:48,241
+where the user will be able to see the newly created record.
+
+10
+00:00:48,242 --> 00:00:52,759
+Now back to our VideoController, we define the create function.
+
+11
+00:00:52,760 --> 00:00:57,250
+This function takes two arguments.  First one is the connection,
+
+12
+00:00:57,251 --> 00:01:01,157
+which is always the first argument to control our actions,
+
+13
+00:01:01,158 --> 00:01:05,452
+and then the user data in the form of a map.
+
+14
+00:01:05,453 --> 00:01:08,937
+On the second argument, we use pattern matching to read the value from
+
+15
+00:01:08,938 --> 00:01:15,438
+the key we were interested in.  In this example, video.
+
+16
+00:01:15,439 --> 00:01:19,720
+The values assigned to video_params are all string, so we need to cast
+
+17
+00:01:19,721 --> 00:01:24,541
+them to the proper format according to the schema definition.
+
+18
+00:01:24,542 --> 00:01:30,951
+To do that, we use the cast function, available from Ecto.Changeset.
+
+19
+00:01:30,952 --> 00:01:35,202
+This function transforms user input data from string to their
+
+20
+00:01:35,203 --> 00:01:39,626
+corresponding types, and filters allow fields.
+
+21
+00:01:39,627 --> 00:01:45,373
+Cast takes three arguments.  First is a Video schema.
+
+22
+00:01:45,374 --> 00:01:51,034
+Next, the user submitted values assigned to the video_params variable.
+
+23
+00:01:51,035 --> 00:01:56,445
+Last is a list of the fields allowed to be populated on the schema.
+
+24
+00:01:56,446 --> 00:02:00,584
+In this example, title, url, and duration.
+
+25
+00:02:00,585 --> 00:02:06,237
+Any other field sent with a form submission will be completely ignored.
+
+26
+00:02:06,238 --> 00:02:13,373
+The return value from cast is assigned to the changeset variable.
+
+27
+00:02:13,374 --> 00:02:19,635
+With the changeset in hand, we can use Repo.insert to insert the new record.
+
+28
+00:02:19,636 --> 00:02:24,388
+The Repo.insert function takes a changeset as its single argument and
+
+29
+00:02:24,389 --> 00:02:28,286
+translates it to the appropriate insert SQL statement.
+
+30
+00:02:28,287 --> 00:02:35,691
+In this example, we insert new data into the videos table.
+
+31
+00:02:35,692 --> 00:02:42,232
+To determine whether or not the insert was successful, we can use the case statement.
+
+32
+00:02:42,233 --> 00:02:47,165
+We use case with a return value from Repo.insert.
+
+33
+00:02:47,166 --> 00:02:51,290
+Responses from calling this function are either a tuple with the ok
+
+34
+00:02:51,291 --> 00:02:57,275
+atom in the newly created record or a tuple with the error atom in a
+
+35
+00:02:57,276 --> 00:03:01,623
+new changeset, including validation errors that prevented the record
+
+36
+00:03:01,624 --> 00:03:06,482
+from being created.
+
+37
+00:03:06,483 --> 00:03:10,810
+For successful inserts, we pipe the connection to the put_flash
+
+38
+00:03:10,811 --> 00:03:16,079
+function, which we use to store an info-type message with a string,
+
+39
+00:03:16,080 --> 00:03:21,386
+Video created successfully, for display.  Then we pipe its returned
+
+40
+00:03:21,387 --> 00:03:25,869
+value to the redirect function, redirecting the request to the
+
+41
+00:03:25,870 --> 00:03:34,167
+video_path for index, which we know returns /videos.
+
+42
+00:03:34,168 --> 00:03:37,688
+When inserting a new record is not successful, then it's a similar
+
+43
+00:03:37,689 --> 00:03:43,120
+flow, but with a few tweaks.  Instead of an info-type flash, we use an
+
+44
+00:03:43,121 --> 00:03:47,982
+error-type flash in the message Error creating video.
+
+45
+00:03:47,983 --> 00:03:52,301
+And instead of redirecting the request, we render the new template,
+
+46
+00:03:52,302 --> 00:03:56,383
+passing the new changeset, including the errors, which prevented the
+
+47
+00:03:56,384 --> 00:04:01,673
+insert from being successful.
+
+48
+00:04:01,674 --> 00:04:05,945
+Here's all the code for the create action in the VideoController.
+
+49
+00:04:05,946 --> 00:04:11,955
+Now let's fill in the form and see this code in action.
+
+50
+00:04:11,956 --> 00:04:16,533
+On the form page, we fill in the Title with PHP 101,
+
+51
+00:04:16,534 --> 00:04:23,835
+Url with example.com/php-101, and Duration with 100.
+
+52
+00:04:23,836 --> 00:04:27,939
+When we submit the form, we can see the success message at the top and
+
+53
+00:04:27,940 --> 00:04:34,570
+the new video title, PHP 101, added to the bottom of the list.
+
+54
+00:04:34,571 --> 00:04:39,389
+Now let's look at an example of an unsuccessful submission.
+
+55
+00:04:39,390 --> 00:04:43,763
+Here we fill in the form with the Title PHP 101,
+
+56
+00:04:43,764 --> 00:04:50,700
+the Url example.com/php-101, and for the Duration, we use a string,
+
+57
+00:04:50,701 --> 00:04:55,669
+super quick, instead of a number.  When we submit the form,
+
+58
+00:04:55,670 --> 00:05:01,677
+indeed we see the error flash message at the top saying Error Creating Video.
+
+59
+00:05:01,678 --> 00:05:06,937
+However, it's unclear where the error is in the form, which field is
+
+60
+00:05:06,938 --> 00:05:11,241
+actually generating the error.
+
+61
+00:05:11,242 --> 00:05:14,499
+To facilitate spotting the error in form submissions,
+
+62
+00:05:14,500 --> 00:05:19,997
+Phoenix provides form error helpers, like the error_tag function.
+
+63
+00:05:19,998 --> 00:05:24,609
+This function generates an error tag for a specific field when an
+
+64
+00:05:24,610 --> 00:05:29,113
+error exists for that field or property.  We'll place a call to
+
+65
+00:05:29,114 --> 00:05:34,110
+error_tag below each one of the text_input fields, passing the form as
+
+66
+00:05:34,111 --> 00:05:42,191
+the first argument and the field name as the second argument.
+
+67
+00:05:42,192 --> 00:05:46,171
+Now when we try and submit the form again, we'll see the error message
+
+68
+00:05:46,172 --> 00:05:52,154
+at the top and a message below the Duration field saying is invalid,
+
+69
+00:05:52,155 --> 00:05:56,160
+and that helps us quickly identify the _____ field that's preventing
+
+70
+00:05:56,161 --> 00:06:00,503
+the record from being saved.  The reason for the error is that Phoenix
+
+71
+00:06:00,504 --> 00:06:05,737
+is not able to cast the string, super quick, to a valid integer value,
+
+72
+00:06:05,738 --> 00:06:12,390
+which is the data type for this field according to the video schema.
+
+73
+00:06:12,391 --> 00:06:16,520
+This is the essential that we need to know in order to create new videos.
+
+74
+00:06:16,521 --> 00:06:19,584
+We'll learn how to render the form with the proper fields,
+
+75
+00:06:19,585 --> 00:06:23,631
+how to handle form submission, create new records, and display errors
+
+76
+00:06:23,632 --> 00:06:26,770
+for invalid submissions.
+
+77
+00:06:26,771 --> 00:06:30,368
+This is the end of this level.  It's your turn to create new records
+
+78
+00:06:30,369 --> 01:00:00,000
+in the challenges.
