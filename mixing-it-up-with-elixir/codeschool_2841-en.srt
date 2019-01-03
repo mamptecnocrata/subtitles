@@ -1,0 +1,231 @@
+﻿1
+00:00:00,000 --> 00:00:08,999
+Gather all the elements to learn Elixir with our guidance.  Functional programs you will code,
+
+2
+00:00:09,000 --> 00:00:25,999
+turning the knowledge into gold.  Become a master mixer as you stir it all up with Elixir.
+
+3
+00:00:26,000 --> 00:00:29,999
+You're watching Mixing It Up With Elixir.  I'm Carlos Sosa and in this level we'll learn how to work
+
+4
+00:00:30,000 --> 00:00:33,999
+with lists and recursion.
+
+5
+00:00:34,000 --> 00:00:39,999
+We know we can use pattern matching and lists to read individual elements, like this.
+
+6
+00:00:40,000 --> 00:00:47,999
+Here we create a list with three elements, three strings, Elixir, JavaScript, and Ruby, and then assign this list
+
+7
+00:00:48,000 --> 00:00:54,999
+to a new variable called languages.  We then use pattern matching here on the left side of the equal sign
+
+8
+00:00:55,000 --> 00:01:01,999
+to read individual elements from the languages variable.  Elixir is assigned to first, JavaScript to second,
+
+9
+00:01:02,000 --> 00:01:09,999
+and Ruby to third.  However, when we start with lists with more elements, we'll find out pattern matching alone
+
+10
+00:01:10,000 --> 00:01:13,999
+cannot help us.
+
+11
+00:01:14,000 --> 00:01:19,999
+We need a way to access the first element and then all remaining elements from the list at once.
+
+12
+00:01:20,000 --> 00:01:22,999
+To do that we use the cons operator.
+
+13
+00:01:23,000 --> 00:01:29,999
+The cons operator splits a list into two parts, head, which is the first element, and then tail, which is
+
+14
+00:01:30,000 --> 00:01:37,999
+a list with all remaining elements from the original list.  In this example the variable head is the string Elixir
+
+15
+00:01:38,000 --> 00:01:45,999
+and tail is a new list with the strings JavaScript and Ruby.  If all we want is the first element from a list,
+
+16
+00:01:46,000 --> 00:01:52,999
+like in the second example, we can store the string Elixir on the variable head and use the cons operator
+
+17
+00:01:53,000 --> 00:01:58,999
+to split the rest of the list and then ignore the remaining elements with the underscore character to avoid
+
+18
+00:01:59,000 --> 00:02:02,999
+compiler warnings.
+
+19
+00:02:03,000 --> 00:02:06,999
+The cons operator can also be used in function pattern matching.
+
+20
+00:02:07,000 --> 00:02:12,999
+Let's look at the following example.  Here we have a language module with a print_list function.
+
+21
+00:02:13,000 --> 00:02:19,999
+This function takes a list as an argument, using pattern matching we split the list into head, the first element,
+
+22
+00:02:20,000 --> 00:02:25,999
+and tail, the new list with the remaining elements.  When we call this function passing it a list with
+
+23
+00:02:26,000 --> 00:02:34,999
+three strings, it prints the following - Head: Elixir and Tail: JavaScriptRuby.
+
+24
+00:02:35,000 --> 00:02:40,999
+One thing that might come as a surprise for developers new to functional programming is that there are no
+
+25
+00:02:41,000 --> 00:02:45,999
+for loops in Elixir.  That's right, there are no for loops.
+
+26
+00:02:46,000 --> 00:02:52,999
+We've learned how to use the cons operator to split a list into an element in a new list, an output code
+
+27
+00:02:53,000 --> 00:02:59,999
+like this on the left.  But what if we wanted to print each individual element, like here on the right?
+
+28
+00:03:00,000 --> 00:03:06,999
+How can we do that without using a for loop?  The answer is recursion.
+
+29
+00:03:07,000 --> 00:03:13,999
+Recursive functions are functions that perform operations and then invoke themselves again.
+
+30
+00:03:14,000 --> 00:03:19,999
+This is what a recursive version of our previous code looks like, it's composed of two clauses of the print_list
+
+31
+00:03:20,000 --> 00:03:26,999
+function.  The first clause is matched when we call it with a nonempty list, it prints the first element
+
+32
+00:03:27,000 --> 00:03:33,999
+from the list assigned to the head variable and then invokes itself again with the remaining elements
+
+33
+00:03:34,000 --> 00:03:40,999
+assigned to the tail variable.  It repeats this process until we run out of elements and the tail variable
+
+34
+00:03:41,000 --> 00:03:47,999
+is assigned an empty list.  When this happens the next call to print_list matches the second clause of the function,
+
+35
+00:03:48,000 --> 00:03:57,999
+which returns nothing and does not invoke itself again.  That's when the program is done.
+
+36
+00:03:58,000 --> 00:04:01,999
+All recursive functions involve the following two cases or two clauses,
+
+37
+00:04:02,000 --> 00:04:09,999
+the first one is the base case, also called the terminating scenario, which is the last step where the function
+
+38
+00:04:10,000 --> 00:04:17,999
+does not invoke itself.  In this example, it's the clause where it print_list takes an empty list as an argument
+
+39
+00:04:18,000 --> 00:04:25,999
+and does nothing.  The second case is the recursive case.  This is where some computation happens, in our example
+
+40
+00:04:26,000 --> 00:04:31,999
+where we print the element to the console and then our function invokes itself again by calling print_list
+
+41
+00:04:32,000 --> 00:04:37,999
+with the remaining elements of the list assigned to the tail variable.
+
+42
+00:04:38,000 --> 00:04:43,999
+Recursion can be a little hard to understand.  So let's look at it at a different way, using some visuals
+
+43
+00:04:44,000 --> 00:04:46,999
+to understand what's going on behind the scenes.
+
+44
+00:04:47,000 --> 00:04:53,999
+Here we have a list with three elements, three blue circles.  The first time we call the print_list function,
+
+45
+00:04:54,000 --> 00:05:00,999
+the first blue circle in the list becomes the red circle and the remaining two circles are grouped under
+
+46
+00:05:01,000 --> 00:05:06,999
+a new list.  The red circle is spread into the console and the two remaining blue circles are used as
+
+47
+00:05:07,000 --> 00:05:14,999
+arguments to the second call to print_list.  Once this function is called, the first circle of the list
+
+48
+00:05:15,000 --> 00:05:21,999
+becomes the red circle and the remaining blue circle becomes the single element of the new list.
+
+49
+00:05:22,000 --> 00:05:27,999
+Then, the red circle is printed to the console and the list with the single blue circle is used as argument
+
+50
+00:05:28,000 --> 00:05:34,999
+to the next call to print_list.  Then the only remaining circle of the list becomes the red circle
+
+51
+00:05:35,000 --> 00:05:42,999
+and it's printed to the console.  We call print_list one last time passing it an empty list, this call
+
+52
+00:05:43,000 --> 00:05:49,999
+matches the second clause of the print_list function, expecting an empty list as the argument.
+
+53
+00:05:50,000 --> 00:05:56,999
+This clause does nothing and the execution finishes.
+
+54
+00:05:57,000 --> 00:06:02,999
+This is recursion behind the scenes and that's how we can write loops in Elixir using a combination of the
+
+55
+00:06:03,000 --> 00:06:08,999
+cons operator, pattern matching and recursion.
+
+56
+00:06:09,000 --> 00:06:15,999
+Now we can go back and invoke print_list with a list with three elements, three strings, Elixir, JavaScript,
+
+57
+00:06:16,000 --> 00:06:20,999
+and Ruby and we can see them printed to the console.
+
+58
+00:06:21,000 --> 01:00:00,000
+We've reached the end of this level, now it's your turn to practice some lists and recursion in the challenges.

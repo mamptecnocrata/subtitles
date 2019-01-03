@@ -1,0 +1,412 @@
+﻿1
+00:00:00,000 --> 00:00:04,149
+Our Candy Coded store sells sweet treats galore.
+
+2
+00:00:04,150 --> 00:00:06,877
+How do we get it on the map?
+
+3
+00:00:06,878 --> 00:00:10,584
+Let's build a sugar-coated Android app!
+
+4
+00:00:10,585 --> 00:00:13,940
+With tasty layouts and views,
+
+5
+00:00:13,941 --> 00:00:16,674
+full of delicious candy hues,
+
+6
+00:00:16,675 --> 00:00:26,916
+our users will be overjoyed by our super sweet apps powered with Android.
+
+7
+00:00:26,917 --> 00:00:30,212
+Welcome back.  In level 3 we're going to finish creating our detail
+
+8
+00:00:30,213 --> 00:00:34,982
+activity by using the ConstraintLayout system and an image loading
+
+9
+00:00:34,983 --> 00:00:39,925
+library called Picasso.
+
+10
+00:00:39,926 --> 00:00:44,038
+Right now the detail activity is only showing the candy name,
+
+11
+00:00:44,039 --> 00:00:47,702
+but we want to add TextViews for the price and description and an
+
+12
+00:00:47,703 --> 00:00:52,971
+ImageView for the image.  We can use the ConstraintLayout system
+
+13
+00:00:52,972 --> 00:00:56,904
+to arrange all of these views relative to each other.
+
+14
+00:00:56,905 --> 00:01:02,356
+Let's jump over to Android Studio to see how to do that.
+
+15
+00:01:02,357 --> 00:01:06,392
+To create our detail activity's layout, we need to first open our
+
+16
+00:01:06,393 --> 00:01:11,617
+ActivityDetail.xml layout file.  We'll dock our project window to give
+
+17
+00:01:11,618 --> 00:01:17,834
+us some more room and zoom in just so we can see this preview a little better.
+
+18
+00:01:17,835 --> 00:01:21,524
+If we click on the Text tab to look at the XML code, you can see we
+
+19
+00:01:21,525 --> 00:01:26,262
+have only one TextView right now, and it actually has a warning that
+
+20
+00:01:26,263 --> 00:01:30,998
+it's missing constraints.  That's because we're using a constraint
+
+21
+00:01:30,999 --> 00:01:35,951
+layout, so it's expecting constraints.  Let's go into the design view
+
+22
+00:01:35,952 --> 00:01:41,195
+to set up our layout using constraints.  For our layout we want an
+
+23
+00:01:41,196 --> 00:01:46,016
+ImageView at the top followed by three TextViews arranged below.
+
+24
+00:01:46,017 --> 00:01:49,697
+Let's start fresh by deleting our existing TextView and then dragging
+
+25
+00:01:49,698 --> 00:01:54,642
+an ImageView over from our palette.  We can search for an ImageView
+
+26
+00:01:54,643 --> 00:01:59,780
+in the palette, and then drag it over.  And for the image source we'll
+
+27
+00:01:59,781 --> 00:02:05,456
+select this placeholder image for now.  You can create constraints
+
+28
+00:02:05,457 --> 00:02:09,384
+manually by dragging these circle anchors to where you want to
+
+29
+00:02:09,385 --> 00:02:14,705
+constrain the element to.  We want this image to take up the entire
+
+30
+00:02:14,706 --> 00:02:18,101
+width of the screen and be at the very top.
+
+31
+00:02:18,102 --> 00:02:21,542
+To do this, we'll first constrain the image to the top of the parent
+
+32
+00:02:21,543 --> 00:02:28,659
+view by dragging the circle until the arrow connects to the top of the screen.
+
+33
+00:02:28,660 --> 00:02:34,418
+And then we'll constrain the left and right anchors to the parent as well.
+
+34
+00:02:34,419 --> 00:02:37,737
+We can set the inner dimensions of this ImageView by clicking these
+
+35
+00:02:37,738 --> 00:02:46,285
+lines here, which change between Wrap Content, Fixed width or Match Constraints.
+
+36
+00:02:46,286 --> 00:02:49,493
+Since we want the width to match the constraints of the parent and
+
+37
+00:02:49,494 --> 00:02:54,843
+take up the entire width, we'll set that to Match Constraints.
+
+38
+00:02:54,844 --> 00:03:02,051
+You can see this set the layout_width to 0dp, which is equivalent to Match Constraint.
+
+39
+00:03:02,052 --> 00:03:05,929
+We'll also set the left and right margins to 0 with the drop-down
+
+40
+00:03:05,930 --> 00:03:09,503
+since we want it to touch the edge of the screen.
+
+41
+00:03:09,504 --> 00:03:12,640
+For the layout_height we can leave it as wrap_content so that the
+
+42
+00:03:12,641 --> 00:03:17,281
+image will fill as much of the ImageView height as it needs.
+
+43
+00:03:17,282 --> 00:03:22,922
+And we'll set the top margin to 0 so that it touches the top of the screen.
+
+44
+00:03:22,923 --> 00:03:26,419
+But we can see that it's not quite touching the top.
+
+45
+00:03:26,420 --> 00:03:32,093
+That's because the image isn't taking up the entire bounding box.
+
+46
+00:03:32,094 --> 00:03:37,191
+We can fix this by selecting adjustViewBounds to be true.
+
+47
+00:03:37,192 --> 00:03:41,372
+Now our image looks how we want it.  If we look at the generated
+
+48
+00:03:41,373 --> 00:03:45,624
+XML we can see there were several constraints created,
+
+49
+00:03:45,625 --> 00:03:50,626
+constraintTop, constraintLeft, and constraintRight were set to parent,
+
+50
+00:03:50,627 --> 00:03:57,006
+and marginLeft, marginRight, and marginTop were set to 0dp.
+
+51
+00:03:57,007 --> 00:04:03,322
+While we're here, let's set the id equal to image_view_candy.
+
+52
+00:04:03,323 --> 00:04:07,383
+The naming convention is the type of view, so ImageView,
+
+53
+00:04:07,384 --> 00:04:14,279
+and a description of what it does, which is display the candy.
+
+54
+00:04:14,280 --> 00:04:18,659
+Now let's go back to the design view to add the three TextViews we need.
+
+55
+00:04:18,660 --> 00:04:22,090
+The first one will come under the image on the left side and will
+
+56
+00:04:22,091 --> 00:04:27,042
+display the name of the candy.  We'll constrain it to the bottom
+
+57
+00:04:27,043 --> 00:04:31,366
+of the image and the left side of the parent view with margins of
+
+58
+00:04:31,367 --> 00:04:36,818
+16 to the left and below, and we want wrapped content so it can
+
+59
+00:04:36,819 --> 00:04:42,820
+expand to fit the text.  We'll also make the candy name's font size
+
+60
+00:04:42,821 --> 00:04:50,774
+slightly bigger at 18 and bold.  The next TextView is for the candy
+
+61
+00:04:50,775 --> 00:04:55,309
+price, which comes under the image on the right.
+
+62
+00:04:55,310 --> 00:04:57,987
+We'll constrain it to the bottom of the image, as well as the right
+
+63
+00:04:57,988 --> 00:05:02,587
+side of the parent view with a margin of 16.
+
+64
+00:05:02,588 --> 00:05:07,594
+We'll also make the width and height wrap_content, and the font size
+
+65
+00:05:07,595 --> 00:05:13,376
+will be bigger at 18.  The last TextView is for the description,
+
+66
+00:05:13,377 --> 00:05:16,602
+which comes below both of these TextViews and takes up the entire
+
+67
+00:05:16,603 --> 00:05:21,945
+width of the parent.  We'll constrain this under the name TextView,
+
+68
+00:05:21,946 --> 00:05:27,227
+and the left and right constraints are anchored to the parent view.
+
+69
+00:05:27,228 --> 00:05:31,306
+We want the layout_width, or the left and right inner dimensions,
+
+70
+00:05:31,307 --> 00:05:35,449
+set to Match Constraints since we want it to expand to the size of
+
+71
+00:05:35,450 --> 00:05:43,703
+the parent it's constrained to, and we'll add a margin of 16dp here.
+
+72
+00:05:43,704 --> 00:05:47,273
+The layout_height we want set to wrap_content so that the height can
+
+73
+00:05:47,274 --> 00:05:54,505
+expand with the content, and from the top we want a margin of 16.
+
+74
+00:05:54,506 --> 00:05:59,379
+Now that we have all of that set up, let's also add the TextView's IDs.
+
+75
+00:05:59,380 --> 00:06:03,260
+The first TextView is for the name, so we'll name it text_view_name.
+
+76
+00:06:03,261 --> 00:06:08,218
+The second TextView is for the price, so we'll name it text_view_price.
+
+77
+00:06:08,219 --> 00:06:11,573
+The last TextView is for the description, and we'll name it
+
+78
+00:06:11,574 --> 00:06:16,879
+text_view_desc, short for description.  And we can see that it's
+
+79
+00:06:16,880 --> 00:06:20,409
+constrained to the right and left of the parent, but the bottom
+
+80
+00:06:20,410 --> 00:06:24,416
+constraint has a red line.  That's because we renamed the TextViews
+
+81
+00:06:24,417 --> 00:06:29,190
+and it doesn't know what this is now.  We can fill in text_view_name
+
+82
+00:06:29,191 --> 00:06:32,595
+because that's what the description comes below.
+
+83
+00:06:32,596 --> 00:06:36,407
+Now let's run our app and see what it looks like in action.
+
+84
+00:06:36,408 --> 00:06:41,775
+If we select a candy we can see our detail view has the layout we just 
+created.
+
+85
+00:06:41,776 --> 00:06:46,606
+It's a great start and now we want to fill in the actual candy image,
+
+86
+00:06:46,607 --> 00:06:50,200
+price, and description.
+
+87
+00:06:50,201 --> 00:06:53,862
+Now that we have our new detail activity's layout in place,
+
+88
+00:06:53,863 --> 00:06:57,410
+let's edit the Java code to fill in the price and description
+
+89
+00:06:57,411 --> 00:07:00,865
+TextViews with the actual data.
+
+90
+00:07:00,866 --> 00:07:05,230
+In the DetailActivity class, after we set the candy's name,
+
+91
+00:07:05,231 --> 00:07:08,938
+we can set the text for the other TextView objects.
+
+92
+00:07:08,939 --> 00:07:13,895
+There's three steps that make this happen that we already did for the candy name.
+
+93
+00:07:13,896 --> 00:07:17,672
+First, we get the values sent in with the intent.
+
+94
+00:07:17,673 --> 00:07:20,941
+Second, we find the TextView we want to update.
+
+95
+00:07:20,942 --> 00:07:25,698
+And third, we set the TextView's text.  Let's do the same thing for
+
+96
+00:07:25,699 --> 00:07:29,916
+the description TextView.  We already got the description value sent
+
+97
+00:07:29,917 --> 00:07:34,534
+in with the intent in level 2, now we need to find the TextView by
+
+98
+00:07:34,535 --> 00:07:40,874
+using the ID TextView desc we just created, and then we can set that
+
+99
+00:07:40,875 --> 00:07:50,736
+TextView's text with the setText method to the description value we passed in.
+
+100
+00:07:50,737 --> 00:07:58,918
+And finally, we can do the same thing for the price TextView.
+
+101
+00:07:58,919 --> 00:08:02,845
+Now we have our price and description TextViews with live data,
+
+102
+00:08:02,846 --> 00:08:06,566
+and it's time for you to practice adding data to your activity
+
+103
+00:08:06,567 --> 01:00:00,000
+layout in the challenges.

@@ -1,0 +1,63 @@
+﻿1
+00:00:00,000 --> 00:00:07,999
+Turn up the volume and let's get deep as we all swim down into the sea.
+
+2
+00:00:08,000 --> 00:00:15,999
+We'll imagine a whale and underwater creatures who will be there while we learn Docker's very best features.
+
+3
+00:00:16,000 --> 00:00:28,999
+You'll learn a whole lot - this isn't a shocker.  Now contain your excitement as you Try Docker.
+
+4
+00:00:29,000 --> 00:00:35,999
+Welcome back.  In this level we're going to learn about a configuration tool called a Dockerfile.
+
+5
+00:00:36,000 --> 00:00:39,999
+In the last level we learned how to create containers from pre-built images on the command line, and then
+
+6
+00:00:40,000 --> 00:00:45,999
+how to modify those containers once they're running, but right now that's a pretty clunky process.
+
+7
+00:00:46,000 --> 00:00:50,999
+For example, we first had to run a container and then we had to execute multiple other commands in exactly
+
+8
+00:00:51,000 --> 00:00:55,999
+the right order to configure parts of that container in the way that we wanted.
+
+9
+00:00:56,000 --> 00:01:01,999
+A Dockerfile is a way to make that process a little bit less manual.
+
+10
+00:01:02,000 --> 00:01:06,999
+A Dockerfile is just a text file that contains multiple instructions that you can run with a single command
+
+11
+00:01:07,000 --> 00:01:12,999
+and when you run that command, the result is a brand new image that can then be used to make a container.
+
+12
+00:01:13,000 --> 00:01:17,999
+Before we created a container from an image and then wrote commands to modify that container.
+
+13
+00:01:18,000 --> 00:01:22,999
+But now we're going to write those commands in a Dockerfile and use those to create a brand new image
+
+14
+00:01:23,000 --> 00:01:27,999
+and then we'll make a new container from that image.  Just like at the end of level 1, you're going to learn about
+
+15
+00:01:28,000 --> 00:01:31,999
+some of the most important Dockerfile commands by playing through a few challenges.
+
+16
+00:01:32,000 --> 01:00:00,000
+Have fun and I'll see you in level 3.

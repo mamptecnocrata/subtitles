@@ -1,0 +1,267 @@
+﻿1
+00:00:00,000 --> 00:00:05,338
+Welcome back.  You're watching On Fire With Phoenix.
+
+2
+00:00:05,339 --> 00:00:09,135
+My name is Carlos Souza, and in this section we'll learn how to read
+
+3
+00:00:09,136 --> 00:00:16,694
+comments for a particular video and display them on a page.
+
+4
+00:00:16,695 --> 00:00:20,811
+Our app now has a comments table.  Let's suppose we have some data on
+
+5
+00:00:20,812 --> 00:00:26,763
+it, like these two rows, one comment from Brooke and one from Sam,
+
+6
+00:00:26,764 --> 00:00:31,665
+both associated to the video with ID 42.  Let's learn how to write
+
+7
+00:00:31,666 --> 00:00:37,890
+Phoenix code to read comments from a specific video.
+
+8
+00:00:37,891 --> 00:00:41,530
+With the table in place, the first thing we need to do is go back to
+
+9
+00:00:41,531 --> 00:00:47,322
+our Schema modules and define how a video is associated with comments.
+
+10
+00:00:47,323 --> 00:00:52,373
+We do this in the model layer of MVC.
+
+11
+00:00:52,374 --> 00:00:59,000
+In the video schema module, we call another function inside our schema definition, has_many.
+
+12
+00:00:59,001 --> 00:01:03,967
+This function indicates a one to many association with another schema.
+
+13
+00:01:03,968 --> 00:01:08,034
+It takes two arguments.  First one is the name of the property that
+
+14
+00:01:08,035 --> 00:01:12,760
+will be created on this module.  In this example, comments.
+
+15
+00:01:12,761 --> 00:01:19,339
+Next is the module that will be associated with the new property, FireStarter.Comment.
+
+16
+00:01:19,340 --> 00:01:23,671
+With that, we have an association between a video and its comments.
+
+17
+00:01:23,672 --> 00:01:30,906
+We say A video has many comments!
+
+18
+00:01:30,907 --> 00:01:35,003
+In order for this to work, we must also specify the reverse of this
+
+19
+00:01:35,004 --> 00:01:40,343
+association, getting to a parent video from its child comment.
+
+20
+00:01:40,344 --> 00:01:44,195
+In the Comment module, we use the belongs_to function.
+
+21
+00:01:44,196 --> 00:01:51,716
+Just like has_many, belongs_to takes the name of the property and the associated module.
+
+22
+00:01:51,717 --> 00:01:58,363
+We say A comment belongs to a video!
+
+23
+00:01:58,364 --> 00:02:02,309
+Before we run this code, here's what the data looks like.
+
+24
+00:02:02,310 --> 00:02:07,192
+In our comments table, there are two comments, very helpful and great
+
+25
+00:02:07,193 --> 00:02:15,967
+video, both with video_id set to 42.  This is the ID in primary key
+
+26
+00:02:15,968 --> 00:02:21,528
+for the Elixir video in the videos table.
+
+27
+00:02:21,529 --> 00:02:25,726
+To read video comments, we start by getting the video.
+
+28
+00:02:25,727 --> 00:02:32,300
+We use Repo.get, passing it the Video module and the ID 42.
+
+29
+00:02:32,301 --> 00:02:36,342
+We get the video back and store it in a variable video.
+
+30
+00:02:36,343 --> 00:02:39,667
+But if we try reading the comments property right away, we'll see an
+
+31
+00:02:39,668 --> 00:02:46,549
+error like this, a NotLoaded error saying association :comments is not loaded.
+
+32
+00:02:46,550 --> 00:02:55,698
+This error happens because Repo.get does not automatically load associations.
+
+33
+00:02:55,699 --> 00:03:00,393
+In order to load comments for a video, we must preload them.
+
+34
+00:03:00,394 --> 00:03:06,638
+We pipe the result of calling Repo.get to Repo.preload, which takes an
+
+35
+00:03:06,639 --> 00:03:11,918
+existing record as its first argument, in this example, Video,
+
+36
+00:03:11,919 --> 00:03:16,798
+and the name of an association as its second argument, comments.
+
+37
+00:03:16,799 --> 00:03:21,680
+Once we do that, we store the final results to the video variable.
+
+38
+00:03:21,681 --> 00:03:31,215
+Now we can call video.comments and see a list of comment records.
+
+39
+00:03:31,216 --> 00:03:35,898
+With the plumbing code in place, let's finish building the video show page.
+
+40
+00:03:35,899 --> 00:03:41,310
+To do this, we need three things.  First, we need a new route for
+
+41
+00:03:41,311 --> 00:03:47,498
+showing a single video record.  It's going to be /videos/ the ID of
+
+42
+00:03:47,499 --> 00:03:51,437
+the video we want to display.  Then we need to write code in the
+
+43
+00:03:51,438 --> 00:03:57,068
+controller to fetch this video, preload its comments, and finally,
+
+44
+00:03:57,069 --> 00:04:00,806
+render the page with the video title and its comments.
+
+45
+00:04:00,807 --> 00:04:07,563
+Let's go ahead and tackle these pending items.
+
+46
+00:04:07,564 --> 00:04:14,165
+Back to the router, we add a new route for the show action on VideoController.
+
+47
+00:04:14,166 --> 00:04:20,177
+The URL for this route will match requests for /videos/ a value
+
+48
+00:04:20,178 --> 00:04:28,926
+representing the ID for a video, and it will call the show function on the VideoController.
+
+49
+00:04:28,927 --> 00:04:33,639
+Now in our VideoController we create a show function that takes two
+
+50
+00:04:33,640 --> 00:04:39,617
+arguments, first the connection, as always, and then a map.
+
+51
+00:04:39,618 --> 00:04:44,294
+On the map, we use pattern matching to read the value from the id key,
+
+52
+00:04:44,295 --> 00:04:48,757
+which is set by the router from the value found in the URL.
+
+53
+00:04:48,758 --> 00:04:52,520
+Using pattern matching to read values passed by the router is a widely
+
+54
+00:04:52,521 --> 00:04:56,627
+used practice in Phoenix.  It's one of my personal favorite features
+
+55
+00:04:56,628 --> 00:05:00,928
+from Elixir, and it makes code shorter and much easier to read.
+
+56
+00:05:00,929 --> 00:05:05,471
+Inside the show function, we get the video, preload its comments,
+
+57
+00:05:05,472 --> 00:05:10,044
+and assign it to the variable video.  Finally, we render the show
+
+58
+00:05:10,045 --> 00:05:15,830
+template, passing it the video.
+
+59
+00:05:15,831 --> 00:05:20,610
+Now on the template we access the video with @video.
+
+60
+00:05:20,611 --> 00:05:25,609
+First, we read the title inside an h2 tag and then use a list
+
+61
+00:05:25,610 --> 00:05:29,820
+comprehension to loop through the comments, printing each comment
+
+62
+00:05:29,821 --> 00:05:34,406
+inside of an li tag.
+
+63
+00:05:34,407 --> 00:05:38,517
+That's it for the template, and our code is now complete.
+
+64
+00:05:38,518 --> 00:05:44,460
+When we visit /videos/42, we see a page with the video title and a
+
+65
+00:05:44,461 --> 00:05:49,227
+list of its associated comments.
+
+66
+00:05:49,228 --> 00:05:52,181
+That's it for this level.  It's your turn to write some association
+
+67
+00:05:52,182 --> 01:00:00,000
+code in Phoenix in the challenges.

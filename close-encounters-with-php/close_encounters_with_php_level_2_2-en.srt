@@ -1,0 +1,159 @@
+﻿1
+00:00:00,000 --> 00:00:09,932
+Welcome back.  Now that you understand includes, let's move on to requires.
+
+2
+00:00:09,933 --> 00:00:14,566
+We're going to want to move our code out of the index.php file.
+
+3
+00:00:14,567 --> 00:00:18,330
+At first, this is going to be a way for us to keep our code clean.
+
+4
+00:00:18,331 --> 00:00:22,621
+We almost always end up with multiple files containing different bits
+
+5
+00:00:22,622 --> 00:00:27,150
+of PHP code.  This will help keep our code organized by using unique
+
+6
+00:00:27,151 --> 00:00:32,676
+meaningful file names, which will help us find and work on our code later.
+
+7
+00:00:32,677 --> 00:00:36,807
+Now we're going to create a new folder underneath our app directory.
+
+8
+00:00:36,808 --> 00:00:40,751
+We're going to call this folder source, or src.
+
+9
+00:00:40,752 --> 00:00:45,791
+Inside of this folder, we're going to create a new file named app.php.
+
+10
+00:00:45,792 --> 00:00:48,775
+This is where we're going to keep all of our code for the project
+
+11
+00:00:48,776 --> 00:00:53,649
+instead of in the index.php file.
+
+12
+00:00:53,650 --> 00:00:57,032
+Once our new file has been created, we're going to want to cut and
+
+13
+00:00:57,033 --> 00:01:03,744
+paste all of our code from the index.php file into our new app.php file.
+
+14
+00:01:03,745 --> 00:01:07,402
+One thing to notice is that files that contain only PHP, such as our
+
+15
+00:01:07,403 --> 00:01:15,288
+app.php file, and no HTML, we will not need a closing PHP tag.
+
+16
+00:01:15,289 --> 00:01:17,661
+We're essentially repeating the process that we did in the last
+
+17
+00:01:17,662 --> 00:01:24,351
+section by including our new app.php file inside of our index.php file
+
+18
+00:01:24,352 --> 00:01:28,460
+with one major difference.  The difference here is the use of the
+
+19
+00:01:28,461 --> 00:01:31,899
+require function instead of the include function.
+
+20
+00:01:31,900 --> 00:01:36,399
+They behave the same except if the file is missing or not found when
+
+21
+00:01:36,400 --> 00:01:39,188
+using an include statement, you'll get a warning.
+
+22
+00:01:39,189 --> 00:01:43,765
+If you use a require and the file is not found, it will throw a fatal error.
+
+23
+00:01:43,766 --> 00:01:48,481
+Let's take a closer look at the difference between these two.
+
+24
+00:01:48,482 --> 00:01:52,199
+We're going to force the error to happen by changing our name from
+
+25
+00:01:52,200 --> 00:02:01,329
+app.php to foo.php where foo.php does not exist in our source directory.
+
+26
+00:02:01,330 --> 00:02:04,353
+This will give us a fatal error, or a 500 error if we're in
+
+27
+00:02:04,354 --> 00:02:10,580
+production, and the page will not load.  Now to take a look at the
+
+28
+00:02:10,581 --> 00:02:17,990
+opposite behavior, let's change this require to an include.
+
+29
+00:02:17,991 --> 00:02:21,775
+Notice now the error has changed to a warning, and also you'll notice
+
+30
+00:02:21,776 --> 00:02:28,825
+that the HTML will still display underneath of our warnings.
+
+31
+00:02:28,826 --> 00:02:34,028
+Now inside the index.php file you can see that we have requires and includes.
+
+32
+00:02:34,029 --> 00:02:39,234
+The main PHP logic is required; however, the HTML, or the partials,
+
+33
+00:02:39,235 --> 00:02:43,349
+are only included.  From here on out, we'll only go back to the
+
+34
+00:02:43,350 --> 00:02:49,272
+index.php file if we need to include or require some new code.
+
+35
+00:02:49,273 --> 00:02:53,359
+Enjoy the challenges, and I'll see you soon.
+
+36
+00:02:53,360 --> 00:02:56,329
+Include.  What was that?
+
+37
+00:02:56,330 --> 00:03:00,920
+Oh, so close, so close.
+
+38
+00:03:00,921 --> 00:03:04,580
+Ekking on --- (Noises).
+
+39
+00:03:04,581 --> 00:03:06,994
+Ekking.  (Laughing).
+
+40
+00:03:06,995 --> 01:00:00,000
+Ekking the data screen bad.

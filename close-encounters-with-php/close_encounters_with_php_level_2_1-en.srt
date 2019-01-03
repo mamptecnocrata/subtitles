@@ -1,0 +1,167 @@
+﻿1
+00:00:00,000 --> 00:00:06,975
+We've got our eyes on the sky searching for PHP life.
+
+2
+00:00:06,976 --> 00:00:11,896
+We'll use POST requests to track extraterrestrial guests.
+
+3
+00:00:11,897 --> 00:00:18,200
+Validation and security will lock things down in a hurry.
+
+4
+00:00:18,201 --> 00:00:31,233
+We want to believe these Close Encounters with PHP.
+
+5
+00:00:31,234 --> 00:00:37,914
+Welcome back.  Let's move on to includes and requires.
+
+6
+00:00:37,915 --> 00:00:41,709
+Our index.php file is starting to get a little crowded, and this is
+
+7
+00:00:41,710 --> 00:00:48,227
+only for a small amount of code, so how can we better approach this problem?
+
+8
+00:00:48,228 --> 00:00:53,089
+We can start to clean and organize our code by relocating our header,
+
+9
+00:00:53,090 --> 00:00:57,414
+our footer, and our content sections.  We can take these new sections
+
+10
+00:00:57,415 --> 00:01:02,495
+called HTML blocks or partials and place them back into our index.php
+
+11
+00:01:02,496 --> 00:01:06,615
+file with a single line.  We can also include some compartmentalized
+
+12
+00:01:06,616 --> 00:01:10,589
+code, and we can add a new folder structure for our project.
+
+13
+00:01:10,590 --> 00:01:15,089
+Let's start by creating an app folder and a public folder both in the
+
+14
+00:01:15,090 --> 00:01:23,223
+root of your project and then move our index.php file into the public folder.
+
+15
+00:01:23,224 --> 00:01:28,216
+Then inside of our app folder we're going to create a new folder called views.
+
+16
+00:01:28,217 --> 00:01:35,064
+This is going to be used to hold all of our new HTML blocks or partial files.
+
+17
+00:01:35,065 --> 00:01:38,548
+Then you're going to need to create three new files inside of the
+
+18
+00:01:38,549 --> 00:01:47,744
+views folder, one for the content, one for the footer, and one for the header.
+
+19
+00:01:47,745 --> 00:01:50,654
+After all the files are created, we're going to need to cut each
+
+20
+00:01:50,655 --> 00:01:56,329
+section of code from our index.php file and paste it into our new files.
+
+21
+00:01:56,330 --> 00:02:00,738
+Here we're taking the header information from the index.php file and
+
+22
+00:02:00,739 --> 00:02:05,222
+placing it in the header.php file in our app/views folder.
+
+23
+00:02:05,223 --> 00:02:12,362
+Now we must include the file back into our index.php file.
+
+24
+00:02:12,363 --> 00:02:16,375
+Where we removed the code from our index.php file, we're going to
+
+25
+00:02:16,376 --> 00:02:20,030
+create a new code block, and inside of our code block we're going to
+
+26
+00:02:20,031 --> 00:02:24,348
+use a new PHP function or keyword called include.
+
+27
+00:02:24,349 --> 00:02:28,343
+We can add code from another location to be processed within our
+
+28
+00:02:28,344 --> 00:02:32,310
+index.php file using the include function.
+
+29
+00:02:32,311 --> 00:02:37,291
+Here we're including app/views/header.php.
+
+30
+00:02:37,292 --> 00:02:40,880
+If you notice, there are two dots and a slash before app.
+
+31
+00:02:40,881 --> 00:02:44,945
+This means we want to move back or look back one directory.
+
+32
+00:02:44,946 --> 00:02:49,477
+Since our index.php file is inside of our public folder,
+
+33
+00:02:49,478 --> 00:02:53,012
+we're going to want to move one directory back outside of the public
+
+34
+00:02:53,013 --> 00:03:01,211
+folder and then move into our app/views folder to access our header.php file.
+
+35
+00:03:01,212 --> 00:03:05,824
+We'll need to do the same for content.php by moving it from the
+
+36
+00:03:05,825 --> 00:03:11,331
+index.php file into our content.php file, then replacing the code
+
+37
+00:03:11,332 --> 00:03:16,050
+we've just removed from the index.php file with our include function
+
+38
+00:03:16,051 --> 00:03:21,951
+pointing to our new content.php file.
+
+39
+00:03:21,952 --> 00:03:28,850
+Then we'll apply the same process to our footer.php file.
+
+40
+00:03:28,851 --> 00:03:32,779
+Here is our new index.php file.  Much cleaner.
+
+41
+00:03:32,780 --> 00:03:37,019
+Now let's do some challenges.  When you come back, we'll move our PHP
+
+42
+00:03:37,020 --> 01:00:00,000
+code outside of the index.php file.

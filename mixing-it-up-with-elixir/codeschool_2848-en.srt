@@ -1,0 +1,323 @@
+﻿1
+00:00:00,000 --> 00:00:06,999
+You're watching Mixing It Up With Elixir.  I'm Carlos Sosa and in this last section we'll learn how to work
+
+2
+00:00:07,000 --> 00:00:11,999
+with third party dependencies in mix projects.
+
+3
+00:00:12,000 --> 00:00:18,999
+We want to add a new functionality to our project.  This involves converting and amount from euro to dollar.
+
+4
+00:00:19,000 --> 00:00:24,999
+We'll create a new function called from euro to dollar and once we're done, here's how we use it.
+
+5
+00:00:25,000 --> 00:00:29,999
+We'll run the mix run command with a -e option, then we'll pass it to the code to be evaluated and we want to
+
+6
+00:00:30,000 --> 00:00:35,999
+see the dollar amount printed to the console.  Under the hood, here's what's going to happen.
+
+7
+00:00:36,000 --> 00:00:41,999
+First we invoke mix run from the console, which will compile and run the Elixir code.
+
+8
+00:00:42,000 --> 00:00:47,999
+During the code execution we'll access an external web service API to fetch the currency rates.
+
+9
+00:00:48,000 --> 00:00:53,999
+We'll get a JSON response back, parse it and perform the conversion.
+
+10
+00:00:54,000 --> 00:00:58,999
+Lastly, we print the result to the console.  Now this might seem complicated, but we'll break it down
+
+11
+00:00:59,000 --> 00:01:03,999
+into multiple steps.  Let's see how we can do this.
+
+12
+00:01:04,000 --> 00:01:09,999
+The new function from euro to dollar takes a single argument and it's part of the conversion module,
+
+13
+00:01:10,000 --> 00:01:16,999
+which itself is a submodule of Budget.  We need to manually create both the budget directory and the
+
+14
+00:01:17,000 --> 00:01:21,999
+conversion.ex file.
+
+15
+00:01:22,000 --> 00:01:28,999
+In order to make the API call we'll need two dependencies, one for making the web service call and another one
+
+16
+00:01:29,000 --> 00:01:34,999
+for parsing the JSON response back.  Now let's see how we can add these dependencies to our project.
+
+17
+00:01:35,000 --> 00:01:42,999
+To declare dependencies we use the mix.exs file.  The deps function inside this file returns a list of tuples
+
+18
+00:01:43,000 --> 00:01:50,999
+with the names and versions of the dependencies we need.  In this example we have two tuples, one for the
+
+19
+00:01:51,000 --> 00:01:58,999
+httpoison library, the HTTP client, and one for the poison client, the JSON parser.
+
+20
+00:01:59,000 --> 00:02:04,999
+As we can see, the first element of each tuple is the name of the library as an atom.
+
+21
+00:02:05,000 --> 00:02:12,999
+The second element of the tuple is the version of the library following the semantic versioning format.
+
+22
+00:02:13,000 --> 00:02:18,999
+Once that is done, we now need to install these dependencies.  To do that, we go back the console
+
+23
+00:02:19,000 --> 00:02:26,999
+and run the command mix deps.get.  This command fetches the dependencies from a remote repository
+
+24
+00:02:27,000 --> 00:02:31,999
+and installs them locally under the deps directory.
+
+25
+00:02:32,000 --> 00:02:38,999
+Here we are back to our function.  We create the URL variable and give it the URL of the remote server
+
+26
+00:02:39,000 --> 00:02:45,999
+that we'll use to fetch the rates from.  Then we'll call the httpoison.get function with this URL,
+
+27
+00:02:46,000 --> 00:02:51,999
+as part of a case statement.  For this statement we'll give it two patterns to test against.
+
+28
+00:02:52,000 --> 00:02:59,999
+One will match successful responses, a tuple with the ok atom as its first element and an empty variable
+
+29
+00:03:00,000 --> 00:03:06,999
+response as the second element.  The other pattern will match unsuccessful responses, a tuple with the error atom
+
+30
+00:03:07,000 --> 00:03:13,999
+as its first element and an underscore as the second element, meaning we want to ignore it.
+
+31
+00:03:14,000 --> 00:03:19,999
+For successful responses we'll pass the response itself to the parse function, then we'll pipe the result
+
+32
+00:03:20,000 --> 00:03:26,999
+of that to the convert function, which also takes the initial amount as argument and returns the final amount
+
+33
+00:03:27,000 --> 00:03:33,999
+converted to dollar.  For unsuccessful responses, we'll simply print the message Error fetching rates.
+
+34
+00:03:34,000 --> 00:03:38,999
+Let's move on to the parse function now.
+
+35
+00:03:39,000 --> 00:03:43,999
+On the signature of the parse function, we can use pattern matching to read the body of the response
+
+36
+00:03:44,000 --> 00:03:50,999
+that's passed as an argument.  A successful response from httpoison will be a map with the status_code key
+
+37
+00:03:51,000 --> 00:03:58,999
+set to 200, so we match on that, and then match on the body with the variable json_response.
+
+38
+00:03:59,000 --> 00:04:05,999
+Inside the function we use the poison library to parse JSON to an Elixir tuple and return that from the
+
+39
+00:04:06,000 --> 00:04:12,999
+parse function.  Notice we're using defp here to define the function, and this means it's a private function
+
+40
+00:04:13,000 --> 00:04:19,999
+and it's not meant to be called from outside this module.  Now before we move over to the convert function,
+
+41
+00:04:20,000 --> 00:04:25,999
+let's take a look at the parsing that's happening from another angle.
+
+42
+00:04:26,000 --> 00:04:32,999
+The response we get back from the currency rates web service is a JSON response, basically pure text.
+
+43
+00:04:33,000 --> 00:04:38,999
+And it looks like this here at the top.  We send that to the parse function, which converts JSON
+
+44
+00:04:39,000 --> 00:04:46,999
+to an Elixir tuple that looks like this here at the bottom.  As you can see, it's a tuple with two elements,
+
+45
+00:04:47,000 --> 00:04:52,999
+the first one is the atom ok and the second one is a list of maps.
+
+46
+00:04:53,000 --> 00:04:56,999
+Each map contains the keys currency and rate, which we'll use next.
+
+47
+00:04:57,000 --> 00:05:06,999
+This entire tuple is the value that will be piped to the convert function and used as its first argument.
+
+48
+00:05:07,000 --> 00:05:10,999
+The convert function grabs the list of rates using pattern matching.
+
+49
+00:05:11,000 --> 00:05:16,999
+Remember the first element of the tuple is okay.  So that's a successful match.
+
+50
+00:05:17,000 --> 00:05:23,999
+Then we match the list of rates with the variable rates.  Inside the function, we'll call a new function
+
+51
+00:05:24,000 --> 00:05:30,999
+called fine_euro with a list of rates and the return value from that function should be the rate that we want,
+
+52
+00:05:31,000 --> 00:05:37,999
+in this case for euro.  We assign that to the rate variable and lastly we perform the conversion.
+
+53
+00:05:38,000 --> 00:05:44,999
+Now let's look at the find_euro function, which is actually my favorite part of this code.
+
+54
+00:05:45,000 --> 00:05:50,999
+The find euro function needs to loop through all the rates that were returned by the server and find the one
+
+55
+00:05:51,000 --> 00:05:59,999
+for euro.  But remember, there are no loops in Elixir, but instead there is recursion and pattern matching.
+
+56
+00:06:00,000 --> 00:06:06,999
+We'll define three clauses for the find_euro function.  First one is a success case, it splits the list
+
+57
+00:06:07,000 --> 00:06:13,999
+and finds a successful match when the first element from the list of maps is a map with the currency key
+
+58
+00:06:14,000 --> 00:06:21,999
+set to euro.  When this happens we assign the rate to the rate variable and simply return that from the function.
+
+59
+00:06:22,000 --> 00:06:27,999
+If the first clause doesn’t match and there are still maps remaining on the list, then the second clause
+
+60
+00:06:28,000 --> 00:06:35,999
+will match.  We can ignore the first map on the list using the underscore character since we know for a fact
+
+61
+00:06:36,000 --> 00:06:42,999
+it doesn’t have a currency set to euro and instead focus on the remaining maps on the list assigned
+
+62
+00:06:43,000 --> 00:06:48,999
+to the tail variable.  Using this variable we call find_euro again and this is where the recursion happens.
+
+63
+00:06:49,000 --> 00:06:55,999
+We'll keep calling this function until we either reach the end of the list or until we find a match.
+
+64
+00:06:56,000 --> 00:07:00,999
+If we do end up reaching the end of the list, it will match on the third clause.
+
+65
+00:07:01,000 --> 00:07:06,999
+We don’t expect to ever get a list of rates where euro is not present, so if that happens, we'll consider it
+
+66
+00:07:07,000 --> 00:07:12,999
+a critical situation and raise an error, No rate found for Euro.
+
+67
+00:07:13,000 --> 00:07:20,999
+And that is all of our code.  Let's run it now.
+
+68
+00:07:21,000 --> 00:07:29,999
+We'll use mix run -e, giving it Budget.Conversion.from_euro_to_dollar and the number 15 and we'll pipe
+
+69
+00:07:30,000 --> 00:07:40,999
+the result to IO.puts.  We can see the program properly prints the converted rate to the console.
+
+70
+00:07:41,000 --> 00:07:45,999
+Now if for some reason the remote server is down and we run our program, we can see it properly prints
+
+71
+00:07:46,000 --> 00:07:51,999
+the message, Error fetching rates.
+
+72
+00:07:52,000 --> 00:07:56,999
+We've reached the end of this level and the end of the course.  However, there are still some challenges left
+
+73
+00:07:57,000 --> 00:08:02,999
+for you to do.  Once you're done with them we'll see you back in the wrap up video.
+
+74
+00:08:03,000 --> 00:08:08,999
+Unknown, representing a none, a none!
+
+75
+00:08:09,000 --> 00:08:10,999
+Operation blah.
+
+76
+00:08:11,000 --> 00:08:12,999
+Explicitly blah.
+
+77
+00:08:13,000 --> 00:08:13,999
+That we were in blah.
+
+78
+00:08:14,000 --> 00:08:15,999
+State, we could.
+
+79
+00:08:16,000 --> 00:08:18,999
+Boom.
+
+80
+00:08:19,000 --> 00:08:22,999
+Break it down for you, hit you with some knowledge.
+
+81
+00:08:23,000 --> 01:00:00,000
+Challenges left, so go ahead and do them.

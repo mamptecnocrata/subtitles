@@ -1,0 +1,307 @@
+﻿1
+00:00:00,000 --> 00:00:04,261
+Our Candy Coded store sells sweet treats galore.
+
+2
+00:00:04,262 --> 00:00:10,814
+How do we get it on the map?  Let's build a sugar-coated Android app!
+
+3
+00:00:10,815 --> 00:00:17,015
+With tasty layouts and views full of delicious candy hues,
+
+4
+00:00:17,016 --> 00:00:27,422
+our users will be overjoyed by our super sweet apps powered with Android.
+
+5
+00:00:27,423 --> 00:00:31,279
+Hello, and welcome to Try Android.  I'm Sarah Holderness, and in this
+
+6
+00:00:31,280 --> 00:00:38,224
+course we'll be building our first Android app with Android Studio.
+
+7
+00:00:38,225 --> 00:00:42,732
+Android is a mobile operating system created by Google primarily for
+
+8
+00:00:42,733 --> 00:00:47,632
+phones and tablets, but has expanded into TVs and wearables.
+
+9
+00:00:47,633 --> 00:00:52,160
+Android had its first release in 2008 and has released a new version
+
+10
+00:00:52,161 --> 00:00:56,272
+at least every other year after that.  After alpha and beta,
+
+11
+00:00:56,273 --> 00:01:00,780
+new versions were named after desserts in alphabetical order from
+
+12
+00:01:00,781 --> 00:01:05,905
+Cupcake to the current version Oreo.  You could say making apps for
+
+13
+00:01:05,906 --> 00:01:10,629
+Android is getting sweeter and sweeter.
+
+14
+00:01:10,630 --> 00:01:14,190
+In this course, we're going to built a simple candy store app that's
+
+15
+00:01:14,191 --> 00:01:18,351
+going to show a list of all the candy in our store.
+
+16
+00:01:18,352 --> 00:01:24,774
+We'll build the app from scratch and show you all the steps along the way.
+
+17
+00:01:24,775 --> 00:01:28,700
+Android Studio is the official IDE for building Android apps,
+
+18
+00:01:28,701 --> 00:01:33,842
+and you can download it for free at this link, or you can just follow
+
+19
+00:01:33,843 --> 00:01:40,023
+along in the interactive challenges at the end of each level.
+
+20
+00:01:40,024 --> 00:01:47,231
+Now in Level 1 we'll cover the basics for cooking up your first Android app.
+
+21
+00:01:47,232 --> 00:01:51,685
+Apps are like cupcakes.  What I mean is there are some requirements
+
+22
+00:01:51,686 --> 00:01:57,101
+for creating a cupcake, like ingredients, cooking utensils, a recipe,
+
+23
+00:01:57,102 --> 00:02:03,831
+and an oven, that are kind of like the requirements for creating an app.
+
+24
+00:02:03,832 --> 00:02:08,183
+The Android Studio SDK provides standard ways of displaying data in
+
+25
+00:02:08,184 --> 00:02:13,481
+your app, like buttons, text, images, and lists, and those are like
+
+26
+00:02:13,482 --> 00:02:17,956
+the ingredients for your app.
+
+27
+00:02:17,957 --> 00:02:23,263
+Android Studio is an IDE, which stands for Integrated Development
+
+28
+00:02:23,264 --> 00:02:27,485
+Environment, and is filled with tools for creating your app,
+
+29
+00:02:27,486 --> 00:02:32,351
+and is kind of like the cooking utensils.
+
+30
+00:02:32,352 --> 00:02:36,634
+Inside Android Studio, you'll write Java code to control your app
+
+31
+00:02:36,635 --> 00:02:42,425
+behaviors, which is like the recipe.
+
+32
+00:02:42,426 --> 00:02:46,993
+And just like the oven pops out your final cupcake, Gradle is the
+
+33
+00:02:46,994 --> 00:02:52,233
+build system in Android Studio that creates your final APK file that
+
+34
+00:02:52,234 --> 00:02:58,897
+contains your app and can be loaded on any Android device.
+
+35
+00:02:58,898 --> 00:03:04,977
+Let's jump over to Android Studio and create and set up a new project.
+
+36
+00:03:04,978 --> 00:03:10,940
+To create a new project, first open Android Studio.
+
+37
+00:03:10,941 --> 00:03:17,965
+We'll see a welcome screen where you can select Start a new Android Studio project.
+
+38
+00:03:17,966 --> 00:03:24,313
+Then we'll configure our new project.  The app name will be Candy Coded.
+
+39
+00:03:24,314 --> 00:03:28,135
+The company domain will be codeschool.com.
+
+40
+00:03:28,136 --> 00:03:31,320
+If you don't have a company domain, that's okay.
+
+41
+00:03:31,321 --> 00:03:35,964
+This is a way for Android to name the package name as a reverse of the
+
+42
+00:03:35,965 --> 00:03:41,216
+domain, which ensures a unique name so no two apps in the app store
+
+43
+00:03:41,217 --> 00:03:45,830
+have the same package name, but you can always change it later.
+
+44
+00:03:45,831 --> 00:03:52,423
+Project location is a folder that I created on the desktop.
+
+45
+00:03:52,424 --> 00:03:57,547
+Now you choose the minimum SDK.  You can see if we selected the older
+
+46
+00:03:57,548 --> 00:04:03,513
+API, IceCreamSandwich, our app will run on 100% of devices.
+
+47
+00:04:03,514 --> 00:04:09,102
+But if we select a newer API like Oreo, the percent drops down to 1%.
+
+48
+00:04:09,103 --> 00:04:12,884
+So we're going to stick with IceCreamSandwich for our app since it
+
+49
+00:04:12,885 --> 00:04:17,194
+won't be leveraging any of the newest API features.
+
+50
+00:04:17,195 --> 00:04:25,066
+Next we'll choose Empty Activity, but you could choose from these starter templates.
+
+51
+00:04:25,067 --> 00:04:30,313
+And finally, we'll stick with the default activity name, MainActivity,
+
+52
+00:04:30,314 --> 00:04:36,940
+and generate a related layout file.  Once your project is created,
+
+53
+00:04:36,941 --> 00:04:44,024
+you can see it's being built by Gradle, which is the build system used with Android.
+
+54
+00:04:44,025 --> 00:04:48,314
+Android Studio has a lot going on, but don't be overwhelmed.
+
+55
+00:04:48,315 --> 00:04:52,956
+In this course, we're only going to need to access a few of these menu
+
+56
+00:04:52,957 --> 00:04:58,212
+and toolbar options to make our first Android app.
+
+57
+00:04:58,213 --> 00:05:01,668
+You can see the files that were created for you in the Project window
+
+58
+00:05:01,669 --> 00:05:06,457
+on the left.  The files we're most concerned with are the
+
+59
+00:05:06,458 --> 00:05:12,743
+MainActivity.java file and activity_main.xml.
+
+60
+00:05:12,744 --> 00:05:16,080
+But we'll look at those in more detail later.
+
+61
+00:05:16,081 --> 00:05:20,253
+First, we'll run our app by clicking the Run button, which is this
+
+62
+00:05:20,254 --> 00:05:25,524
+green triangle that looks like a play icon in the toolbar.
+
+63
+00:05:25,525 --> 00:05:28,543
+We'll then be asked to choose an emulator.
+
+64
+00:05:28,544 --> 00:05:32,379
+You can see there are no emulators in the list that pops up.
+
+65
+00:05:32,380 --> 00:05:35,636
+This will happen the very first time you try to run an app with
+
+66
+00:05:35,637 --> 00:05:41,539
+Android Studio, so we're going to walk through the process of creating an emulator.
+
+67
+00:05:41,540 --> 00:05:45,711
+But don't worry.  Once you have one created, you can simply select it
+
+68
+00:05:45,712 --> 00:05:49,399
+from the list each time you build and run your app.
+
+69
+00:05:49,400 --> 00:05:53,228
+To create a new one, press the Create New Virtual Device button.
+
+70
+00:05:53,229 --> 00:05:58,283
+Then select Phone.  We're going to use a Nexus 6P phone,
+
+71
+00:05:58,284 --> 00:06:02,750
+and we're going to use the newest Oreo API, which will make sure our
+
+72
+00:06:02,751 --> 00:06:06,922
+our app is forward compatible.  If you haven't already downloaded this
+
+73
+00:06:06,923 --> 00:06:20,780
+API, you'll need to click the Download link to download it first.  (Working)
+
+74
+00:06:20,781 --> 00:06:25,505
+And once our emulator is up and running, we can see our app.
+
+75
+00:06:25,506 --> 00:06:32,131
+Right now it shows the name of our app and text that says Hello World!
+
+76
+00:06:32,132 --> 00:06:34,268
+Now it's time to practice what you've learned.
+
+77
+00:06:34,269 --> 01:00:00,000
+See you in the challenges.

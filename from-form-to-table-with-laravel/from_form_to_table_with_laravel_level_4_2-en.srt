@@ -1,0 +1,283 @@
+﻿1
+00:00:00,000 --> 00:00:10,664
+Welcome back!  Let's talk about pagination and validation inside of Laravel.
+
+2
+00:00:10,665 --> 00:00:16,779
+Let's say we have 100 markets.  Listing out all 100 markets on one
+
+3
+00:00:16,780 --> 00:00:20,880
+page can be a bit messy.  So we want to separate them into pages or
+
+4
+00:00:20,881 --> 00:00:25,957
+paginate our results.  We also want to work on validation or how we
+
+5
+00:00:25,958 --> 00:00:31,320
+can verify precreation that our form fields contain the correct kind of data.
+
+6
+00:00:31,321 --> 00:00:37,377
+Let's see how we can do this.  We're going to want to modify our index
+
+7
+00:00:37,378 --> 00:00:41,456
+action query and sort our results.  We want to add pagination to our
+
+8
+00:00:41,457 --> 00:00:46,932
+index action, add pagination links on our index template.
+
+9
+00:00:46,933 --> 00:00:50,636
+We want to add validation key value pairs for each input.
+
+10
+00:00:50,637 --> 00:00:56,419
+And we want to add some error displays if the validation fails.
+
+11
+00:00:56,420 --> 00:00:59,613
+To paginate in Laravel is really quite simple.
+
+12
+00:00:59,614 --> 00:01:04,817
+All we need to do is change out our call to all in the index action
+
+13
+00:01:04,818 --> 00:01:09,038
+and use the orderBy clause, which will return all results ordered by
+
+14
+00:01:09,039 --> 00:01:15,544
+name and then, in this case, ascending by using the asc as the second argument.
+
+15
+00:01:15,545 --> 00:01:18,790
+Then we'll chain a new method called paginate at the end of that call
+
+16
+00:01:18,791 --> 00:01:23,694
+with the argument of how many markets we want to show in each page.
+
+17
+00:01:23,695 --> 00:01:29,058
+Here I'm using nine so that eventually we can do three rows of three each.
+
+18
+00:01:29,059 --> 00:01:34,532
+Then we return the view just as before.
+
+19
+00:01:34,533 --> 00:01:37,424
+Now our page will only show the first nine markets.
+
+20
+00:01:37,425 --> 00:01:42,392
+In order to get a link to the next page, we need to add a call to the
+
+21
+00:01:42,393 --> 00:01:46,613
+$markets object and then a method called links.
+
+22
+00:01:46,614 --> 00:01:54,943
+Once we add styles, the output of the links method will look something like this.
+
+23
+00:01:54,944 --> 00:01:59,140
+Validation in Laravel is also very straightforward.
+
+24
+00:01:59,141 --> 00:02:01,655
+In our store function before we run the create method,
+
+25
+00:02:01,656 --> 00:02:07,581
+using the keyword this and a call to validate, we can validate our
+
+26
+00:02:07,582 --> 00:02:10,105
+input before it ever stores to the database.
+
+27
+00:02:10,106 --> 00:02:14,549
+The validate method takes two arguments.  The first is the $request
+
+28
+00:02:14,550 --> 00:02:19,083
+object, which will contain the form data.  The second argument is an
+
+29
+00:02:19,084 --> 00:02:23,335
+array of rules where the key is the field we're validating from the
+
+30
+00:02:23,336 --> 00:02:29,209
+for, and the value is a string of rules that must be applied
+
+31
+00:02:29,210 --> 00:02:33,043
+successfully to the data in the field.  Let's look at the name ruleset.
+
+32
+00:02:33,044 --> 00:02:38,048
+The validation rule string is a set of rules separated by the pipe character.
+
+33
+00:02:38,049 --> 00:02:43,153
+Each one of these rules is required.  The first is the required rule,
+
+34
+00:02:43,154 --> 00:02:47,154
+which means that something must be present in the field of name.
+
+35
+00:02:47,155 --> 00:02:50,522
+The second is that it must be unique on the markets table,
+
+36
+00:02:50,523 --> 00:02:55,052
+which means we can't have a name that also is the same of another name
+
+37
+00:02:55,053 --> 00:02:59,878
+in the markets table.  Last, we have a max of 255 characters.
+
+38
+00:02:59,879 --> 00:03:03,011
+So that means no really long market names.
+
+39
+00:03:03,012 --> 00:03:06,011
+For the website and city, we're only requiring them.
+
+40
+00:03:06,012 --> 00:03:09,840
+But it would be a good idea to add a bit more validation to this in
+
+41
+00:03:09,841 --> 00:03:14,604
+a real-world application.  If all the rules pass, the market will be
+
+42
+00:03:14,605 --> 00:03:17,335
+created, and the redirect will run as expected.
+
+43
+00:03:17,336 --> 00:03:22,300
+If it fails, it will drop out of the method and then just redirect
+
+44
+00:03:22,301 --> 00:03:26,827
+back to the form with errors.
+
+45
+00:03:26,828 --> 00:03:30,862
+In order to display these and any validation errors, we're going to
+
+46
+00:03:30,863 --> 00:03:35,248
+need to update our view.  Instead of updating the form itself to
+
+47
+00:03:35,249 --> 00:03:38,349
+display the errors, we'll add them to our layout.
+
+48
+00:03:38,350 --> 00:03:42,691
+This way we only have to do it once for the entire application.
+
+49
+00:03:42,692 --> 00:03:47,463
+There's a global variable in Laravel called $errors, which is the
+
+50
+00:03:47,464 --> 00:03:51,503
+collection of errors.  We need to check if the count of the errors
+
+51
+00:03:51,504 --> 00:03:55,312
+is greater than 0 before we begin looping.
+
+52
+00:03:55,313 --> 00:03:59,043
+Then we loop through all the errors with the $errors object operator
+
+53
+00:03:59,044 --> 00:04:06,685
+to all method, and then print each error as a single message.
+
+54
+00:04:06,686 --> 00:04:10,158
+One other neat feature that you can use is a rule called bail.
+
+55
+00:04:10,159 --> 00:04:16,183
+Bail will exit out of our validation routine on any errors on any
+
+56
+00:04:16,184 --> 00:04:19,709
+field in order.  This way, if there's an error on the name,
+
+57
+00:04:19,710 --> 00:04:23,717
+it'll display just the error for name and then exit the validation.
+
+58
+00:04:23,718 --> 00:04:28,042
+This way we can speed up our application.  It may not seem like much,
+
+59
+00:04:28,043 --> 00:04:35,915
+but when you have 20 fields on a form, it makes a big difference.
+
+60
+00:04:35,916 --> 00:04:39,281
+Let's review what we've learned in this section.
+
+61
+00:04:39,282 --> 00:04:43,530
+We've modified our index action query and sorted our results.
+
+62
+00:04:43,531 --> 00:04:46,533
+We've added pagination to our index action.
+
+63
+00:04:46,534 --> 00:04:50,252
+We've added pagination links to our index template.
+
+64
+00:04:50,253 --> 00:04:54,453
+We've added validation key value pairs for each input.
+
+65
+00:04:54,454 --> 00:04:57,869
+We've added error display if the validation fails.
+
+66
+00:04:57,870 --> 00:05:03,741
+And we used bail to exit on the first error for each input.
+
+67
+00:05:03,742 --> 00:05:09,743
+Now it's time for you to do some challenges, and I'll see you in the next level.
+
+68
+00:05:09,744 --> 00:05:13,335
+I smiled there.  Just a little smile.
+
+69
+00:05:13,336 --> 00:05:16,227
+We have no idea what's going on.  We do now, but we ---.
+
+70
+00:05:16,228 --> 00:05:20,677
+(Singing)
+
+71
+00:05:20,678 --> 01:00:00,000
+Tinker example ---.

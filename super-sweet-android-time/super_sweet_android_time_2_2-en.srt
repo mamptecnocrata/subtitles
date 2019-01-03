@@ -1,0 +1,299 @@
+﻿1
+00:00:00,000 --> 00:00:05,827
+Welcome back.  In the last section we got a response in the form
+
+2
+00:00:05,828 --> 00:00:12,341
+of JSON data.  Now we're going to work on parsing that JSON data.
+
+3
+00:00:12,342 --> 00:00:16,613
+Our JSON response has a lot of information about our candies in it.
+
+4
+00:00:16,614 --> 00:00:21,000
+So to start, let's look at a simple example when we have one candy
+
+5
+00:00:21,001 --> 00:00:25,789
+name inside of a JSON object.  When you're looking at JSON,
+
+6
+00:00:25,790 --> 00:00:31,282
+square brackets means it's a JSON array containing multiple objects.
+
+7
+00:00:31,283 --> 00:00:38,737
+Curly brackets means it's a JSON object, and each value has a corresponding key.
+
+8
+00:00:38,738 --> 00:00:44,224
+Here the key is name and the value is Tropical Wave.
+
+9
+00:00:44,225 --> 00:00:49,050
+So to parse this, we need to create a JSONArray object with the
+
+10
+00:00:49,051 --> 00:00:54,015
+entire response string.  Then we need to look up the first JSON object
+
+11
+00:00:54,016 --> 00:00:59,329
+in that array with getJSONObject at position 0.
+
+12
+00:00:59,330 --> 00:01:04,631
+Then inside that JSON object we can look up the key name.
+
+13
+00:01:04,632 --> 00:01:13,664
+Now after these three lines of code are run, candyName would be Tropical Wave.
+
+14
+00:01:13,665 --> 00:01:17,802
+If we look at the actual JSON the Candy API returns in detail,
+
+15
+00:01:17,803 --> 00:01:23,272
+it looks like this.  Inside of each JSON object we have keys for each
+
+16
+00:01:23,273 --> 00:01:28,634
+property; the id, name, image, price, and description.
+
+17
+00:01:28,635 --> 00:01:31,958
+So the response contains an array of multiple objects,
+
+18
+00:01:31,959 --> 00:01:39,329
+and each object has five keys.
+
+19
+00:01:39,330 --> 00:01:42,566
+Since eventually we want to pass the name, image, price,
+
+20
+00:01:42,567 --> 00:01:47,393
+and description to the detail activity, it makes sense to create a
+
+21
+00:01:47,394 --> 00:01:53,017
+separate Candy class with properties for each of those values.
+
+22
+00:01:53,018 --> 00:01:59,392
+Let's jump over to Android Studio to see how to create a new class.
+
+23
+00:01:59,393 --> 00:02:02,505
+To create a new class we can right-click the folder with our package
+
+24
+00:02:02,506 --> 00:02:10,832
+name, com.codeschool.candycoded, under the java folder and select New, Class.
+
+25
+00:02:10,833 --> 00:02:14,718
+The name for our class will be Candy, and we can keep the default
+
+26
+00:02:14,719 --> 00:02:20,319
+values and press OK.  This will generate a new public class called
+
+27
+00:02:20,320 --> 00:02:28,854
+Candy where we'll add our property's id, name, image URL, price, and description.
+
+28
+00:02:28,855 --> 00:02:33,606
+We could write Java code to loop over each JSON object in our JSON
+
+29
+00:02:33,607 --> 00:02:38,102
+array, and then map the properties to the properties in our Candy
+
+30
+00:02:38,103 --> 00:02:43,125
+class, but there's an easier way.  We can use the external library
+
+31
+00:02:43,126 --> 00:02:48,944
+GSON to automatically convert JSON objects into Java objects.
+
+32
+00:02:48,945 --> 00:02:53,385
+GSON will help us map JSON keys and values directly to our custom
+
+33
+00:02:53,386 --> 00:02:57,306
+candy objects without a lot of boilerplate code.
+
+34
+00:02:57,307 --> 00:03:01,601
+For GSON to work without any configuration, the properties in your
+
+35
+00:03:01,602 --> 00:03:06,136
+class need to match up exactly with the keys in your JSON file,
+
+36
+00:03:06,137 --> 00:03:10,296
+so we're leaving price as a string for now, but eventually we might
+
+37
+00:03:10,297 --> 00:03:14,648
+want to change it to a decimal or a long.
+
+38
+00:03:14,649 --> 00:03:18,558
+Just like before with our async library, to use the GSON library
+
+39
+00:03:18,559 --> 00:03:26,201
+we need to add it as a dependency in our build.gradle file.
+
+40
+00:03:26,202 --> 00:03:29,915
+Let's say we have this JSON response string that we want to convert
+
+41
+00:03:29,916 --> 00:03:35,101
+to a candy object.  First we'll create a GSON object by calling
+
+42
+00:03:35,102 --> 00:03:40,983
+GsonBuilder.create, and then we'll use the fromJson method with the
+
+43
+00:03:40,984 --> 00:03:47,156
+JSON string and the class we want to convert it to, which is the Candy class.
+
+44
+00:03:47,157 --> 00:03:51,539
+Then after we run this code we would have a Candy object with all of
+
+45
+00:03:51,540 --> 00:03:55,582
+its properties set.  For instance, candy.name would be Tropical
+
+46
+00:03:55,583 --> 00:04:00,147
+Wave and candy.price would be 5.99, and so on.
+
+47
+00:04:00,148 --> 00:04:03,691
+Remember, it's important that your properties in your class match
+
+48
+00:04:03,692 --> 00:04:06,744
+up exactly with the keys in your JSON file.
+
+49
+00:04:06,745 --> 00:04:10,822
+If they don't, the fromJson method will return an error because it
+
+50
+00:04:10,823 --> 00:04:17,712
+won't understand how to map the values into an object.
+
+51
+00:04:17,713 --> 00:04:21,694
+If our JSON has an array of objects, like the one we're looking at
+
+52
+00:04:21,695 --> 00:04:27,068
+now with our candy data, we can use GSON to handle an array of
+
+53
+00:04:27,069 --> 00:04:34,381
+objects by simply adding square brackets to the Candy class.
+
+54
+00:04:34,382 --> 00:04:38,733
+We'll add this GSON code to the end of our onSuccess method.
+
+55
+00:04:38,734 --> 00:04:42,597
+Now that we have all of our candy objects in the candies array,
+
+56
+00:04:42,598 --> 00:04:46,621
+let's update the adapter to use these candy names instead of those
+
+57
+00:04:46,622 --> 00:04:54,637
+hard coded values.  Back in our onSuccess method, we'll first clear
+
+58
+00:04:54,638 --> 00:04:58,687
+what's in the adapter now with the clear method, and then we'll use
+
+59
+00:04:58,688 --> 00:05:03,800
+a for loop to loop over each candy in the candies array and add
+
+60
+00:05:03,801 --> 00:05:08,942
+candy.name to the adapter.  Let's jump over to Android Studio to
+
+61
+00:05:08,943 --> 00:05:14,047
+see the ListView updating in the background.
+
+62
+00:05:14,048 --> 00:05:18,361
+In order to see our candy ListView updating in the background,
+
+63
+00:05:18,362 --> 00:05:23,241
+we're going to go into the MainActivity.java file to the top of the
+
+64
+00:05:23,242 --> 00:05:28,745
+onCreate method where we originally added candies to our ArrayList,
+
+65
+00:05:28,746 --> 00:05:35,451
+and remove all of the candies from our original ArrayList except one.
+
+66
+00:05:35,452 --> 00:05:38,769
+This way when there's more than one candy, we know those are from
+
+67
+00:05:38,770 --> 00:05:44,533
+our network request.  We can see the code we just added to our
+
+68
+00:05:44,534 --> 00:05:50,845
+onSuccess callback method that parses the JSON into a candy array,
+
+69
+00:05:50,846 --> 00:05:54,094
+and then adds the candies to our adapter.
+
+70
+00:05:54,095 --> 00:06:01,095
+Let's look at this in action by running our app.
+
+71
+00:06:01,096 --> 00:06:04,253
+Great, that's just what we wanted.  We can barely see our app
+
+72
+00:06:04,254 --> 00:06:08,211
+started with one candy because then it quickly updated to our full
+
+73
+00:06:08,212 --> 00:06:13,738
+candy list that we got from our network request.
+
+74
+00:06:13,739 --> 00:06:16,848
+That's it for this section.  It's time for you to practice using
+
+75
+00:06:16,849 --> 01:00:00,000
+GSON in the challenges.  Good luck.

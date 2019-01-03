@@ -1,0 +1,187 @@
+﻿1
+00:00:00,000 --> 00:00:08,999
+Gather all the elements to learn Elixir with our guidance.  Functional programs you will code,
+
+2
+00:00:09,000 --> 00:00:24,999
+turning the knowledge into gold.  Become a master mixer as you stir it all up with Elixir.
+
+3
+00:00:25,000 --> 00:00:30,999
+You're watching Mixing It Up With Elixir.  I'm Carlos Sosa and in this section we'll learn about control flow
+
+4
+00:00:31,000 --> 00:00:33,999
+with the case statement.
+
+5
+00:00:34,000 --> 00:00:38,999
+Here we have a function list_transactions from the Account module.
+
+6
+00:00:39,000 --> 00:00:44,999
+This function takes a file name as argument and lists its transactions.
+
+7
+00:00:45,000 --> 00:00:51,999
+From inside the function we call File.read and use pattern matching to assign the return value to the result
+
+8
+00:00:52,000 --> 00:00:57,999
+and content variables.  Now unlike our previous example where we used two function clauses to determine
+
+9
+00:00:58,000 --> 00:01:03,999
+whether the file.read operation was successful, in this one we're using an if statement and checking
+
+10
+00:01:04,000 --> 00:01:11,999
+the result variable against the ok atom and the error atom.  This code works, but notice how we repeat
+
+11
+00:01:12,000 --> 00:01:16,999
+the variables result and content twice and how we have nested if statements.
+
+12
+00:01:17,000 --> 00:01:23,999
+This is a code smell, it can make our programs hard to evolve and complicated to maintain.
+
+13
+00:01:24,000 --> 00:01:28,999
+Whenever we find ourselves used nested if statements like this, then it's time to refactor and instead use
+
+14
+00:01:29,000 --> 00:01:32,999
+the case statement.
+
+15
+00:01:33,000 --> 00:01:39,999
+The case statement tests a value against a set of patterns, here's how it works.
+
+16
+00:01:40,000 --> 00:01:45,999
+The new variable result assigned to from the call to File.read is the value to be tested.
+
+17
+00:01:46,000 --> 00:01:53,999
+Inside the do en bloc, we'll list the patterns we want to test against, the ok atom representing a successful
+
+18
+00:01:54,000 --> 00:01:59,999
+operation and then error atom representing an unsuccessful operation.
+
+19
+00:02:00,000 --> 00:02:05,999
+After each pattern we use the arrow sign and to the right of it we have the code that should be run
+
+20
+00:02:06,000 --> 00:02:12,999
+for each pattern.  The first one will return the string Content: followed by the content of the file
+
+21
+00:02:13,000 --> 00:02:20,999
+that was just read from.  And the second one will return the string Error: followed by the error that
+
+22
+00:02:21,000 --> 00:02:27,999
+prevented the file.read operation from taking place, also assigned to the content variable.
+
+23
+00:02:28,000 --> 00:02:32,999
+This version is better than using nested ifs, but notice one thing here.
+
+24
+00:02:33,000 --> 00:02:39,999
+Using the result variable as the test value for the case statement is also leading to the use of the same
+
+25
+00:02:40,000 --> 00:02:47,999
+variable name for the content of the file and for the error.  Here on the second line we have the error type
+
+26
+00:02:48,000 --> 00:02:52,999
+and not the contents of the file.  So the variable name here is sort of misleading.
+
+27
+00:02:53,000 --> 00:02:57,999
+Let's see how we can fix that.
+
+28
+00:02:58,000 --> 00:03:05,999
+Turns out the case statement accepts tuples for both the test values and for the patterns to be tested against
+
+29
+00:03:06,000 --> 00:03:12,999
+and this gives us the flexibility we need to name variables.  So instead of assigning to temporary variables,
+
+30
+00:03:13,000 --> 00:03:18,999
+we'll move the call to file.read over and use its return value as the new test value.
+
+31
+00:03:19,000 --> 00:03:23,999
+Then we'll use tuples for each one of the patterns that we want to test against.
+
+32
+00:03:24,000 --> 00:03:29,999
+First one matches the ok atom first and assigns the content to the content variable.
+
+33
+00:03:30,000 --> 00:03:41,999
+And the second one matches the error atom first and assigns the error type to the type variable, a much more meaningful name.
+
+34
+00:03:42,000 --> 00:03:48,999
+Now when we run our code, passing a file, transactions.dsv, the case statement finds a match on the first
+
+35
+00:03:49,000 --> 00:03:53,999
+tuple and we see the list of transactions printed to the console.
+
+36
+00:03:54,000 --> 00:03:58,999
+When we run it with a file that does not exist, then the case statement finds a match on the second tuple
+
+37
+00:03:59,000 --> 00:04:05,999
+and prints the error type to the console, enoent.
+
+38
+00:04:06,000 --> 00:04:10,999
+The case statement allows extra conditions to be specified with a guard clause.
+
+39
+00:04:11,000 --> 00:04:15,999
+Let's see what that looks like by adding a new pattern to the top of the list.
+
+40
+00:04:16,000 --> 00:04:22,999
+The new pattern will be for a successful file.read operation with the first atom being ok, but we want this one
+
+41
+00:04:23,000 --> 00:04:30,999
+to be matched only when the file is greater than 10 bytes.  To do this we use the byte_size function.
+
+42
+00:04:31,000 --> 00:04:36,999
+This function is build into Elixir, which is why we can call it without an enclosing module.
+
+43
+00:04:37,000 --> 00:04:42,999
+If there's a match with the first pattern and the guard clause returns true, then we'll print the string
+
+44
+00:04:43,000 --> 00:04:50,999
+Content: but instead of printing the list of transactions, we'll print parenthesis with these three dots.
+
+45
+00:04:51,000 --> 00:04:55,999
+We run our code again, passing it a file with a long list of transactions.
+
+46
+00:04:56,000 --> 00:05:01,999
+It matches on the first pattern and prints the new message to the screen.
+
+47
+00:05:02,000 --> 01:00:00,000
+This is the end of this first section.  Now it's your turn to practice the case statement on the challenges.

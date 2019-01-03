@@ -1,0 +1,135 @@
+﻿1
+00:00:00,000 --> 00:00:05,278
+You're watching On Fire With Phoenix.  In this section,
+
+2
+00:00:05,279 --> 00:00:12,342
+we'll learn how to use view modules to format data for templates.
+
+3
+00:00:12,343 --> 00:00:16,905
+The current state of our application lists video titles on a web page.
+
+4
+00:00:16,906 --> 00:00:22,388
+What we want to do now is add to the duration for each video next to its title.
+
+5
+00:00:22,389 --> 00:00:25,392
+Let's see how we can do that.
+
+6
+00:00:25,393 --> 00:00:29,678
+We'll start by going back to the video/index template.
+
+7
+00:00:29,679 --> 00:00:33,847
+Next to the expression that prints the video title, we add the string
+
+8
+00:00:33,848 --> 00:00:42,264
+duration followed by another expression that prints the video's duration property.
+
+9
+00:00:42,265 --> 00:00:47,218
+If we run this code, we'll see the duration for each video; however,
+
+10
+00:00:47,219 --> 00:00:52,295
+we'll see the integer value exactly as it's stored in the database.
+
+11
+00:00:52,296 --> 00:00:59,062
+We need to make this easier to read, like showing it in minutes and seconds.
+
+12
+00:00:59,063 --> 00:01:02,833
+To do that, we'll write code in view modules.
+
+13
+00:01:02,834 --> 00:01:08,248
+View modules are also a part of V in MVC.  They provide helper
+
+14
+00:01:08,249 --> 00:01:13,321
+functions for templates.  The video view module is the perfect place
+
+15
+00:01:13,322 --> 00:01:21,995
+to write a helper function that converts seconds into minutes and seconds.
+
+16
+00:01:21,996 --> 00:01:26,652
+To do that, we declare a function called duration_in_mins that takes a
+
+17
+00:01:26,653 --> 00:01:30,908
+single argument, an integer representing the total number of seconds
+
+18
+00:01:30,909 --> 00:01:37,049
+for a video.  Inside this function, we call two functions, div and rem.
+
+19
+00:01:37,050 --> 00:01:40,743
+These functions are part of Elixir's kernel module,
+
+20
+00:01:40,744 --> 00:01:45,633
+automatically imported by Elixir.  Div performs a division and rounds
+
+21
+00:01:45,634 --> 00:01:50,242
+down to the closest integer.  We'll divide the number of seconds by 60
+
+22
+00:01:50,243 --> 00:01:56,288
+to get the minutes.  Rem returns the remainder of a division by its second argument.
+
+23
+00:01:56,289 --> 00:02:01,536
+In this example, 60, which returns the seconds portion of the duration.
+
+24
+00:02:01,537 --> 00:02:05,065
+With these two values assigned to the minutes and seconds variable,
+
+25
+00:02:05,066 --> 00:02:09,531
+we build a formatted string with a colon in the middle and return this
+
+26
+00:02:09,532 --> 00:02:13,414
+string from the function.
+
+27
+00:02:13,415 --> 00:02:17,447
+Now back to our video/index template, we can call our newly-defined
+
+28
+00:02:17,448 --> 00:02:22,320
+function, duration_in_mins, giving it the duration in seconds,
+
+29
+00:02:22,321 --> 00:02:29,450
+and then add the mins string to indicate the format of the duration.
+
+30
+00:02:29,451 --> 00:02:33,086
+When we run our code again and made a request to the video's path,
+
+31
+00:02:33,087 --> 00:02:36,845
+we can now see the list of videos, each with their corresponding
+
+32
+00:02:36,846 --> 00:02:40,989
+duration properly formatted.
+
+33
+00:02:40,990 --> 00:02:44,060
+This is the end of this level.  Now it's your turn to write some view
+
+34
+00:02:44,061 --> 01:00:00,000
+code in the challenges.

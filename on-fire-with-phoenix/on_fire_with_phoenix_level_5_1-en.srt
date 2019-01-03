@@ -1,0 +1,279 @@
+﻿1
+00:00:00,000 --> 00:00:08,440
+Yeah, cruise down that strip and take in the neon lights baby,
+
+2
+00:00:08,441 --> 00:00:13,618
+as we get well equipped to take our apps to new heights, yeah!
+
+3
+00:00:13,619 --> 00:00:18,811
+We'll create records, take in the view — our route is surely scenic too.
+
+4
+00:00:18,812 --> 00:00:22,545
+We'll use Elixir as we travel through On Fire With Phoenix,
+
+5
+00:00:22,546 --> 00:00:29,045
+On Fire With Phoenix, On Fire With Phoenix, yeah!
+
+6
+00:00:29,046 --> 00:00:33,205
+You're watching On Fire With Phoenix.  My name is Carlos Souza.
+
+7
+00:00:33,206 --> 00:00:37,350
+In this level, we won't be learning any new syntax or adding any new
+
+8
+00:00:37,351 --> 00:00:41,938
+features to our app.  Instead, we'll learn a very important design
+
+9
+00:00:41,939 --> 00:00:46,246
+practice that will help us keep our code organized and will give us a
+
+10
+00:00:46,247 --> 00:00:49,973
+solid foundation to grow our application from.
+
+11
+00:00:49,974 --> 00:00:54,035
+We'll learn about contexts.
+
+12
+00:00:54,036 --> 00:00:58,046
+When parts of the application know too much about other parts,
+
+13
+00:00:58,047 --> 00:01:03,758
+it's called tight coupling.  Tight coupling indicates poor application
+
+14
+00:01:03,759 --> 00:01:08,972
+design and leads to bad code.  There are two signs of tight coupling
+
+15
+00:01:08,973 --> 00:01:14,276
+in Phoenix that we, as developers, should be aware of when starting our apps.
+
+16
+00:01:14,277 --> 00:01:19,414
+First is when we find ourselves writing too much code in controllers.
+
+17
+00:01:19,415 --> 00:01:23,102
+This results in controllers knowing too much about other parts of the
+
+18
+00:01:23,103 --> 00:01:30,074
+app and results in a popular MVC anti-pattern known as fat controllers.
+
+19
+00:01:30,075 --> 00:01:34,336
+Second is when we have references to the Repo module and functions
+
+20
+00:01:34,337 --> 00:01:38,925
+from schema modules from controller actions, usually when there's
+
+21
+00:01:38,926 --> 00:01:42,724
+communication with the database.  There are more examples of how one
+
+22
+00:01:42,725 --> 00:01:46,793
+might write code that leads to tight coupling, but these two tend to
+
+23
+00:01:46,794 --> 00:01:53,697
+be the most common, so we'll focus on these for now and on how to fix them.
+
+24
+00:01:53,698 --> 00:01:57,617
+One solution to these two problems endorsed by the Phoenix core team
+
+25
+00:01:57,618 --> 00:02:03,296
+is called context.  Context modules allows us to decouple and isolate
+
+26
+00:02:03,297 --> 00:02:08,005
+our code into manageable and independent parts.
+
+27
+00:02:08,006 --> 00:02:12,075
+We do this by having a clear division of responsibilities.
+
+28
+00:02:12,076 --> 00:02:16,338
+Instead of controllers directly reaching out to schemas,
+
+29
+00:02:16,339 --> 00:02:20,534
+like video and comment, in the Repo module, we should code our Phoenix
+
+30
+00:02:20,535 --> 00:02:25,146
+apps in a way that controllers only talk to contexts.
+
+31
+00:02:25,147 --> 00:02:29,080
+Controllers are responsible for reading user parameters from routes
+
+32
+00:02:29,081 --> 00:02:34,252
+and passing them over to context modules.  Context modules read the
+
+33
+00:02:34,253 --> 00:02:40,992
+data passed by the controller and execute the core business logic of our application.
+
+34
+00:02:40,993 --> 00:02:44,389
+Part of the business logic might involve communicating with the
+
+35
+00:02:44,390 --> 00:02:51,547
+database, and that's when the context module will reach out to Schema and Repo.
+
+36
+00:02:51,548 --> 00:02:58,208
+Let's refactor our existing code to use a new context we'll create called Screencasts.
+
+37
+00:02:58,209 --> 00:03:03,361
+The Screencasts context, or module, will be the entry point for all
+
+38
+00:03:03,362 --> 00:03:07,422
+video-related operations, listing and creating.
+
+39
+00:03:07,423 --> 00:03:10,457
+Here's what our project structure will look like now.
+
+40
+00:03:10,458 --> 00:03:16,730
+Inside the fire_starter folder, we'll have a new folder called screencasts.
+
+41
+00:03:16,731 --> 00:03:22,093
+Inside this folder, we'll have the screencasts.ex file representing
+
+42
+00:03:22,094 --> 00:03:26,274
+the context, which is simply an Elixir module.
+
+43
+00:03:26,275 --> 00:03:31,932
+Then we'll move the Video and Comment modules inside the screencasts folder.
+
+44
+00:03:31,933 --> 00:03:36,894
+They are now part of the new folder in the Screencasts namespace,
+
+45
+00:03:36,895 --> 00:03:40,581
+as we'll see in just a moment.
+
+46
+00:03:40,582 --> 00:03:45,205
+Let's go back to VideoController and look at the code that we have so far.
+
+47
+00:03:45,206 --> 00:03:49,052
+This is the code, and it works, but we can spot some of the tight
+
+48
+00:03:49,053 --> 00:03:53,343
+coupling issues we just talked about.  In order to list and get
+
+49
+00:03:53,344 --> 00:03:59,340
+videos, the controller needs to know about the Repo module and Video schema.
+
+50
+00:03:59,341 --> 00:04:03,018
+If for any reason we make changes to how videos are read from the
+
+51
+00:04:03,019 --> 00:04:07,780
+database, these changes will directly affect this code.
+
+52
+00:04:07,781 --> 00:04:12,511
+We don't want that.  To fix this issue, we'll move these two lines out
+
+53
+00:04:12,512 --> 00:04:19,234
+of the controller and into the newly created Screencasts context.
+
+54
+00:04:19,235 --> 00:04:25,944
+As you can see, the Screencasts context is a module part of the FireStarter namespace.
+
+55
+00:04:25,945 --> 00:04:32,249
+Inside this module, we'll create two functions, list_videos and get_video.
+
+56
+00:04:32,250 --> 00:04:37,815
+List_videos takes no argument and reads all videos from the database.
+
+57
+00:04:37,816 --> 00:04:43,049
+Get_video takes an id as an argument, reads a specific video by its
+
+58
+00:04:43,050 --> 00:04:47,629
+id, preloads its comments, and returns the results.
+
+59
+00:04:47,630 --> 00:04:52,068
+Reading videos from database is now part of the Screencasts context,
+
+60
+00:04:52,069 --> 00:04:57,582
+and it's decoupled and isolated from the controller.
+
+61
+00:04:57,583 --> 00:05:01,648
+In order for this code to work, we must also move over the necessary
+
+62
+00:05:01,649 --> 00:05:09,013
+aliases, which helps us use shorter references to Repo and Video.
+
+63
+00:05:09,014 --> 00:05:15,265
+Now back to VideoController, we'll create an alias for FireStarter.Screencasts.
+
+64
+00:05:15,266 --> 00:05:20,873
+Then we can replace the old code with a call to Screencasts.list_videos
+
+65
+00:05:20,874 --> 00:05:26,564
+on the index action and Screencasts.get_video on the show action
+
+66
+00:05:26,565 --> 00:05:30,850
+giving it the ID read from pattern matching in the show function.
+
+67
+00:05:30,851 --> 00:05:34,828
+As you can see, the code for reading videos is now shorter and
+
+68
+00:05:34,829 --> 00:05:39,733
+decoupled from Repo and Schema.
+
+69
+00:05:39,734 --> 00:05:43,147
+That's is for this first section.  It's your turn to write context
+
+70
+00:05:43,148 --> 01:00:00,000
+code for reading from the database in the challenges.

@@ -1,0 +1,259 @@
+﻿1
+00:00:00,000 --> 00:00:05,645
+Welcome back to Try Laravel.  In this section, we're going to talk
+
+2
+00:00:05,646 --> 00:00:11,244
+about views, or what you, the viewer, sees.
+
+3
+00:00:11,245 --> 00:00:15,546
+Now back at our application stack diagram, let's talk about the next
+
+4
+00:00:15,547 --> 00:00:19,692
+piece of the puzzle, the views layer.  The views layer is where we
+
+5
+00:00:19,693 --> 00:00:23,732
+decide how to display our information back to the browser.
+
+6
+00:00:23,733 --> 00:00:27,017
+From here, we'll set up our templates and layouts that allow us to
+
+7
+00:00:27,018 --> 00:00:36,331
+format our data with HTML and CSS and a template syntax in Laravel called Blade.
+
+8
+00:00:36,332 --> 00:00:40,737
+Our views will be in the Resources folder of our project and then in a
+
+9
+00:00:40,738 --> 00:00:42,407
+folder called views.
+
+10
+00:00:42,408 --> 00:00:45,977
+Here we'll create a set of folders and files that can be used from
+
+11
+00:00:45,978 --> 00:00:50,285
+within our application.  Any view specific to a model should live in
+
+12
+00:00:50,286 --> 00:00:55,228
+their own folder under the views folder.  In this case, we have a view
+
+13
+00:00:55,229 --> 00:00:59,533
+that's specific to the markets table, so we have a markets folder and
+
+14
+00:00:59,534 --> 00:01:06,341
+then a view underneath it called show.blade.php.
+
+15
+00:01:06,342 --> 00:01:10,266
+Blade is the template language that's built into Laravel.
+
+16
+00:01:10,267 --> 00:01:14,602
+In order to use the Blade syntax and PHP code blocks, we'll have to
+
+17
+00:01:14,603 --> 00:01:18,670
+name our files with the extension .blade.php.
+
+18
+00:01:18,671 --> 00:01:23,680
+In this case, it's show.blade.php, which we're going to use to look at
+
+19
+00:01:23,681 --> 00:01:27,673
+a single market.  Here you can see a standard HTML file at the
+
+20
+00:01:27,674 --> 00:01:31,525
+beginning and then some new syntax.  If we want to echo information to
+
+21
+00:01:31,526 --> 00:01:35,676
+the screen, we'll use a set of opening curly braces and then end that
+
+22
+00:01:35,677 --> 00:01:41,110
+echo with the closing curly braces.  @php is how we start a simple
+
+23
+00:01:41,111 --> 00:01:45,837
+PHP-only block, and then we would end it with @endphp.
+
+24
+00:01:45,838 --> 00:01:49,991
+Notice that here we're making a call to our model and find of the ID
+
+25
+00:01:49,992 --> 00:01:54,192
+of 3, so this page wants to show the ID of 3.
+
+26
+00:01:54,193 --> 00:01:57,872
+And then we're using the Blade syntax to echo the market name,
+
+27
+00:01:57,873 --> 00:02:03,119
+the market city, and then an anchor tag to create a link and show the market website.
+
+28
+00:02:03,120 --> 00:02:14,295
+With no styles, we can see how this page will look rendered to the browser.
+
+29
+00:02:14,296 --> 00:02:17,639
+Now if we want to show all markets, we're going to create a new file
+
+30
+00:02:17,640 --> 00:02:22,894
+named index.blade.php and then change the content.
+
+31
+00:02:22,895 --> 00:02:27,462
+Here you can see inside of our @php tags we're changing it to Market
+
+32
+00:02:27,463 --> 00:02:31,285
+and a call to all to give us a collection of markets.
+
+33
+00:02:31,286 --> 00:02:36,655
+Then we're using looping constructs @foreach ($markets as $markets) so
+
+34
+00:02:36,656 --> 00:02:39,574
+that we can loop through each of the markets in the collection and
+
+35
+00:02:39,575 --> 00:02:42,857
+show a link to the website of that market.
+
+36
+00:02:42,858 --> 00:02:47,529
+If you notice, we have some repeated code between our show.blade.php
+
+37
+00:02:47,530 --> 00:02:53,665
+file and our index.blade.php file, which is our framing HTML.
+
+38
+00:02:53,666 --> 00:02:57,560
+We'll want to clean up our code as much as possible to dry up our
+
+39
+00:02:57,561 --> 00:03:02,539
+code, or don't repeat yourself.  Blade helps us do just that by giving
+
+40
+00:03:02,540 --> 00:03:06,967
+us the ability to create layouts.  In this case, we want to keep our
+
+41
+00:03:06,968 --> 00:03:11,478
+HTML markup header and the footer the same throughout the project and
+
+42
+00:03:11,479 --> 00:03:15,989
+just change the content.  We can do that by creating a file called
+
+43
+00:03:15,990 --> 00:03:23,246
+app.blade.php and placing it in a folder named layouts inside of our views folder.
+
+44
+00:03:23,247 --> 00:03:27,971
+Then we can define areas for each of our custom views to modify by
+
+45
+00:03:27,972 --> 00:03:31,889
+defining an @yield tag with the name of the section.
+
+46
+00:03:31,890 --> 00:03:36,074
+Here I'm calling that section main.  Then, inside of our
+
+47
+00:03:36,075 --> 00:03:41,441
+index.blade.php file, we can remove all but the content we need for
+
+48
+00:03:41,442 --> 00:03:45,016
+that page and place a few new items at the top.
+
+49
+00:03:45,017 --> 00:03:49,674
+The first is the @extends command to tell us that this file is the
+
+50
+00:03:49,675 --> 00:03:55,647
+extension of the layouts.app file.  The layouts.app string can also be
+
+51
+00:03:55,648 --> 00:03:59,556
+looked at as a folder, or a slash, in the file path.
+
+52
+00:03:59,557 --> 00:04:03,107
+Next, we're going to define the section we want to modify with the
+
+53
+00:04:03,108 --> 00:04:08,211
+@section tag and the string argument of the section name main.
+
+54
+00:04:08,212 --> 00:04:11,200
+Then at the end of all of our content, or custom code,
+
+55
+00:04:11,201 --> 00:04:14,635
+we'll close that section with @endsection.
+
+56
+00:04:14,636 --> 00:04:19,448
+Each new file we create will have an @extends and @section inside of
+
+57
+00:04:19,449 --> 00:04:29,035
+it so we don't have to repeat our framing HTML code.
+
+58
+00:04:29,036 --> 00:04:32,119
+In this section, we've learned about creating views.
+
+59
+00:04:32,120 --> 00:04:36,296
+We've learned about the Blade template syntax and using Blade to
+
+60
+00:04:36,297 --> 00:04:40,154
+create layouts so that we can dry up our code.
+
+61
+00:04:40,155 --> 00:04:45,665
+Now it's time for you to take some challenges, and I'll see you in the next level.
+
+62
+00:04:45,666 --> 00:04:48,219
+Blah, blah, blah, blah.
+
+63
+00:04:48,220 --> 00:04:52,019
+Or we can (gibberish).
+
+64
+00:04:52,020 --> 00:04:54,389
+We're getting a (noises).
+
+65
+00:04:54,390 --> 01:00:00,000
+Once we find a record.

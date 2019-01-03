@@ -1,0 +1,223 @@
+﻿1
+00:00:00,000 --> 00:00:08,698
+Welcome back.  Let's work with a new tool, Artisan Tinker.
+
+2
+00:00:08,699 --> 00:00:12,903
+Artisan Tinker is a command line interface to our application and
+
+3
+00:00:12,904 --> 00:00:15,813
+all of our code.  To start Tinker, you're going to want to open up a
+
+4
+00:00:15,814 --> 00:00:20,675
+command line and type php artisan tinker, and then press Enter.
+
+5
+00:00:20,676 --> 00:00:24,700
+You should see something similar to the following, and the prompt
+
+6
+00:00:24,701 --> 00:00:27,793
+should be three right arrows or three greater-than symbols.
+
+7
+00:00:27,794 --> 00:00:31,705
+Next, you're going to want to type the following:  App, which is our
+
+8
+00:00:31,706 --> 00:00:36,092
+top-level namespace for the application, and then a backslash,
+
+9
+00:00:36,093 --> 00:00:42,000
+and then the Market with a capital M.  Follow that with two colon
+
+10
+00:00:42,001 --> 00:00:45,096
+symbols so that we can run a static class method.
+
+11
+00:00:45,097 --> 00:00:48,464
+All of that followed by an open and close set of parentheses.
+
+12
+00:00:48,465 --> 00:00:52,502
+You should see that the following result is an empty collection
+
+13
+00:00:52,503 --> 00:00:55,698
+because we don't have any markets in our table.
+
+14
+00:00:55,699 --> 00:00:57,838
+However, this does tell us that we do have a good connection to our
+
+15
+00:00:57,839 --> 00:01:01,892
+database with our application.
+
+16
+00:01:01,893 --> 00:01:05,487
+Using Tinker, we're going to create a new market entry.
+
+17
+00:01:05,488 --> 00:01:09,486
+This will allow us to see how to structure our data, as well as what
+
+18
+00:01:09,487 --> 00:01:12,338
+commands to use on the class to store data.
+
+19
+00:01:12,339 --> 00:01:16,915
+We'll begin by creating a variable named $data and setting its value
+
+20
+00:01:16,916 --> 00:01:22,078
+to an array with key value pair for each of our table columns.
+
+21
+00:01:22,079 --> 00:01:27,827
+Our columns or keys are name, city, and website, and we'll set the
+
+22
+00:01:27,828 --> 00:01:31,936
+values equal to Orlando Farmers Market as the name, Orlando as the
+
+23
+00:01:31,937 --> 00:01:35,739
+city, and orlandomarket.com as the website.
+
+24
+00:01:35,740 --> 00:01:39,877
+When you press Enter, you'll see the value of the new array.
+
+25
+00:01:39,878 --> 00:01:44,083
+Finally, we need to create a new entry.  We can do this by calling
+
+26
+00:01:44,084 --> 00:01:47,763
+App\Market and then the static method of create.
+
+27
+00:01:47,764 --> 00:01:51,370
+Then pass our $data array variable as the argument.
+
+28
+00:01:51,371 --> 00:01:55,018
+If we do this now, we're going to get an error,
+
+29
+00:01:55,019 --> 00:01:58,675
+MassAssignmentException on the name.  What this is telling us is that
+
+30
+00:01:58,676 --> 00:02:03,300
+our database is protected from assigning multiple key values at the
+
+31
+00:02:03,301 --> 00:02:08,377
+same time for the Market model.  This is a security feature that's
+
+32
+00:02:08,378 --> 00:02:12,991
+meant to keep things such as ID and timestamps or maybe user roles
+
+33
+00:02:12,992 --> 00:02:17,017
+depending on the model from being assigned from an outside source
+
+34
+00:02:17,018 --> 00:02:20,802
+such as a form.
+
+35
+00:02:20,803 --> 00:02:24,417
+In order to fix the MassAssignmentException, we're going to need to
+
+36
+00:02:24,418 --> 00:02:28,082
+allow specific fields to be mass assigned.
+
+37
+00:02:28,083 --> 00:02:31,090
+For our application, we're going to want the name, the city,
+
+38
+00:02:31,091 --> 00:02:34,816
+and the website fields to be created or updated through mass
+
+39
+00:02:34,817 --> 00:02:38,606
+assignment using the protected model property named $fillable.
+
+40
+00:02:38,607 --> 00:02:42,225
+$Fillable accepts an array of column names for the model that we will
+
+41
+00:02:42,226 --> 00:02:47,498
+allow to be filled through mass assignment.
+
+42
+00:02:47,499 --> 00:02:51,804
+Now switching back over to our Tinker console, we can run the last
+
+43
+00:02:51,805 --> 00:02:55,996
+command of create again.  This time you'll get back a Market object
+
+44
+00:02:55,997 --> 00:03:04,424
+with all of our new values that were in the $data array from the previous steps.
+
+45
+00:03:04,425 --> 00:03:09,848
+Still in Tinker, we can run our command to query all markets in the database.
+
+46
+00:03:09,849 --> 00:03:14,278
+This time we'll get back a collection with one result--an App\Market
+
+47
+00:03:14,279 --> 00:03:18,320
+object with our new data.
+
+48
+00:03:18,321 --> 00:03:23,399
+Congrats!  You've created your first database market entry.
+
+49
+00:03:23,400 --> 00:03:26,977
+Let's review what we've done to get here.  We've used Artisan Tinker
+
+50
+00:03:26,978 --> 00:03:30,527
+to tie into our application and create some new data.
+
+51
+00:03:30,528 --> 00:03:34,982
+Then to solve for mass assignment issues, we've allowed our city,
+
+52
+00:03:34,983 --> 00:03:41,460
+website, and name columns to be assigned using the $fillable property.
+
+53
+00:03:41,461 --> 00:03:46,821
+Now it's time for you to do some challenges, and I'll see you in the next level.
+
+54
+00:03:46,822 --> 00:03:50,039
+This will run all migrations right ---.
+
+55
+00:03:50,040 --> 00:03:52,679
+Using Tinker, we will create a new market entry.
+
+56
+00:03:52,680 --> 01:00:00,000
+Our columns, whoa, forgot the speed there.

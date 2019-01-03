@@ -1,0 +1,207 @@
+﻿1
+00:00:00,000 --> 00:00:06,701
+Welcome back.  In this section, we're going to learn about CRUD,
+
+2
+00:00:06,702 --> 00:00:10,881
+which is really the basics of any database-backed application is to
+
+3
+00:00:10,882 --> 00:00:15,992
+create, read, update, and delete.
+
+4
+00:00:15,993 --> 00:00:20,452
+Eloquent helps us create a CRUD-based application very simply.
+
+5
+00:00:20,453 --> 00:00:24,319
+Let's look at how we accomplish each of these starting with create.
+
+6
+00:00:24,320 --> 00:00:28,323
+To create a market using the single attribute method, we'll create a
+
+7
+00:00:28,324 --> 00:00:35,602
+Market object named $m by using the new operator followed by the class name Market.
+
+8
+00:00:35,603 --> 00:00:40,872
+Then we'll set the property using the object operator followed by name
+
+9
+00:00:40,873 --> 00:00:45,526
+and set it equal to Winter Garden Market.  Then, to write the entry to
+
+10
+00:00:45,527 --> 00:00:53,284
+the database, we'll use the save method on the $m Market object.
+
+11
+00:00:53,285 --> 00:00:57,041
+If we want to create an entry in our database with multiple attributes
+
+12
+00:00:57,042 --> 00:01:01,242
+such as you might have with submitting a form, we want to use the mass
+
+13
+00:01:01,243 --> 00:01:06,123
+assignment method of creation.  Here we set up an array with key value
+
+14
+00:01:06,124 --> 00:01:12,593
+pairs where the key is the property we want to set followed by its intended value.
+
+15
+00:01:12,594 --> 00:01:15,595
+Normally, this would be handled by the submission of a form,
+
+16
+00:01:15,596 --> 00:01:19,091
+and it would come back to us in the format of an array.
+
+17
+00:01:19,092 --> 00:01:23,993
+Then we pass this array to the create method on the class of Market.
+
+18
+00:01:23,994 --> 00:01:28,170
+Notice we used a static method with the two colon symbols.
+
+19
+00:01:28,171 --> 00:01:34,682
+This way we do not have to create a new object each time.
+
+20
+00:01:34,683 --> 00:01:38,052
+Like we did in the previous section, if we want to read data of a
+
+21
+00:01:38,053 --> 00:01:43,411
+single item, we'll use the method find followed by the ID of the item
+
+22
+00:01:43,412 --> 00:01:47,735
+we wish to retrieve.  We can also gather all items in the database
+
+23
+00:01:47,736 --> 00:01:51,811
+with the all method.  If we need to gather information using some
+
+24
+00:01:51,812 --> 00:01:56,765
+custom constraints, we can us the where method followed by two arguments.
+
+25
+00:01:56,766 --> 00:02:00,357
+The first argument is the column we want to test against,
+
+26
+00:02:00,358 --> 00:02:03,225
+and the second is the value we want to find.
+
+27
+00:02:03,226 --> 00:02:08,857
+Then we'll run that query by sending the get method.
+
+28
+00:02:08,858 --> 00:02:12,390
+In this query that you see here, we're gathering all markets where the
+
+29
+00:02:12,391 --> 00:02:17,615
+city is equal to Orlando.  We can get very detailed with our queries.
+
+30
+00:02:17,616 --> 00:02:21,619
+Here we're using the same Orlando city constraint, and then ordering
+
+31
+00:02:21,620 --> 00:02:25,391
+the results by the name descending in alphabetical order,
+
+32
+00:02:25,392 --> 00:02:28,940
+and then taking only the first five of those results.
+
+33
+00:02:28,941 --> 00:02:37,439
+Here is an example of the results var dumped to the screen.
+
+34
+00:02:37,440 --> 00:02:41,320
+To update a single item, first we would use the find command just like
+
+35
+00:02:41,321 --> 00:02:45,163
+before and pass an ID to get the item we'd like to update.
+
+36
+00:02:45,164 --> 00:02:49,709
+Then we can set the property name to a new value, then run the save
+
+37
+00:02:49,710 --> 00:02:55,493
+method to write that new data to the database.
+
+38
+00:02:55,494 --> 00:02:59,937
+We can also update multiple values at the same time by using an array
+
+39
+00:02:59,938 --> 00:03:03,649
+with key value pairs of the items that we want to change.
+
+40
+00:03:03,650 --> 00:03:06,968
+In this case, we're going to change the name and the website.
+
+41
+00:03:06,969 --> 00:03:14,846
+Then we pass this data to the fill method on the $m Market object.
+
+42
+00:03:14,847 --> 00:03:19,208
+Once we find a record, we can also delete it with the delete method.
+
+43
+00:03:19,209 --> 00:03:22,910
+If we want to, we can do this in one line and call the static destroy
+
+44
+00:03:22,911 --> 00:03:27,082
+method with the argument of the ID we want to destroy.
+
+45
+00:03:27,083 --> 00:03:31,372
+We can also pass an array of IDs to the same destroy static method,
+
+46
+00:03:31,373 --> 00:03:35,805
+and all of them will be deleted.
+
+47
+00:03:35,806 --> 00:03:41,379
+Just as a CRUD overview, we can create, read, update, or delete market
+
+48
+00:03:41,380 --> 00:03:46,731
+data very simply using Eloquent.
+
+49
+00:03:46,732 --> 00:03:50,001
+In this section, we've learned about Laravel and CRUD,
+
+50
+00:03:50,002 --> 00:03:53,288
+which is create, read, update, and delete.
+
+51
+00:03:53,289 --> 00:03:58,061
+We've also learned about mass assignment when creating or updating records.
+
+52
+00:03:58,062 --> 01:00:00,000
+Now it's time for you to take some challenges, and I'll see you in the next level.

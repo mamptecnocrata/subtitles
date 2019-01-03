@@ -1,0 +1,147 @@
+﻿1
+00:00:00,000 --> 00:00:10,470
+Lettuce head to the farm and get deep into the CRUD.
+
+2
+00:00:10,471 --> 00:00:15,599
+No need to be alarmed — the data's cleaner than the mud.
+
+3
+00:00:15,600 --> 00:00:19,653
+We'll pep up our app, yes we will.  It's going to be real swell,
+
+4
+00:00:19,654 --> 00:00:31,752
+so swell, so swell.  Learning MVC is a snap when you're using Laravel.
+
+5
+00:00:31,753 --> 00:00:35,116
+Welcome back to Try Laravel.  In this section, we're going to talk
+
+6
+00:00:35,117 --> 00:00:40,387
+about models, or how we interact with our data.
+
+7
+00:00:40,388 --> 00:00:44,581
+Let's talk about our application stack.  The Laravel framework helps
+
+8
+00:00:44,582 --> 00:00:48,923
+us separate our logic into four simple areas handling each of the
+
+9
+00:00:48,924 --> 00:00:53,564
+steps from the moment a user arrives at our URL until we return a
+
+10
+00:00:53,565 --> 00:00:57,809
+response back to them.  The first of these that we're going to look at
+
+11
+00:00:57,810 --> 00:01:01,032
+is the model.
+
+12
+00:01:01,033 --> 00:01:04,930
+The model is where we place our logic on where and how we're going to
+
+13
+00:01:04,931 --> 00:01:08,769
+interact with our data store.  When we're retrieving information from
+
+14
+00:01:08,770 --> 00:01:14,063
+the database, like in the last level, we were using the model class in Eloquent.
+
+15
+00:01:14,064 --> 00:01:20,730
+Let's look at that again now.  The class Market is in a file named
+
+16
+00:01:20,731 --> 00:01:27,582
+Market.php, and the class extends or inherits from the Eloquent Model class.
+
+17
+00:01:27,583 --> 00:01:32,328
+And with no other code in the Market.php file, we have tied our class
+
+18
+00:01:32,329 --> 00:01:36,985
+Market to the markets table in our database.
+
+19
+00:01:36,986 --> 00:01:42,464
+When we query Market find of 3, we're sending a query to the database
+
+20
+00:01:42,465 --> 00:01:50,381
+to give us the data in the markets table where the ID is equal to 3.
+
+21
+00:01:50,382 --> 00:01:54,049
+Let's say we need to make a longer query that only includes the
+
+22
+00:01:54,050 --> 00:01:59,781
+markets from Orlando, and we need to sort them by the market name in descending order.
+
+23
+00:01:59,782 --> 00:02:03,135
+If we need to run this query more than a couple times, we should find
+
+24
+00:02:03,136 --> 00:02:10,703
+a way to make this code cleaner, so how can we do this?
+
+25
+00:02:10,704 --> 00:02:14,978
+Laravel gives us this ability in the use of local scopes.
+
+26
+00:02:14,979 --> 00:02:19,575
+We can create custom local scopes by creating a method named scope in
+
+27
+00:02:19,576 --> 00:02:23,189
+lowercase followed by the uppercase scope name.
+
+28
+00:02:23,190 --> 00:02:27,689
+Here we're calling it scopeOrlando.  Inside of this new method,
+
+29
+00:02:27,690 --> 00:02:33,079
+scopeOrlando, we'll simply return the query that we had in the previous slide.
+
+30
+00:02:33,080 --> 00:02:36,688
+When we need to run this query, we can just make a static call to the
+
+31
+00:02:36,689 --> 00:02:42,089
+scope name without the word scope.  Here it's just orlando followed by
+
+32
+00:02:42,090 --> 00:02:49,047
+the get method to run the query to get our custom results.
+
+33
+00:02:49,048 --> 00:02:52,309
+In this section, you've learned about creating models with Laravel's
+
+34
+00:02:52,310 --> 00:02:55,745
+Eloquent in order to communicate with our database.
+
+35
+00:02:55,746 --> 00:02:59,193
+You've also learned about local scopes in Eloquent to help us with
+
+36
+00:02:59,194 --> 00:03:03,967
+longer more complicated queries that you might need to run more often.
+
+37
+00:03:03,968 --> 01:00:00,000
+Now it's time for you to take some challenges, and I'll see you in the next section.

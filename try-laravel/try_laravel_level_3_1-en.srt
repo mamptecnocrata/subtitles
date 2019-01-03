@@ -1,0 +1,167 @@
+﻿1
+00:00:00,000 --> 00:00:10,470
+Lettuce head to the farm and get deep into the CRUD.
+
+2
+00:00:10,471 --> 00:00:15,599
+No need to be alarmed — the data's cleaner than the mud.
+
+3
+00:00:15,600 --> 00:00:19,653
+We'll pep up our app, yes we will.  It's going to be real swell,
+
+4
+00:00:19,654 --> 00:00:32,043
+so swell, so swell.  Learning MVC is a snap when you're using Laravel.
+
+5
+00:00:32,044 --> 00:00:35,363
+Welcome back to Try Laravel.  In this section, we're going to learn
+
+6
+00:00:35,364 --> 00:00:40,819
+about controllers, or the middle man of our application.
+
+7
+00:00:40,820 --> 00:00:45,112
+The next section in our application stack happens just before the model.
+
+8
+00:00:45,113 --> 00:00:49,521
+It's called the controller layer.  Controllers handle our logic.
+
+9
+00:00:49,522 --> 00:00:53,648
+It will help us pull data from the model and then call our view while
+
+10
+00:00:53,649 --> 00:01:00,569
+passing along all of the information that we just got from our database.
+
+11
+00:01:00,570 --> 00:01:03,473
+To define a new controller, we'll need to create a controller named
+
+12
+00:01:03,474 --> 00:01:08,353
+the same as the model followed by the name Controller in camel case.
+
+13
+00:01:08,354 --> 00:01:14,332
+Then inside of that controller file we'll extend Larvel's existing Controller class.
+
+14
+00:01:14,333 --> 00:01:19,763
+These controllers will exist in the app/Http/Controllers folders.
+
+15
+00:01:19,764 --> 00:01:26,315
+Here are file will be named MarketController.php.
+
+16
+00:01:26,316 --> 00:01:30,417
+For each route, we'll need a public method, or action.
+
+17
+00:01:30,418 --> 00:01:35,152
+The index method, or action, will be used to list all of our markets.
+
+18
+00:01:35,153 --> 00:01:39,705
+We'll make a call to the Market model using the all method returning a
+
+19
+00:01:39,706 --> 00:01:43,912
+collection of results from the database.  We'll need to send this data
+
+20
+00:01:43,913 --> 00:01:49,839
+to a view.  We can accomplish this by using the view helper method in Laravel.
+
+21
+00:01:49,840 --> 00:01:53,504
+The first argument is our view.  Here we're going to the views folder
+
+22
+00:01:53,505 --> 00:01:58,728
+by default, then the markets folder, and then the index.blade.php file
+
+23
+00:01:58,729 --> 00:02:02,602
+that we created in the last level.  This second argument will then
+
+24
+00:02:02,603 --> 00:02:07,201
+pass the collection markets to the view by adding an array with the
+
+25
+00:02:07,202 --> 00:02:10,961
+key of markets.
+
+26
+00:02:10,962 --> 00:02:13,878
+Now that we have the model call in the controller, we don't need to
+
+27
+00:02:13,879 --> 00:02:18,103
+create the markets collection here in the view, so we can remove it.
+
+28
+00:02:18,104 --> 00:02:21,309
+Since we've passed along the markets from the controller to the view,
+
+29
+00:02:21,310 --> 00:02:25,523
+everything else will remain the same.
+
+30
+00:02:25,524 --> 00:02:29,339
+To show a single market within the same controller, we can create a
+
+31
+00:02:29,340 --> 00:02:35,160
+different method named show, this time with an argument for the single Market item.
+
+32
+00:02:35,161 --> 00:02:39,522
+Laravel automatically binds the Market object to the ID that's in the
+
+33
+00:02:39,523 --> 00:02:44,269
+URL so we don't have to run any queries.  If no market is found,
+
+34
+00:02:44,270 --> 00:02:49,172
+it will generate a 404 for us.  Then our view is the same,
+
+35
+00:02:49,173 --> 00:02:52,547
+but we're now calling the show template and passing through the
+
+36
+00:02:52,548 --> 00:02:57,835
+argument key as Market instead of markets.
+
+37
+00:02:57,836 --> 00:03:00,987
+Again, we just remove the logic that queries the model,
+
+38
+00:03:00,988 --> 00:03:07,394
+and everything else just keeps working as expected.
+
+39
+00:03:07,395 --> 00:03:10,429
+In this section, we've learned about controllers for logic,
+
+40
+00:03:10,430 --> 00:03:14,406
+we've learned about using methods to render views, and how to remove
+
+41
+00:03:14,407 --> 00:03:18,666
+our logic from our views.  Now it's time to take some challenges,
+
+42
+00:03:18,667 --> 01:00:00,000
+and I'll see you in the next section.

@@ -1,0 +1,251 @@
+﻿1
+00:00:00,000 --> 00:00:05,607
+Welcome back to Try Laravel.  In this section, we're going to talk
+
+2
+00:00:05,608 --> 00:00:11,568
+about routing, or controlling our traffic.
+
+3
+00:00:11,569 --> 00:00:14,938
+The final layer in our application stack is routing.
+
+4
+00:00:14,939 --> 00:00:19,098
+Routing is the director of traffic for our entire application.
+
+5
+00:00:19,099 --> 00:00:22,992
+It sees the URL that comes in from the request and decides where to
+
+6
+00:00:22,993 --> 00:00:30,327
+send that request in the application based on what we place in our routes file.
+
+7
+00:00:30,328 --> 00:00:33,874
+The routes file lives in the routes folder at the root of our
+
+8
+00:00:33,875 --> 00:00:39,224
+application, and any web-based routes will happen in web.php.
+
+9
+00:00:39,225 --> 00:00:43,568
+Let's go over some simple examples.  The first thing we'll do is use a
+
+10
+00:00:43,569 --> 00:00:48,713
+new class called Route followed by a static method get.
+
+11
+00:00:48,714 --> 00:00:53,660
+Get is directly related to the get HTTP method, so as you might
+
+12
+00:00:53,661 --> 00:00:57,059
+expect, we could also use the post method here.
+
+13
+00:00:57,060 --> 00:01:00,984
+In this case, we will use get followed by two arguments.
+
+14
+00:01:00,985 --> 00:01:04,933
+The first argument will be the URL that we're trying to match.
+
+15
+00:01:04,934 --> 00:01:08,334
+If we use forward slash, we'll be looking for the root path,
+
+16
+00:01:08,335 --> 00:01:13,294
+or in most cases, the home page, with no other URL information.
+
+17
+00:01:13,295 --> 00:01:18,746
+The second argument is a callback, or a function to run if this URL is matched.
+
+18
+00:01:18,747 --> 00:01:22,336
+In this example, I'm using a closure, or anonymous function,
+
+19
+00:01:22,337 --> 00:01:27,161
+to return a string of Hello World.  The Route class will return this
+
+20
+00:01:27,162 --> 00:01:31,657
+as an HTTP response with the body of Hello World.
+
+21
+00:01:31,658 --> 00:01:36,272
+We can also accept arguments in the URL.  The next example,
+
+22
+00:01:36,273 --> 00:01:42,457
+let's use the URL pattern of market/ followed by the ID as the argument.
+
+23
+00:01:42,458 --> 00:01:47,175
+To specify an argument, we will use the open and closing curly braces
+
+24
+00:01:47,176 --> 00:01:50,775
+surrounding the name of our argument.  Then, in our closure,
+
+25
+00:01:50,776 --> 00:01:54,300
+we'll pass through that same name as an argument variable,
+
+26
+00:01:54,301 --> 00:02:00,395
+then return in the closure a string containing that ID.
+
+27
+00:02:00,396 --> 00:02:03,917
+Since we're using controllers, we'll need to pass URL's specific
+
+28
+00:02:03,918 --> 00:02:08,159
+methods in each controller.  We can do this by sending a string as the
+
+29
+00:02:08,160 --> 00:02:12,516
+second argument instead of a closure.  This way we're able to handle
+
+30
+00:02:12,517 --> 00:02:17,385
+the logic from our route in the controller instead of our route's file.
+
+31
+00:02:17,386 --> 00:02:20,967
+We reference the method in the controller by writing a string
+
+32
+00:02:20,968 --> 00:02:24,553
+containing the class of the controller, followed by the at sign,
+
+33
+00:02:24,554 --> 00:02:28,602
+and then the method name.  Let's walk through the examples of a normal
+
+34
+00:02:28,603 --> 00:02:34,806
+RESTful CRUD routing list.  Many of our get request URLs you have seen
+
+35
+00:02:34,807 --> 00:02:40,118
+in the first lesson, such as the markets/create to make a new market.
+
+36
+00:02:40,119 --> 00:02:44,839
+That form will need to post to the markets URL, and we will direct it
+
+37
+00:02:44,840 --> 00:02:49,330
+to the store method inside of the markets controllers.
+
+38
+00:02:49,331 --> 00:02:53,570
+Another is when we want to find a specific market by market ID.
+
+39
+00:02:53,571 --> 00:02:59,634
+Here we use a wildcard to pass the market ID to the show action in our controller.
+
+40
+00:02:59,635 --> 00:03:03,479
+In the first example, if we were to hit markets/create, that would
+
+41
+00:03:03,480 --> 00:03:08,787
+direct a get request to the MarketController@create method.
+
+42
+00:03:08,788 --> 00:03:12,853
+In the second example, if we were to hit markets/3, it would pass
+
+43
+00:03:12,854 --> 00:03:19,197
+through the ID of 3 to the markets controller show method.
+
+44
+00:03:19,198 --> 00:03:22,198
+We will also want to edit specific markets.
+
+45
+00:03:22,199 --> 00:03:27,610
+Here we can add /edit after the market and map that market wildcard to
+
+46
+00:03:27,611 --> 00:03:31,026
+our edit action inside of the MarketController.
+
+47
+00:03:31,027 --> 00:03:34,839
+If we want to delete an item, we'll set up a delete route that maps to
+
+48
+00:03:34,840 --> 00:03:42,527
+the destroy action on the same controller using an ID wildcard.
+
+49
+00:03:42,528 --> 00:03:46,307
+Laravel makes creating all of these routes even easier for us by
+
+50
+00:03:46,308 --> 00:03:50,637
+giving us a route method called resource.  Resource routing expects
+
+51
+00:03:50,638 --> 00:03:55,847
+that a URL pattern will always relate to a specific controller and related model.
+
+52
+00:03:55,848 --> 00:03:59,157
+This is why naming has been so important to us.
+
+53
+00:03:59,158 --> 00:04:03,204
+Here, instead of defining each route individually, now we can just use
+
+54
+00:04:03,205 --> 00:04:08,139
+Route::resource followed by our URL pattern base, which is markets,
+
+55
+00:04:08,140 --> 00:04:11,751
+and then the controller name with no method specified.
+
+56
+00:04:11,752 --> 00:04:20,497
+With this single line of code, we now have all of the following routes.
+
+57
+00:04:20,498 --> 00:04:23,464
+In this section, we've learned about routing with closures,
+
+58
+00:04:23,465 --> 00:04:28,099
+CRUD routing, and resource routing with models and controllers.
+
+59
+00:04:28,100 --> 00:04:33,871
+Now it's time for you to take some challenges, and I'll see you in the wrap-up video.
+
+60
+00:04:33,872 --> 00:04:35,632
+Framework, vlah.
+
+61
+00:04:35,633 --> 00:04:38,028
+Lara (noises).
+
+62
+00:04:38,029 --> 00:04:40,623
+Notice we have some ch.
+
+63
+00:04:40,624 --> 01:00:00,000
+Call our vule, vule.  Is that like zool?

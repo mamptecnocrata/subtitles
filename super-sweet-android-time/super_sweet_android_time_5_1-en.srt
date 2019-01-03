@@ -1,0 +1,239 @@
+﻿1
+00:00:00,000 --> 00:00:04,149
+Our Candy Coded store sells sweet treats galore.
+
+2
+00:00:04,150 --> 00:00:06,877
+How do we get it on the map?
+
+3
+00:00:06,878 --> 00:00:10,584
+Let's build a sugar-coated Android app!
+
+4
+00:00:10,585 --> 00:00:13,940
+With tasty layouts and views,
+
+5
+00:00:13,941 --> 00:00:16,674
+full of delicious candy hues,
+
+6
+00:00:16,675 --> 00:00:26,955
+our users will be overjoyed by our super sweet apps powered with Android.
+
+7
+00:00:26,956 --> 00:00:34,023
+Welcome back to level 5 where we'll put the data in our database into our app.
+
+8
+00:00:34,024 --> 00:00:37,784
+Now that we have our candies in our database, the next step is to use
+
+9
+00:00:37,785 --> 00:00:44,034
+them in our app by querying our candy table.
+
+10
+00:00:44,035 --> 00:00:49,025
+As a review, we can use the select command to see what's in our table.
+
+11
+00:00:49,026 --> 00:00:53,919
+Select * gets all of the columns and will return all of the candy rows,
+
+12
+00:00:53,920 --> 00:01:01,363
+which is what we want.  We can query a SQLiteDatabase object by
+
+13
+00:01:01,364 --> 00:01:07,298
+passing a raw SQL query as a string to the rawQuery method.
+
+14
+00:01:07,299 --> 00:01:11,617
+The result is a cursor object that will contain all of the candy
+
+15
+00:01:11,618 --> 00:01:18,258
+rows and will let us navigate the results.
+
+16
+00:01:18,259 --> 00:01:22,598
+Cursor store query result records in rows and have methods to
+
+17
+00:01:22,599 --> 00:01:27,756
+access and iterate through them.  In this example, our cursor starts
+
+18
+00:01:27,757 --> 00:01:37,852
+at position -1.  To get the first row, we can call cursor.moveToNext.
+
+19
+00:01:37,853 --> 00:01:42,059
+Then to get the value in the name column, we first need the index
+
+20
+00:01:42,060 --> 00:01:47,210
+of that column, so we use the getColumnIndexOrThrow method,
+
+21
+00:01:47,211 --> 00:01:52,913
+which will throw an exception if, for some reason, that column doesn't exist.
+
+22
+00:01:52,914 --> 00:01:56,466
+Then we can finally get the name of the candy by calling
+
+23
+00:01:56,467 --> 00:02:02,154
+cursor.getString and passing the index of the column.
+
+24
+00:02:02,155 --> 00:02:08,256
+The resulting candy name is now Much Minty.
+
+25
+00:02:08,257 --> 00:02:13,494
+Our goal is to get our candy names into our ListView, so how can we do that?
+
+26
+00:02:13,495 --> 00:02:17,649
+Instead of using an ArrayAdapter to populate our ListView with
+
+27
+00:02:17,650 --> 00:02:23,211
+strings in an array, we can use a CursorAdapter to directly pull
+
+28
+00:02:23,212 --> 00:02:26,862
+values from our database.
+
+29
+00:02:26,863 --> 00:02:32,066
+To use a CursorAdapter, we need to create a CursorAdapter subclass,
+
+30
+00:02:32,067 --> 00:02:39,656
+which we will name CandyCursorAdapter.
+
+31
+00:02:39,657 --> 00:02:44,173
+Since CandyCursorAdapter extends CursorAdapter, it has to have a
+
+32
+00:02:44,174 --> 00:02:53,214
+constructor and override the newView and bindView methods.
+
+33
+00:02:53,215 --> 00:02:57,057
+The constructor will call the super method, and that needs the context,
+
+34
+00:02:57,058 --> 00:03:04,926
+the cursor, and false for re-query.  The newView method inflates the
+
+35
+00:03:04,927 --> 00:03:08,959
+view and returns it so that it can be displayed.
+
+36
+00:03:08,960 --> 00:03:13,171
+We need to tell it which layout to use.  We'll use the
+
+37
+00:03:13,172 --> 00:03:17,957
+list_item_candy layout we created in the Try Android course,
+
+38
+00:03:17,958 --> 00:03:25,589
+which is a layout describing what each item in the ListView should look like.
+
+39
+00:03:25,590 --> 00:03:29,897
+In the bindView method, we set the elements of our view.
+
+40
+00:03:29,898 --> 00:03:34,597
+We need to get the TextView from our layout to fill, then we get the
+
+41
+00:03:34,598 --> 00:03:39,187
+column in our database to fill it with, and then we use the setText
+
+42
+00:03:39,188 --> 00:03:43,878
+method to connect the two.
+
+43
+00:03:43,879 --> 00:03:47,192
+Now we can use our CursorAdapter to get data directly from our
+
+44
+00:03:47,193 --> 00:03:52,765
+database into our ListView.  To use our new CandyCursorAdapter,
+
+45
+00:03:52,766 --> 00:04:02,296
+we need to refactor the code in MainActivity.java a bit.
+
+46
+00:04:02,297 --> 00:04:07,169
+We can remove the code that creates the ArrayList and the ArrayAdapter
+
+47
+00:04:07,170 --> 00:04:15,912
+since we'll be using our database and CandyCursorAdapter instead.
+
+48
+00:04:15,913 --> 00:04:21,009
+Then to use our database data, we'll first query for all of the candies.
+
+49
+00:04:21,010 --> 00:04:31,266
+Then we can create a CandyCursorAdapter from the results in the cursor.
+
+50
+00:04:31,267 --> 00:04:35,395
+We can also remove the code to update the ArrayAdapter after our
+
+51
+00:04:35,396 --> 00:04:42,409
+request since we're not using that anymore.
+
+52
+00:04:42,410 --> 00:04:51,763
+Instead, we'll update our CursorAdapter here with the latest database entries.
+
+53
+00:04:51,764 --> 00:04:56,906
+In the onItemClickListener method, we can remove the code that passes
+
+54
+00:04:56,907 --> 00:05:01,196
+all of the properties individually to the detail activity.
+
+55
+00:05:01,197 --> 00:05:05,713
+Instead, we'll pass the position of the item selected so that we can
+
+56
+00:05:05,714 --> 00:05:10,475
+use the index to look up that row in the database in the
+
+57
+00:05:10,476 --> 00:05:15,809
+DetailActivity.java file.
+
+58
+00:05:15,810 --> 00:05:19,961
+Before we jump into the detail activity, it's time for you to practice
+
+59
+00:05:19,962 --> 00:05:22,775
+using the CursorAdapter in the challenges.
+
+60
+00:05:22,776 --> 01:00:00,000
+Good luck.

@@ -1,0 +1,307 @@
+﻿1
+00:00:00,000 --> 00:00:08,440
+Yeah, cruise down that strip and take in the neon lights baby,
+
+2
+00:00:08,441 --> 00:00:13,618
+as we get well equipped to take our apps to new heights, yeah!
+
+3
+00:00:13,619 --> 00:00:18,811
+We'll create records, take in the view — our route is surely scenic too.
+
+4
+00:00:18,812 --> 00:00:22,545
+We'll use Elixir as we travel through On Fire With Phoenix,
+
+5
+00:00:22,546 --> 00:00:29,045
+On Fire With Phoenix, On Fire With Phoenix, yeah!
+
+6
+00:00:29,046 --> 00:00:32,740
+You're watching On Fire With Phoenix.  I'm Carlos Souza, and in this
+
+7
+00:00:32,741 --> 00:00:40,031
+section we'll learn how to use Phoenix to create a new database table.
+
+8
+00:00:40,032 --> 00:00:44,261
+We want to build a video show page.  On this page, we'll have the
+
+9
+00:00:44,262 --> 00:00:49,151
+title for video at the top followed by a list of comments left by
+
+10
+00:00:49,152 --> 00:00:54,123
+people who watched the video.  In order to do that, we need a place to
+
+11
+00:00:54,124 --> 00:00:59,239
+store and retrieve these comments, a new database table with columns
+
+12
+00:00:59,240 --> 00:01:06,615
+for id, body, author, and, most importantly, video_id, which will hold
+
+13
+00:01:06,616 --> 00:01:13,012
+a reference to the parent video each comment belongs to.
+
+14
+00:01:13,013 --> 00:01:16,484
+In this level, we'll learn how to make changes to the database and how
+
+15
+00:01:16,485 --> 00:01:20,243
+to create associations between schema modules.
+
+16
+00:01:20,244 --> 00:01:24,815
+First, we'll learn about migrations, what they are and how to use them
+
+17
+00:01:24,816 --> 00:01:29,146
+to create new tables.  Then we'll learn how to define foreign key
+
+18
+00:01:29,147 --> 00:01:33,886
+fields and relationships.  And then we'll learn how to load associated
+
+19
+00:01:33,887 --> 00:01:38,424
+records from the database in our Phoenix app.
+
+20
+00:01:38,425 --> 00:01:43,246
+In Phoenix, we use migration files in order to make changes to the
+
+21
+00:01:43,247 --> 00:01:47,655
+database, including creating a table.  In the big picture of our
+
+22
+00:01:47,656 --> 00:01:52,441
+Phoenix project structure, this is where migrations live.
+
+23
+00:01:52,442 --> 00:01:56,748
+Migrations are not involved in the request/response cycle,
+
+24
+00:01:56,749 --> 00:02:02,163
+so they're not really part of the MVC.  But as we'll see, they are an
+
+25
+00:02:02,164 --> 00:02:09,179
+essential part of Phoenix, and it can make our lives a whole lot easier.
+
+26
+00:02:09,180 --> 00:02:15,070
+Migrations allows us to define changes to the database structure using Elixir.
+
+27
+00:02:15,071 --> 00:02:19,840
+To run a migration, we start by writing code in Elixir that expresses
+
+28
+00:02:19,841 --> 00:02:22,532
+the changes we want to make to the database.
+
+29
+00:02:22,533 --> 00:02:28,072
+Then we run a mix task called ecto.migrate.
+
+30
+00:02:28,073 --> 00:02:34,123
+This task will read Elixir code, translate it to SQL, and execute that
+
+31
+00:02:34,124 --> 00:02:39,198
+on the target database.  Every change to the database is expressed in
+
+32
+00:02:39,199 --> 00:02:45,208
+a migration file, and it's not uncommon to find apps with dozens of them.
+
+33
+00:02:45,209 --> 00:02:49,996
+Let's see what this code looks like.
+
+34
+00:02:49,997 --> 00:02:53,556
+Migration modules in our application are submodules of the
+
+35
+00:02:53,557 --> 00:02:58,816
+FireStarter.Repo.Migrations module.  They live under the
+
+36
+00:02:58,817 --> 00:03:05,690
+priv/repo/migrations folder.  Each migration file name starts with the
+
+37
+00:03:05,691 --> 00:03:10,849
+date the file was created.  This is useful for sorting migrations and
+
+38
+00:03:10,850 --> 00:03:16,535
+figuring out the correct order in which to run them.
+
+39
+00:03:16,536 --> 00:03:22,688
+The change function is where we write code that will be translated to SQL statements.
+
+40
+00:03:22,689 --> 00:03:27,764
+The function must be named this way; otherwise, Phoenix and Ecto will
+
+41
+00:03:27,765 --> 00:03:32,756
+not know which code to execute.
+
+42
+00:03:32,757 --> 00:03:39,272
+In order to create a new table, we use two functions, create and table.
+
+43
+00:03:39,273 --> 00:03:44,141
+These two functions are part of the Ecto.Migration module.
+
+44
+00:03:44,142 --> 00:03:49,659
+First, we call create.  Then we call table with the name of the table
+
+45
+00:03:49,660 --> 00:03:55,395
+as an atom.  In this example, comments.  New tables created this way
+
+46
+00:03:55,396 --> 00:04:01,746
+default to a primary key of name id and type serial, a widely used
+
+47
+00:04:01,747 --> 00:04:06,663
+convention in database design.
+
+48
+00:04:06,664 --> 00:04:10,615
+Now that we have the table, let's create the columns.
+
+49
+00:04:10,616 --> 00:04:17,874
+To do that, we use the add function, also part of the Ecto.Migration module.
+
+50
+00:04:17,875 --> 00:04:21,552
+The add function requires the column name, in this example body and
+
+51
+00:04:21,553 --> 00:04:25,903
+author, and the data type for each column, both of which in this
+
+52
+00:04:25,904 --> 00:04:30,999
+example is text.  For the body column, we're also passing optional
+
+53
+00:04:31,000 --> 00:04:35,145
+fields, stating this column cannot be null.
+
+54
+00:04:35,146 --> 00:04:41,227
+Lastly, we use the timestamps function, similar to the one used on schema modules.
+
+55
+00:04:41,228 --> 00:04:45,358
+This function is a shorthand for creating inserted_at and updated_at
+
+56
+00:04:45,359 --> 00:04:50,430
+columns of type naive_datetime for keeping track of when records were
+
+57
+00:04:50,431 --> 00:04:55,207
+created and last updated.
+
+58
+00:04:55,208 --> 00:05:00,456
+Remember, each comment record will need to reference its parent video.
+
+59
+00:05:00,457 --> 00:05:06,408
+We add a third column called video_id and then use the references
+
+60
+00:05:06,409 --> 00:05:10,982
+function to define a foreign key to the videos table.
+
+61
+00:05:10,983 --> 00:05:15,165
+The second argument to references indicates that we want all comments
+
+62
+00:05:15,166 --> 00:05:19,394
+to be deleted when the parent video is also deleted.
+
+63
+00:05:19,395 --> 00:05:27,771
+This helps prevent ghost records, which are comments without apparent video.
+
+64
+00:05:27,772 --> 00:05:32,857
+Lastly, it's a good practice to create an index for a foreign key column.
+
+65
+00:05:32,858 --> 00:05:35,940
+This can make our database queries run faster.
+
+66
+00:05:35,941 --> 00:05:39,021
+To do that, we use the same create function.
+
+67
+00:05:39,022 --> 00:05:42,713
+Now, instead of following it with a call to the table function,
+
+68
+00:05:42,714 --> 00:05:47,360
+we call the index function, giving it the table name comments and a
+
+69
+00:05:47,361 --> 00:05:50,471
+list of columns we want to create the index for.
+
+70
+00:05:50,472 --> 00:05:57,063
+In this example, just the video_id column.
+
+71
+00:05:57,064 --> 00:06:00,017
+That's all we need to create the new table.
+
+72
+00:06:00,018 --> 00:06:05,784
+To run the migration, we run the mix task ecto.migrate, and we should
+
+73
+00:06:05,785 --> 00:06:10,052
+see an output that looks similar to this.  The last line should be a
+
+74
+00:06:10,053 --> 00:06:14,811
+success message saying Migrated followed by how long it took to run.
+
+75
+00:06:14,812 --> 00:06:20,727
+We only had one migration, so we ran in less than a second.
+
+76
+00:06:20,728 --> 00:06:24,178
+That's it for this section.  It's your turn to practice writing some
+
+77
+00:06:24,179 --> 01:00:00,000
+migrations in the challenges.

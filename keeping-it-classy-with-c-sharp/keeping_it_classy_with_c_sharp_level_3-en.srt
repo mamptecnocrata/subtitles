@@ -1,0 +1,431 @@
+﻿1
+00:00:00,000 --> 00:00:05,999
+Hey, let’s give C# a try and keep it classy.
+
+2
+00:00:06,000 --> 00:00:10,999
+Our variables and methods will make things very jazzy.
+
+3
+00:00:11,000 --> 00:00:15,999
+Oh, we'll compile that code and make our apps real smart, as we orchestrate
+
+4
+00:00:16,000 --> 00:00:22,999
+and riff on the smooth sounds of C#.
+
+5
+00:00:23,000 --> 00:00:26,999
+Welcome back to Keeping it Classy with C#.  My name is Eric Fisher.
+
+6
+00:00:27,000 --> 00:00:31,999
+In this level we're going to learn about groups of objects.
+
+7
+00:00:32,000 --> 00:00:35,999
+our bands will need to be able to contain our musicians in order to store
+
+8
+00:00:36,000 --> 00:00:39,999
+and retrieve them.  To accomplish this, we're going to create a list of
+
+9
+00:00:40,000 --> 00:00:47,999
+musicians as well as we're going to create a method to add musicians to our list.
+
+10
+00:00:48,000 --> 00:00:54,999
+We've created a simple Musician class to store our band's musician information.
+
+11
+00:00:55,000 --> 00:00:58,999
+This Musician class will have a string for the musician's name, a string
+
+12
+00:00:59,000 --> 00:01:02,999
+for the musician's instrument, as well as it will have its own Announce
+
+13
+00:01:03,000 --> 00:01:08,999
+method, which will respond with the name of the musician "on the"
+
+14
+00:01:09,000 --> 00:01:12,999
+and the instrument that musician plays.  Before we tackle groups of objects,
+
+15
+00:01:13,000 --> 00:01:17,999
+we'll cover a shorthand way to instantiate an object.
+
+16
+00:01:18,000 --> 00:01:21,999
+The Object Initializer allows us to instantiate and set our object's
+
+17
+00:01:22,000 --> 00:01:27,999
+variables in a single line.  As you can see here, we create our new
+
+18
+00:01:28,000 --> 00:01:31,999
+Musician object, we then set the Name variable to Robert, then the
+
+19
+00:01:32,000 --> 00:01:35,999
+Instrument variable to Guitar.  When we instantiate Musician with the
+
+20
+00:01:36,000 --> 00:01:40,999
+object initializer, we create a new instance of Musician, followed by
+
+21
+00:01:41,000 --> 00:01:45,999
+curly braces, which allows us to set the name and the instrument variables
+
+22
+00:01:46,000 --> 00:01:48,999
+between those curly braces all within one line.
+
+23
+00:01:49,000 --> 00:01:52,999
+To add a group of objects to our Band class, we're first going to need to know
+
+24
+00:01:53,000 --> 00:01:57,999
+how to group objects.
+
+25
+00:01:58,000 --> 00:02:00,999
+In C# we have several choices for grouping objects, but for right now
+
+26
+00:02:01,000 --> 00:02:07,999
+we're just going to focus on these two, arrays and lists.
+
+27
+00:02:08,000 --> 00:02:12,999
+Arrays are best used for a group of strongly typed objects of a fixed number.
+
+28
+00:02:13,000 --> 00:02:18,999
+In this line we'll instantiate a new array of Musician by using square brackets
+
+29
+00:02:19,000 --> 00:02:21,999
+and then providing the number of musicians we want.
+
+30
+00:02:22,000 --> 00:02:25,999
+In order to assign to a specific index on an array, we can use the same
+
+31
+00:02:26,000 --> 00:02:29,999
+square bracket notation.  On the second line we create a new Musician,
+
+32
+00:02:30,000 --> 00:02:33,999
+Robert on the Guitar, and set it to index 0.
+
+33
+00:02:34,000 --> 00:02:37,999
+On the third line we create a new Musician, Sarah on the Keyboard,
+
+34
+00:02:38,000 --> 00:02:42,999
+and we set it to index 1.  But what happens if Thomas wants to join
+
+35
+00:02:43,000 --> 00:02:46,999
+we need to change the size of our band.  To change the size of an array
+
+36
+00:02:47,000 --> 00:02:52,999
+we need to recreate the entire array.  This means we'll need to instantiate
+
+37
+00:02:53,000 --> 00:02:57,999
+an entirely new array with a size of 3.  With that done, we need to reassign
+
+38
+00:02:58,000 --> 00:03:01,999
+our indexes 0 and 1 to Robert and Sarah and we'll now be able to set
+
+39
+00:03:02,000 --> 00:03:06,999
+our index 2 to our new musician, Thomas on the Drums.
+
+40
+00:03:07,000 --> 00:03:12,999
+This is going to be a real pain to manage with bands constantly changing members.
+
+41
+00:03:13,000 --> 00:03:16,999
+This brings us to lists.  Lists are great for handling a group of
+
+42
+00:03:17,000 --> 00:03:19,999
+strongly-typed objects of a varying or unknown number.
+
+43
+00:03:20,000 --> 00:03:25,999
+We can create a list of musicians by using the List type, angle bracket,
+
+44
+00:03:26,000 --> 00:03:29,999
+and then whatever data type we want to put in our list.
+
+45
+00:03:30,000 --> 00:03:34,999
+In our example, this first line will create a musician's variable
+
+46
+00:03:35,000 --> 00:03:37,999
+and will instantiate a new list of musician.
+
+47
+00:03:38,000 --> 00:03:42,999
+On the second line, we'll instantiate a new Musician, Robert on the Guitar,
+
+48
+00:03:43,000 --> 00:03:46,999
+and we can add it to our musicians list by using the Add method.
+
+49
+00:03:47,000 --> 00:03:50,999
+On the third line, we'll add a new Musician, Sarah on the Keyboard,
+
+50
+00:03:51,000 --> 00:03:54,999
+using the Add method as well.  If Thomas joins the band, we don’t need
+
+51
+00:03:55,000 --> 00:03:57,999
+to re-instantiate the list or change anything about the list, we just
+
+52
+00:03:58,000 --> 00:04:01,999
+add Thomas and the list will resize automatically.
+
+53
+00:04:02,000 --> 00:04:04,999
+We go ahead and call the Add method on Musicians and provide our new
+
+54
+00:04:05,000 --> 00:04:09,999
+musician, Thomas on the Drums.  This will be much nicer for handling
+
+55
+00:04:10,000 --> 00:04:16,999
+bands constantly changing members and won't break if we expand musician later.
+
+56
+00:04:17,000 --> 00:04:19,999
+In order to add a list of musician to our Band class, the first thing
+
+57
+00:04:20,000 --> 00:04:23,999
+we're going to have to do is create a using statement for
+
+58
+00:04:24,000 --> 00:04:29,999
+System.Collections.Generic because that's where our list data type lives.
+
+59
+00:04:30,000 --> 00:04:33,999
+From here we'll change our Musicians variable from an integer to being
+
+60
+00:04:34,000 --> 00:04:37,999
+a List of Musician.  Now we have our List of Musician, we should create
+
+61
+00:04:38,000 --> 00:04:41,999
+a method to add to it.
+
+62
+00:04:42,000 --> 00:04:44,999
+We will create our new AddMusician method.  The first thing we're going to do
+
+63
+00:04:45,000 --> 00:04:48,999
+inside of this method is we're going to instantiate a new Musician.
+
+64
+00:04:49,000 --> 00:04:53,999
+One thing I would like to note is instead of providing the data type
+
+65
+00:04:54,000 --> 00:04:57,999
+before the variable, you may also use the var keyword, which will infer
+
+66
+00:04:58,000 --> 00:05:01,999
+the variable's data type based on whatever is after the equals character.
+
+67
+00:05:02,000 --> 00:05:06,999
+The compiled results with or without the var will be exactly the same,
+
+68
+00:05:07,000 --> 00:05:11,999
+so it is entirely up to preference what you use.
+
+69
+00:05:12,000 --> 00:05:14,999
+Next we'll ask the name of the musician to be added.
+
+70
+00:05:15,000 --> 00:05:17,999
+We'll then set the Name variable using Console.ReadLine.
+
+71
+00:05:18,000 --> 00:05:21,999
+After that, we'll ask what instrument the musician plays.
+
+72
+00:05:22,000 --> 00:05:26,999
+We'll then store the result on the Instrument variable.
+
+73
+00:05:27,000 --> 00:05:31,999
+Finally we'll call the Add method on the musician's list and provide
+
+74
+00:05:32,000 --> 00:05:36,999
+it the Musician object we created.  When we actually run the code though,
+
+75
+00:05:37,000 --> 00:05:39,999
+we're going to get a null exception error.
+
+76
+00:05:40,000 --> 00:05:45,999
+The error will say Object reference is not set to an instance of an object.
+
+77
+00:05:46,000 --> 00:05:50,999
+And if we were to look at a debugger and put our mouse over the Musicians object,
+
+78
+00:05:51,000 --> 00:05:53,999
+we would see that it is null.  Why is Musician null?
+
+79
+00:05:54,000 --> 00:05:57,999
+Shouldn’t it be a list of Musician?
+
+80
+00:05:58,000 --> 00:06:02,999
+Null is the absence of a value, not to be mistaken for 0, which is
+
+81
+00:06:03,000 --> 00:06:06,999
+a value of nothing.  When we look at our code, we'll first see that we have
+
+82
+00:06:07,000 --> 00:06:11,999
+our public list of musicians.  What we're telling the application is
+
+83
+00:06:12,000 --> 00:06:15,999
+you will be given a list of Musician, call it Musicians.
+
+84
+00:06:16,000 --> 00:06:19,999
+Next, we have our line of code that says Musicians.Add musician.
+
+85
+00:06:20,000 --> 00:06:25,999
+What we're telling the computer now is okay add a musician to musicians.
+
+86
+00:06:26,000 --> 00:06:28,999
+And the computer is responding, I don’t understand, you told me you were
+
+87
+00:06:29,000 --> 00:06:34,999
+going to give me a list, but you never actually gave it to me.
+
+88
+00:06:35,000 --> 00:06:37,999
+we can set the Musicians variable to have a default value of a list
+
+89
+00:06:38,000 --> 00:06:46,999
+of Musician.  This provides Musicians with an initial empty list of Musician.
+
+90
+00:06:47,000 --> 00:06:50,999
+Musicians is now working.  We've added all the underlying code we need for it.
+
+91
+00:06:51,000 --> 00:06:55,999
+Our code now works.  Our application now contains a list of musicians
+
+92
+00:06:56,000 --> 00:06:59,999
+per band as well as a method to add a musician to the list.
+
+93
+00:07:00,000 --> 00:07:04,999
+If we were to run the Add Musician method right now, we would see,
+
+94
+00:07:05,000 --> 00:07:07,999
+What is the name of the musician to be added?
+
+95
+00:07:08,000 --> 00:07:11,999
+The user would then provide a name, in this case Robert, What instrument
+
+96
+00:07:12,000 --> 00:07:15,999
+does Robert play?  In this case, Guitar, and that's it.
+
+97
+00:07:16,000 --> 00:07:20,999
+In the next level we'll cover wiring it up using loops.
+
+98
+00:07:21,000 --> 00:07:24,999
+A recap on groups of objects.  We have arrays, which are best suited
+
+99
+00:07:25,000 --> 00:07:29,999
+for a group of strongly typed objects of a fixed number.
+
+100
+00:07:30,000 --> 00:07:33,999
+We have lists, which are best suited for a group of strongly typed objects
+
+101
+00:07:34,000 --> 00:07:38,999
+of a varying or unknown number and in order to use lists, we must reference
+
+102
+00:07:39,000 --> 00:07:46,999
+the System.Collections.Generic namespace.
+
+103
+00:07:47,000 --> 00:07:49,999
+That's it for this level.  Now it's your turn to use groups of objects
+
+104
+00:07:50,000 --> 00:07:53,999
+in the challenges.  I'll see you in the next level.
+
+105
+00:07:54,000 --> 00:07:57,999
+Goes back to us, and I looked Carlos.
+
+106
+00:07:58,000 --> 00:08:00,999
+It's not name, it's band name.
+
+107
+00:08:01,000 --> 00:08:03,999
+Ahh.  That's a lot of band.  It is a lot of band.
+
+108
+00:08:04,000 --> 01:00:00,000
+Take a breath.  Well I'm sitting there, it's like…

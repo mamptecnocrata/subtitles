@@ -1,0 +1,403 @@
+﻿1
+00:00:00,000 --> 00:00:09,219
+Welcome back.  In this section, we're going to go over email and date validation.
+
+2
+00:00:09,220 --> 00:00:12,203
+Let's take a look back through what we've accomplished so far on our
+
+3
+00:00:12,204 --> 00:00:16,771
+to do list.  We validated the existence of all three data types,
+
+4
+00:00:16,772 --> 00:00:21,319
+our email, our date, and our description.  We've also removed any
+
+5
+00:00:21,320 --> 00:00:26,468
+whitespace from any of the data, as well as escaped all HTML special
+
+6
+00:00:26,469 --> 00:00:30,664
+characters sanitizing our output for the description field.
+
+7
+00:00:30,665 --> 00:00:37,393
+So the only thing that remains is to validate that we have a date and an email.
+
+8
+00:00:37,394 --> 00:00:42,146
+As of right now, we can still submit our form with an invalid email.
+
+9
+00:00:42,147 --> 00:00:47,333
+Here I'm using hampton@codeschool without the .com as an invalid email.
+
+10
+00:00:47,334 --> 00:00:51,949
+We're going to want to validate this data against the current email address standards.
+
+11
+00:00:51,950 --> 00:00:56,756
+PHP makes this really easy for us.
+
+12
+00:00:56,757 --> 00:01:00,953
+Using another conditional combined with a PHP function, we can check
+
+13
+00:01:00,954 --> 00:01:05,700
+the validity of our email address.  Here we're using the filter_var
+
+14
+00:01:05,701 --> 00:01:10,157
+function, or filter a variable.  We combine this with a built-in
+
+15
+00:01:10,158 --> 00:01:16,229
+constant, FILTER_VALIDATE_EMAIL.  If the variable is valid against the
+
+16
+00:01:16,230 --> 00:01:21,088
+email constant, it will return true.  Then it will echo out our data.
+
+17
+00:01:21,089 --> 00:01:27,790
+Now that we've done this, we can check off the validate email to do item.
+
+18
+00:01:27,791 --> 00:01:31,094
+We want to validate our date as well.  Here you can see we're using a
+
+19
+00:01:31,095 --> 00:01:35,055
+relative date of last night.  However, this is invalid.
+
+20
+00:01:35,056 --> 00:01:39,368
+We also need to format the user submitted data on output so that all
+
+21
+00:01:39,369 --> 00:01:43,942
+dates will look the same to the users.
+
+22
+00:01:43,943 --> 00:01:49,998
+To check the date, we'll use a function named strtotime, or string to time.
+
+23
+00:01:49,999 --> 00:01:53,969
+This will convert almost any date into a UNIX timestamp.
+
+24
+00:01:53,970 --> 00:01:56,865
+We'll store the timestamp in a variable named time.
+
+25
+00:01:56,866 --> 00:02:01,492
+Let's take a look at this a bit closer.
+
+26
+00:02:01,493 --> 00:02:04,957
+The strtotime function is very powerful and allows for many different
+
+27
+00:02:04,958 --> 00:02:09,075
+types of relative date formats.  Let's take a look at a few.
+
+28
+00:02:09,076 --> 00:02:12,633
+Looking at the first example, we use the function strtotime.
+
+29
+00:02:12,634 --> 00:02:16,465
+Then we pass as an argument the string of today.
+
+30
+00:02:16,466 --> 00:02:19,789
+This is going to return midnight of the current day.
+
+31
+00:02:19,790 --> 00:02:24,577
+Strtotime of yesterday, as well as tomorrow will also return midnight,
+
+32
+00:02:24,578 --> 00:02:28,491
+but of the respective day.  You're also able to use more complex
+
+33
+00:02:28,492 --> 00:02:32,986
+relative dates, such as last Saturday of March 2010.
+
+34
+00:02:32,987 --> 00:02:36,529
+Other than relative dates, you can also use several different types of
+
+35
+00:02:36,530 --> 00:02:41,166
+known date formats.  All of these will be converted to timestamps,
+
+36
+00:02:41,167 --> 00:02:44,430
+which are measured from the seconds since the UNIX epic,
+
+37
+00:02:44,431 --> 00:02:52,213
+which is January 1, 1970 with a time of 00:00:00 GMT.
+
+38
+00:02:52,214 --> 00:02:56,926
+Now that we have a timestamp, we should convert this into a formatted date.
+
+39
+00:02:56,927 --> 00:03:00,205
+We can do this with the PHP date function.
+
+40
+00:03:00,206 --> 00:03:04,004
+The date function will convert a UNIX timestamp into a human readable
+
+41
+00:03:04,005 --> 00:03:08,684
+date using the format that you've provided in the first argument.
+
+42
+00:03:08,685 --> 00:03:13,055
+Just like our strtotime function, there are a lot of different options for date.
+
+43
+00:03:13,056 --> 00:03:16,824
+Let's take a look at those now.
+
+44
+00:03:16,825 --> 00:03:21,386
+In our first example, we're using the function date followed by two arguments.
+
+45
+00:03:21,387 --> 00:03:30,037
+The first argument is a string of m/d/Y.  The second argument is our timestamp.
+
+46
+00:03:30,038 --> 00:03:33,803
+In this example, we're going to be using a timestamp that equates to
+
+47
+00:03:33,804 --> 00:03:39,605
+March 14, 2015.  The first example is going to return the month and
+
+48
+00:03:39,606 --> 00:03:45,564
+the day, and both of them will have leading 0s, as well as a four digit year.
+
+49
+00:03:45,565 --> 00:03:49,080
+The second example is going to return the full month name, as well as
+
+50
+00:03:49,081 --> 00:03:54,465
+an ordinal suffix such as st, nd, or th, as well as the year.
+
+51
+00:03:54,466 --> 00:03:58,328
+You can also see a few more examples, including one using a constant,
+
+52
+00:03:58,329 --> 00:04:02,836
+the DATE_ATOM, which is used for MySQL.  You really don't have to
+
+53
+00:04:02,837 --> 00:04:05,847
+memorize all of these different formatting options.
+
+54
+00:04:05,848 --> 00:04:09,629
+These, and more, can be found in the PHP date docs, which you can get
+
+55
+00:04:09,630 --> 00:04:13,536
+to by the link below.
+
+56
+00:04:13,537 --> 00:04:18,445
+We really want to take this validation step further and make it more reusable.
+
+57
+00:04:18,446 --> 00:04:21,572
+We'll do this by creating a custom function.
+
+58
+00:04:21,573 --> 00:04:25,838
+A function is a reusable block of custom code that will allow you to
+
+59
+00:04:25,839 --> 00:04:30,576
+create and accept arguments, work with that data, and return data back
+
+60
+00:04:30,577 --> 00:04:33,598
+to the location from where the function was called.
+
+61
+00:04:33,599 --> 00:04:37,721
+In this example, we're creating a function to multiply two numbers and
+
+62
+00:04:37,722 --> 00:04:41,357
+then return that product.  We start by using function,
+
+63
+00:04:41,358 --> 00:04:45,335
+a keyword provided by PHP.  Immediately after that, we'll create a
+
+64
+00:04:45,336 --> 00:04:48,706
+name of the function.  Here we're using multiply.
+
+65
+00:04:48,707 --> 00:04:51,503
+We open and close some parentheses and then place any number of
+
+66
+00:04:51,504 --> 00:04:56,084
+arguments inside of those parentheses.  Here we're using value_1
+
+67
+00:04:56,085 --> 00:05:00,402
+separated by a comma, and then value_2.  Then we open and close some
+
+68
+00:05:00,403 --> 00:05:03,726
+curly brackets, and then anything we want to do with those two
+
+69
+00:05:03,727 --> 00:05:07,177
+arguments we do inside of those curly brackets.
+
+70
+00:05:07,178 --> 00:05:14,429
+Here we're setting a variable product equal to the product of value_1 and value_2.
+
+71
+00:05:14,430 --> 00:05:18,029
+Then, on the next line, we're returning the value of product.
+
+72
+00:05:18,030 --> 00:05:21,158
+This is a very simple example, but let's take a look at some results
+
+73
+00:05:21,159 --> 00:05:29,484
+from this function.  Here we have four examples of using the multiply function.
+
+74
+00:05:29,485 --> 00:05:33,755
+In the first example, we're doing multiply 5 times 7, the second one
+
+75
+00:05:33,756 --> 00:05:40,367
+42 to 0, so on and so forth.  Here you can see the results: 35, 0, 42,
+
+76
+00:05:40,368 --> 00:05:44,487
+and then 288.  No matter what combination of integers we feed to the
+
+77
+00:05:44,488 --> 00:05:51,004
+function, we're always going to get the product of those two values.
+
+78
+00:05:51,005 --> 00:05:54,768
+Now let's create a custom date validation function.
+
+79
+00:05:54,769 --> 00:05:58,383
+We'll start with the keyword function followed by the function name.
+
+80
+00:05:58,384 --> 00:06:02,043
+Here we're using validate_date.  Then we follow that up with a single
+
+81
+00:06:02,044 --> 00:06:06,553
+argument of date_string inside of the parentheses.
+
+82
+00:06:06,554 --> 00:06:09,467
+We're going to open and close some curly braces and then place our
+
+83
+00:06:09,468 --> 00:06:13,829
+existing date validation code inside of these braces.
+
+84
+00:06:13,830 --> 00:06:18,142
+Instead of echo, we're going to use return to send the data back to
+
+85
+00:06:18,143 --> 00:06:21,904
+the function call.  Finally, we're going to want to add an else
+
+86
+00:06:21,905 --> 00:06:29,124
+statement to pass an error string back if we don't get a valid date.
+
+87
+00:06:29,125 --> 00:06:32,679
+Then we'll use our new function in place of the code we just moved by
+
+88
+00:06:32,680 --> 00:06:37,669
+writing echo validate_date, which is the name of our function,
+
+89
+00:06:37,670 --> 00:06:41,137
+open and close parenthesis, and then inside of there we'll actually
+
+90
+00:06:41,138 --> 00:06:44,178
+pass our date string that's submitted by the user.
+
+91
+00:06:44,179 --> 00:06:47,672
+This is either going to return to us a string with the formatted date
+
+92
+00:06:47,673 --> 00:06:51,494
+or our error string.
+
+93
+00:06:51,495 --> 00:06:54,272
+Let's take a look at what we've learned in this section as a review
+
+94
+00:06:54,273 --> 00:06:57,881
+before your challenges.  We learned how to use the filter_var function
+
+95
+00:06:57,882 --> 00:07:01,840
+combined with a built-in constant for our email address, we used the
+
+96
+00:07:01,841 --> 00:07:05,694
+strtotime function combined with the date function to validate and
+
+97
+00:07:05,695 --> 00:07:13,440
+format our date, and we've also learned how to create and use a custom function.
+
+98
+00:07:13,441 --> 00:07:19,204
+Now, enjoy some challenges, and I'll see you on the other side.
+
+99
+00:07:19,205 --> 00:07:22,094
+Anything on the dang screen that I feel like putting in there, so you know, hey.
+
+100
+00:07:22,095 --> 00:07:25,262
+Leading (Noises).
+
+101
+00:07:25,263 --> 01:00:00,000
+(Noises).

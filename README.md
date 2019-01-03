@@ -14,6 +14,7 @@ Please name the subtitle files as follows:
 - `level1-en.srt` for English
 - `level1-fr.srt` for French
 - `level1-es.srt` for Spanish
+- `level1-tr.srt` for Turkish
 
 You can find a list of the [ISO 639-1 language codes on Wikipedia](http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) if you're not sure
 which one to use.
@@ -26,6 +27,7 @@ your pull request. Wouldn't be surprised if you get some free stuff!!! :-)
 Thank you all so much!
 
 - https://github.com/ricardovsilva
+- https://github.com/omergulen
 
 ## Deployment on Code School
 We will only release new subtitles to a course when all videos for all levels have

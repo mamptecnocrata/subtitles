@@ -1,0 +1,107 @@
+﻿1
+00:00:00,000 --> 00:00:05,664
+Welcome back.  In this section we're going to use the Picasso image
+
+2
+00:00:05,665 --> 00:00:11,600
+library to load our images into our ImageView.
+
+3
+00:00:11,601 --> 00:00:15,568
+Instead of writing this somewhat lengthy code to download images
+
+4
+00:00:15,569 --> 00:00:20,189
+into our app and cache them, Picasso is an Android library we can
+
+5
+00:00:20,190 --> 00:00:24,295
+use to do this for us.
+
+6
+00:00:24,296 --> 00:00:28,275
+We need caching because getting files from a distant web server
+
+7
+00:00:28,276 --> 00:00:33,258
+takes much longer than getting locally cached images from memory.
+
+8
+00:00:33,259 --> 00:00:38,381
+How caching works is, if the image exists in our local cache memory
+
+9
+00:00:38,382 --> 00:00:42,614
+from a recent request, we can load it from there.
+
+10
+00:00:42,615 --> 00:00:46,312
+Otherwise, we'll download the image from the web server,
+
+11
+00:00:46,313 --> 00:00:51,603
+but also save it in our local cache for next time.
+
+12
+00:00:51,604 --> 00:00:55,529
+Just like we did before with our async and GSON libraries,
+
+13
+00:00:55,530 --> 00:00:59,499
+to use Picasso we need to add it as a dependency to the bottom of
+
+14
+00:00:59,500 --> 00:01:06,106
+our app's build.gradle file.
+
+15
+00:01:06,107 --> 00:01:11,178
+Now that Picasso has been included in our project, we can use it in our code.
+
+16
+00:01:11,179 --> 00:01:16,795
+We use Picasso.with to set the context of where the image will be
+
+17
+00:01:16,796 --> 00:01:23,747
+used, which is this activity, then the load method sets the URL where
+
+18
+00:01:23,748 --> 00:01:29,073
+Picasso will download the image from, and then the into method sets
+
+19
+00:01:29,074 --> 00:01:33,662
+the ImageView where we're going to display the image.
+
+20
+00:01:33,663 --> 00:01:38,286
+Remember, by using Picasso, Android Studio should automatically add
+
+21
+00:01:38,287 --> 00:01:42,525
+the following import line to the top of your file, but if it doesn't,
+
+22
+00:01:42,526 --> 00:01:50,876
+you can add it yourself.  Now let's get Picasso into our detail activity.
+
+23
+00:01:50,877 --> 00:01:54,911
+Just like before, we first need to get the image URL passed in with
+
+24
+00:01:54,912 --> 00:01:59,730
+the intent and also find our ImageView by its ID.
+
+25
+00:01:59,731 --> 00:02:06,320
+Then we can use Picasso to load our image into our ImageView.
+
+26
+00:02:06,321 --> 00:02:14,235
+And that's it.  Now we can see our image loading from our image URL we passed in.
+
+27
+00:02:14,236 --> 01:00:00,000
+That's it for level 3.  Now it's time for you to give Picasso a try in the challenges.

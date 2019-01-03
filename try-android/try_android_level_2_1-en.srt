@@ -1,0 +1,419 @@
+﻿1
+00:00:00,000 --> 00:00:04,261
+Our Candy Coded store sells sweet treats galore.
+
+2
+00:00:04,262 --> 00:00:10,814
+How do we get it on the map?  Let's build a sugar-coated Android app!
+
+3
+00:00:10,815 --> 00:00:17,015
+With tasty layouts and views full of delicious candy hues,
+
+4
+00:00:17,016 --> 00:00:26,838
+our users will be overjoyed by our super sweet apps powered with Android.
+
+5
+00:00:26,839 --> 00:00:33,886
+Welcome back to Level 2 where we'll be covering layouts, views, and images.
+
+6
+00:00:33,887 --> 00:00:38,026
+Now that we have some experience working on our layout by adjusting
+
+7
+00:00:38,027 --> 00:00:43,786
+the text in our TextView to say Products, let's also add an image in
+
+8
+00:00:43,787 --> 00:00:48,785
+an ImageView and add a ListView.
+
+9
+00:00:48,786 --> 00:00:52,551
+Now that we have some experience working in our layout by updating the
+
+10
+00:00:52,552 --> 00:01:00,370
+TextView to say Products, let's add our Candy Coded logo image as an ImageView.
+
+11
+00:01:00,371 --> 00:01:04,776
+For our ImageView, we'll need to add an image resource.
+
+12
+00:01:04,777 --> 00:01:11,473
+Image resources either live in the drawable or mipmap folder under the res directory.
+
+13
+00:01:11,474 --> 00:01:15,029
+Images that are not affected by changes in scale can go in the
+
+14
+00:01:15,030 --> 00:01:19,673
+drawable folder, but images that are affected by scale,
+
+15
+00:01:19,674 --> 00:01:23,836
+like your app's icons, which will resize differently on different
+
+16
+00:01:23,837 --> 00:01:30,499
+devices, should go in the mipmap folder.  Let's jump back into Android
+
+17
+00:01:30,500 --> 00:01:34,460
+Studio to see how to add our ImageView.
+
+18
+00:01:34,461 --> 00:01:38,662
+One way to easily add images to your project is to copy and paste the
+
+19
+00:01:38,663 --> 00:01:45,267
+image directly, so we'll copy this candy_coded logo from our desktop
+
+20
+00:01:45,268 --> 00:01:49,808
+and then paste it into the res drawable folder.
+
+21
+00:01:49,809 --> 00:01:53,608
+We then get a pop-up confirming we want to copy that file to this
+
+22
+00:01:53,609 --> 00:02:01,654
+directory, and we can hit OK.  Then we can view it to make sure it looks alright.
+
+23
+00:02:01,655 --> 00:02:06,593
+Then, back in our layout design, we're going to drag and drop an ImageView.
+
+24
+00:02:06,594 --> 00:02:12,356
+To find the ImageView, you can start typing ImageView in the palette to search.
+
+25
+00:02:12,357 --> 00:02:16,075
+And now that we've found an ImageView, we can drag it over.
+
+26
+00:02:16,076 --> 00:02:19,846
+You can see there are some guidelines that pop up.
+
+27
+00:02:19,847 --> 00:02:23,721
+We'll center the image above the TextView.
+
+28
+00:02:23,722 --> 00:02:28,323
+Then we get asked to choose the image's source, and we'll choose the
+
+29
+00:02:28,324 --> 00:02:33,716
+image we just added.  Now we see our image in our layout,
+
+30
+00:02:33,717 --> 00:02:38,952
+but there are a few problems.  We need to drag it to the center,
+
+31
+00:02:38,953 --> 00:02:44,713
+and the aspect ratio is off on the bounding box, so we'll fix that by
+
+32
+00:02:44,714 --> 00:02:50,597
+selecting adjustViewBounds.  This resizes the width and height of the
+
+33
+00:02:50,598 --> 00:02:57,550
+ImageView object to exactly match the width and height of the image it displays.
+
+34
+00:02:57,551 --> 00:03:01,054
+If we look at the raw XML that was generated, we can see the
+
+35
+00:03:01,055 --> 00:03:05,803
+properties that are set.  The width and height are set to wrap_content
+
+36
+00:03:05,804 --> 00:03:11,840
+by default, which means the view will be just big enough to enclose the contents.
+
+37
+00:03:11,841 --> 00:03:21,211
+AdjustViewBounds is set to true.  The source is set to @drawable/candy_coded.
+
+38
+00:03:21,212 --> 00:03:29,706
+And it also has layout_editor_absoluteX and absoluteY set to 0dp.
+
+39
+00:03:29,707 --> 00:03:33,984
+This is because we're using a ConstraintLayout and how we positioned
+
+40
+00:03:33,985 --> 00:03:39,143
+the image in the editor by dragging it to the very top.
+
+41
+00:03:39,144 --> 00:03:42,645
+With a ConstraintLayout, we can rearrange elements by dragging things
+
+42
+00:03:42,646 --> 00:03:47,252
+around in the design view like this.  But if we know we just want
+
+43
+00:03:47,253 --> 00:03:54,495
+items to flow from top to bottom or left to right, there's a better way.
+
+44
+00:03:54,496 --> 00:03:57,533
+Let's go back to the slides to talk about the different types of
+
+45
+00:03:57,534 --> 00:04:00,534
+layouts in Android.
+
+46
+00:04:00,535 --> 00:04:04,132
+The commonly used layouts in Android are LinearLayout,
+
+47
+00:04:04,133 --> 00:04:09,310
+which arranges child objects in a horizontal or vertical row,
+
+48
+00:04:09,311 --> 00:04:13,853
+ConstraintLayout, which we are currently using, where view objects are
+
+49
+00:04:13,854 --> 00:04:19,247
+arranged relative to each other with constraints, and a Web Layout,
+
+50
+00:04:19,248 --> 00:04:23,318
+which displays a web page.  Since we want our title, image,
+
+51
+00:04:23,319 --> 00:04:27,254
+and list to come one after the other vertically, it sounds like a
+
+52
+00:04:27,255 --> 00:04:31,186
+vertical LinearLayout is what we want.
+
+53
+00:04:31,187 --> 00:04:34,979
+We'll start by replacing the default relative layout in the
+
+54
+00:04:34,980 --> 00:04:39,904
+activity_main.xml file with a LinearLayout.
+
+55
+00:04:39,905 --> 00:04:45,183
+We also need to add the orientation property set to vertical.
+
+56
+00:04:45,184 --> 00:04:49,809
+Let's jump back to Android Studio to see how to do that.
+
+57
+00:04:49,810 --> 00:04:53,857
+To change our activity's layout from a ConstraintLayout to a
+
+58
+00:04:53,858 --> 00:05:00,417
+LinearLayout, we can go into the TextView and edit the XML directly.
+
+59
+00:05:00,418 --> 00:05:04,203
+Notice the ConstraintLayout is from the support library.
+
+60
+00:05:04,204 --> 00:05:07,889
+That's because ConstraintLayout is a new feature of Android,
+
+61
+00:05:07,890 --> 00:05:12,383
+so the support library allows it to be backwards compatible.
+
+62
+00:05:12,384 --> 00:05:16,802
+We'll just replace the ConstraintLayout tag with LinearLayout.
+
+63
+00:05:16,803 --> 00:05:22,337
+Notice the closing tag was also updated.  We'll also set the
+
+64
+00:05:22,338 --> 00:05:30,315
+LinearLayout's orientation property to vertical since we want a vertical LinearLayout.
+
+65
+00:05:30,316 --> 00:05:34,341
+Since we're using a LinearLayout now, we don't need these relative
+
+66
+00:05:34,342 --> 00:05:41,380
+properties that are used with a ConstraintLayout, so we can delete those.
+
+67
+00:05:41,381 --> 00:05:46,408
+If we look at the design preview, our LinearLayout is working nicely.
+
+68
+00:05:46,409 --> 00:05:51,639
+But we actually want the Products TextView below our ImageView.
+
+69
+00:05:51,640 --> 00:05:55,509
+To do this, we can drag and drop the TextView in the Component Tree or
+
+70
+00:05:55,510 --> 00:06:00,598
+in the preview window.  Now our layout is looking like we wanted with
+
+71
+00:06:00,599 --> 00:06:04,925
+the ImageView above the TextView.
+
+72
+00:06:04,926 --> 00:06:09,976
+Our app is starting to look pretty good, but we want to make a few, small adjustments.
+
+73
+00:06:09,977 --> 00:06:14,867
+We also want to center the Products TextView and add some padding to
+
+74
+00:06:14,868 --> 00:06:22,459
+the top of that under the image.  Let's go do that back in Android Studio.
+
+75
+00:06:22,460 --> 00:06:26,745
+We want to center the Products TextView and add padding to the top
+
+76
+00:06:26,746 --> 00:06:31,683
+under the image.  In the Properties window, we need to click View all
+
+77
+00:06:31,684 --> 00:06:38,631
+properties to find Padding.  We'll set its paddingTop to 16dp,
+
+78
+00:06:38,632 --> 00:06:42,285
+which is the standard padding value according to the Android design
+
+79
+00:06:42,286 --> 00:06:49,690
+guidelines, and we'll also center it by setting layout_gravity to center_horizontal.
+
+80
+00:06:49,691 --> 00:06:53,178
+This looks a lot better already in the preview.
+
+81
+00:06:53,179 --> 00:06:57,601
+We can also see in the XML that the TextView has the properties
+
+82
+00:06:57,602 --> 00:07:03,717
+paddingTop and layout_gravity set.  While we're here, we'll also add
+
+83
+00:07:03,718 --> 00:07:10,448
+16dp as a dimension value so it's not hardcoded like we did before,
+
+84
+00:07:10,449 --> 00:07:15,732
+and we'll name it activity_padding.  Now if we run our app,
+
+85
+00:07:15,733 --> 00:07:19,722
+it looks much better with the Products TextView centered and some
+
+86
+00:07:19,723 --> 00:07:25,584
+padding on the top.  We still need to add an image for our app icon so
+
+87
+00:07:25,585 --> 00:07:34,380
+users can find it.  To add an app icon, right-click the res folder and
+
+88
+00:07:34,381 --> 00:07:42,595
+select New, Image Asset.  Then Icon Type is Launcher Icons,
+
+89
+00:07:42,596 --> 00:07:50,361
+Asset Type is Image, and then we'll navigate to wherever your icon image is.
+
+90
+00:07:50,362 --> 00:07:57,681
+I have mine save to the Desktop as candy_coded_icon.
+
+91
+00:07:57,682 --> 00:08:05,123
+We'll set Shape to None to get rid of the white background and click Next.
+
+92
+00:08:05,124 --> 00:08:10,430
+Now we can see the different resolutions for the icon that will be generated.
+
+93
+00:08:10,431 --> 00:08:16,728
+Which one is used depends on the resolution of the device running the app.
+
+94
+00:08:16,729 --> 00:08:22,806
+Finally, click Finish.  Under the mipmap folder under ic_launcher,
+
+95
+00:08:22,807 --> 00:08:27,388
+we can see all of the different resolution images that were created
+
+96
+00:08:27,389 --> 00:08:32,830
+from low resolution to high resolution.  Apps can also now define
+
+97
+00:08:32,831 --> 00:08:37,574
+round launcher icons, which are used on devices that support them,
+
+98
+00:08:37,575 --> 00:08:41,298
+so we'll want to do that as well.  We'll do the same thing again,
+
+99
+00:08:41,299 --> 00:08:50,845
+except set the Name to ic_launcher_round, find our same icon image,
+
+100
+00:08:50,846 --> 00:09:00,872
+set the Shape to Circle instead of None, click Next, and click Finish.
+
+101
+00:09:00,873 --> 00:09:05,763
+Now if we run our app, we can see our app icon in our listed apps,
+
+102
+00:09:05,764 --> 00:09:10,145
+and if we look at the overview, we also see our app and its icon in
+
+103
+00:09:10,146 --> 00:09:15,328
+the top left.
+
+104
+00:09:15,329 --> 00:09:18,987
+That's it for Level 2 - Section 1.  Now it's time for you to practice
+
+105
+00:09:18,988 --> 01:00:00,000
+what you learned in the challenges.

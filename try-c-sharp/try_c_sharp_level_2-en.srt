@@ -1,0 +1,359 @@
+﻿1
+00:00:00,000 --> 00:00:05,999
+Hey, let’s give C# a try and keep it classy.
+
+2
+00:00:06,000 --> 00:00:10,999
+Our variables and methods will make things very jazzy.
+
+3
+00:00:11,000 --> 00:00:15,999
+Oh, we'll compile the code and make our apps real smart, as we orchestrate
+
+4
+00:00:16,000 --> 00:00:22,999
+and riff on the smooth sounds of C#.
+
+5
+00:00:23,000 --> 00:00:25,999
+Welcome back to Try C#.  My name is Eric Fisher.
+
+6
+00:00:26,000 --> 00:00:29,999
+In this level we're going to learn about variables.
+
+7
+00:00:30,000 --> 00:00:32,999
+Let's make our console application a little bit more useful.
+
+8
+00:00:33,000 --> 00:00:36,999
+Let's collect band information, asking for the name of the band,
+
+9
+00:00:37,000 --> 00:00:40,999
+the number of members, and then responding with that information at the end.
+
+10
+00:00:41,000 --> 00:00:42,999
+Now one problem we're going to run into is we're asking for this information
+
+11
+00:00:43,000 --> 00:00:48,999
+in a different place than we're actually using that information.
+
+12
+00:00:49,000 --> 00:00:51,999
+In order to store this information we're going to use variables, which
+
+13
+00:00:52,000 --> 00:00:54,999
+will allow us to store this information in memory and then later retrieve it
+
+14
+00:00:55,000 --> 00:00:59,999
+when we need it.  We will ask for the name of the band, we'll then store
+
+15
+00:01:00,000 --> 00:01:04,999
+that information in our named variable.  This act of storing is known as
+
+16
+00:01:05,000 --> 00:01:08,999
+setting the variable.  We will then ask for the number of members in the
+
+17
+00:01:09,000 --> 00:01:13,999
+band, which we will then set to our numberOfMembers variable, and then
+
+18
+00:01:14,000 --> 00:01:16,999
+when we go to announce the band we will retrieve the information
+
+19
+00:01:17,000 --> 00:01:20,999
+from the name and the numberOfMembers variables for making our announcement.
+
+20
+00:01:21,000 --> 00:01:28,999
+This retrieving of variables is known as getting our variable.
+
+21
+00:01:29,000 --> 00:01:30,999
+Before we add our variables, let's ask for the information as well as
+
+22
+00:01:31,000 --> 00:01:36,999
+set up the announce message, so we can do a Console.WriteLine to ask
+
+23
+00:01:37,000 --> 00:01:39,999
+the name of the band, a Console.WriteLine to ask the number of members
+
+24
+00:01:40,000 --> 00:01:44,999
+of the band, and a Console.WriteLine that would give back the name
+
+25
+00:01:45,000 --> 00:01:48,999
+and number of band members.  We're going to leave two blanks in that
+
+26
+00:01:49,000 --> 00:01:53,999
+final message for where we're going to actually use our variables later.
+
+27
+00:01:54,000 --> 00:01:57,999
+In order to use a variable, we need to declare it.
+
+28
+00:01:58,000 --> 00:02:01,999
+To do this, we would provide the data type of our variable, as well as
+
+29
+00:02:02,000 --> 00:02:05,999
+the name of our variable.
+
+30
+00:02:06,000 --> 00:02:08,999
+In order to set our variable we need to use the equals character.
+
+31
+00:02:09,000 --> 00:02:12,999
+This will set whatever we provide in the right side of the equals
+
+32
+00:02:13,000 --> 00:02:15,999
+to whatever variable is on the left side of the equals.
+
+33
+00:02:16,000 --> 00:02:20,999
+In this case, we're going to declare our name variable to be a data type
+
+34
+00:02:21,000 --> 00:02:26,999
+string and then set it to whatever our user inputs into the Console.ReadLine
+
+35
+00:02:27,000 --> 00:02:29,999
+method call.  And as we mentioned before, we're going to use our variables
+
+36
+00:02:30,000 --> 00:02:36,999
+down here in the announcement message.  Now one thing you'll note is
+
+37
+00:02:37,000 --> 00:02:38,999
+we're going to need to use the double quotes and the plus to do string
+
+38
+00:02:39,000 --> 00:02:42,999
+concentration between our variable and our hard coded string.
+
+39
+00:02:43,000 --> 00:02:46,999
+At this point we're going to want to get our name variable in our announcement,
+
+40
+00:02:47,000 --> 00:02:50,999
+we can do this by going to our Console.WriteLine for our announcement
+
+41
+00:02:51,000 --> 00:02:54,999
+and where we have that first blank, we're instead going to use the name
+
+42
+00:02:55,000 --> 00:03:02,999
+variable plus and then our hard coded string.
+
+43
+00:03:03,000 --> 00:03:06,999
+For our numberOfMembers variable, since we're looking to actually
+
+44
+00:03:07,000 --> 00:03:09,999
+have a number of individuals in the band, we're going to use an integer,
+
+45
+00:03:10,000 --> 00:03:12,999
+which allows us to actually declare whole numbers.
+
+46
+00:03:13,000 --> 00:03:18,999
+We will then set our numberOfMembers variable using the Console.ReadLine
+
+47
+00:03:19,000 --> 00:03:22,999
+method call.  If we were to actually compile this code though, we would
+
+48
+00:03:23,000 --> 00:03:26,999
+receive a message - Cannot implicitly convert 'string' to 'int'.
+
+49
+00:03:27,000 --> 00:03:28,999
+Before we look into actually solving this problem, let's look into
+
+50
+00:03:29,000 --> 00:03:31,999
+C#'s different data types.
+
+51
+00:03:32,000 --> 00:03:35,999
+There are 15 built in data types in C#, however we're really only going to be
+
+52
+00:03:36,000 --> 00:03:38,999
+focusing on 3 of them right now, which is string, which is a collection
+
+53
+00:03:39,000 --> 00:03:43,999
+of characters, integer, which is whole numbers, which can be both positive
+
+54
+00:03:44,000 --> 00:03:48,999
+and negative, as well as boolean, which is simply true or false.
+
+55
+00:03:49,000 --> 00:03:52,999
+C# can convert between data types such as string to integer, but sometimes
+
+56
+00:03:53,000 --> 00:03:57,999
+we need to be a little bit more explicit about that.
+
+57
+00:03:58,000 --> 00:04:02,999
+We can convert string to integer using the int.Parse method call.
+
+58
+00:04:03,000 --> 00:04:05,999
+The int.Parse method call will accept a string parameter and then convert
+
+59
+00:04:06,000 --> 00:04:11,999
+that into an integer.  In our case we're going to use the int.Parse method call
+
+60
+00:04:12,000 --> 00:04:16,999
+and then provide it with a Console.ReadLine method call as its parameter,
+
+61
+00:04:17,000 --> 00:04:22,999
+which will finally assign our integer to our numberOfMembers variable.
+
+62
+00:04:23,000 --> 00:04:25,999
+Like we had to do with our name variable, we're going to have to go to our
+
+63
+00:04:26,000 --> 00:04:30,999
+announcements Console.WriteLine method call and replace our blank
+
+64
+00:04:31,000 --> 00:04:34,999
+with a numberOfMembers variable as well as we're going to have to add
+
+65
+00:04:35,000 --> 00:04:37,999
+the plus characters on either side to concatenate the string.
+
+66
+00:04:38,000 --> 00:04:42,999
+Something you'll also notice is while we had to explicitly convert
+
+67
+00:04:43,000 --> 00:04:48,999
+string to integer, we don’t have to explicitly convert integer to string.
+
+68
+00:04:49,000 --> 00:04:52,999
+This is because every possible value of integer is accepted by string
+
+69
+00:04:53,000 --> 00:04:55,999
+so it can be implicitly converted.  Now that we're finished with the code,
+
+70
+00:04:56,000 --> 00:05:01,999
+let's go back and run our application.  When we run our dotnet run command
+
+71
+00:05:02,000 --> 00:05:05,999
+at this point, our application will now be able to use our variables.
+
+72
+00:05:06,000 --> 00:05:09,999
+It will ask, what is the name of your band?  We can respond with Awesome Inc.
+
+73
+00:05:10,000 --> 00:05:13,999
+It will then ask, how many people are in your band?
+
+74
+00:05:14,000 --> 00:05:20,999
+We can respond with 3, and it will respond with Awesome Inc has 3 members.
+
+75
+00:05:21,000 --> 00:05:23,999
+Before we move on to the challenges, let's do a quick recap of variables
+
+76
+00:05:24,000 --> 00:05:29,999
+and data types.  Variables are used to store values in memory for later use.
+
+77
+00:05:30,000 --> 00:05:32,999
+The act of storing a variable is setting it.
+
+78
+00:05:33,000 --> 00:05:36,999
+The act of retrieving a variable is getting it.
+
+79
+00:05:37,000 --> 00:05:41,999
+To set a variable we use the equals character followed by the desired value.
+
+80
+00:05:42,000 --> 00:05:44,999
+To get a variable we can just use the variable's name.
+
+81
+00:05:45,000 --> 00:05:47,999
+Not all data types can be converted implicitly.
+
+82
+00:05:48,000 --> 00:05:52,999
+In many cases we'll have built in parse methods.
+
+83
+00:05:53,000 --> 00:05:55,999
+That's it for this level.  Now it's your turn to use variables and data types
+
+84
+00:05:56,000 --> 00:05:59,999
+in the challenges.  Have fun.
+
+85
+00:06:00,000 --> 00:06:00,999
+An integer, blahh.
+
+86
+00:06:01,000 --> 00:06:04,999
+To our number of methods vari.
+
+87
+00:06:05,000 --> 00:06:06,999
+Of our, the variable, the blah.
+
+88
+00:06:07,000 --> 00:06:09,999
+Blah, blah, blah.  I like where you're going with this.
+
+89
+00:06:10,000 --> 00:06:12,999
+(Burp), excuse me.  I can.
+
+90
+00:06:13,000 --> 01:00:00,000
+Need to be…

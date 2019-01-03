@@ -1,0 +1,407 @@
+﻿1
+00:00:00,000 --> 00:00:04,261
+Our Candy Coded store sells sweet treats galore.
+
+2
+00:00:04,262 --> 00:00:10,814
+How do we get it on the map?  Let's build a sugar-coated Android app!
+
+3
+00:00:10,815 --> 00:00:17,015
+With tasty layouts and views full of delicious candy hues,
+
+4
+00:00:17,016 --> 00:00:26,822
+our users will be overjoyed by our super sweet apps powered with Android.
+
+5
+00:00:26,823 --> 00:00:34,170
+Welcome back to Level 3 where we'll be covering ListViews and adapters.
+
+6
+00:00:34,171 --> 00:00:37,720
+Now that we've added a TextView and an ImageView to our layout,
+
+7
+00:00:37,721 --> 00:00:44,873
+we also want a ListView to show our store's available candy.
+
+8
+00:00:44,874 --> 00:00:49,219
+A ListView is a subclass of AdapterView, which means it needs an
+
+9
+00:00:49,220 --> 00:00:54,474
+adapter to get its data.  Unlike a TextView and an ImageView,
+
+10
+00:00:54,475 --> 00:00:58,935
+we can't set the contents of a ListView in the layout file.
+
+11
+00:00:58,936 --> 00:01:03,844
+We actually need an adapter to populate the ListView with data.
+
+12
+00:01:03,845 --> 00:01:09,959
+We'll use an ArrayAdapter since we have our candy list stored as an ArrayList.
+
+13
+00:01:09,960 --> 00:01:18,117
+But you may be wondering why we can't just send a list directly to our ListView.
+
+14
+00:01:18,118 --> 00:01:22,529
+By moving the data from the ListView into the adapter, we can do
+
+15
+00:01:22,530 --> 00:01:26,572
+things like scroll through a list of many items without having to
+
+16
+00:01:26,573 --> 00:01:31,063
+store them all in memory.  So the adapter only needs a reference to
+
+17
+00:01:31,064 --> 00:01:36,885
+the raw data and instructions on how to build each item in the list,
+
+18
+00:01:36,886 --> 00:01:41,438
+and then the ListView can just request items from the adapter.
+
+19
+00:01:41,439 --> 00:01:49,092
+Let's look at how adapters improve performance and save memory.
+
+20
+00:01:49,093 --> 00:01:53,504
+The ListView starts by requesting a view for every visible item and
+
+21
+00:01:53,505 --> 00:01:59,147
+has a few above and below so those are ready as the user scrolls.
+
+22
+00:01:59,148 --> 00:02:04,370
+But as the user scrolls, if the ListView continued to create new views
+
+23
+00:02:04,371 --> 00:02:09,228
+in a list with thousands of records, we would quickly run out of
+
+24
+00:02:09,229 --> 00:02:15,670
+memory, and performance would suffer.
+
+25
+00:02:15,671 --> 00:02:21,309
+Instead, as the view scrolls off screen, the adapter recycles it by
+
+26
+00:02:21,310 --> 00:02:26,935
+populating it with new data and queuing it up for it to be displayed
+
+27
+00:02:26,936 --> 00:02:31,172
+as the user keeps scrolling.
+
+28
+00:02:31,173 --> 00:02:36,181
+Now that we know how adapters work, let's add a ListView and an
+
+29
+00:02:36,182 --> 00:02:42,192
+adapter to populate it with data.  The steps for doing this are first
+
+30
+00:02:42,193 --> 00:02:45,774
+add a ListView to our main_activity layout.
+
+31
+00:02:45,775 --> 00:02:49,697
+Then we need to create a separate layout to describe what each item in
+
+32
+00:02:49,698 --> 00:02:54,966
+our list will look like.  Then in the Java code we need to get the raw
+
+33
+00:02:54,967 --> 00:02:59,429
+data we want to display, create the ArrayAdapter,
+
+34
+00:02:59,430 --> 00:03:05,114
+and finally connect that ArrayAdapter to the ListView.
+
+35
+00:03:05,115 --> 00:03:09,616
+To add a ListView to our activity_main layout, we can drag it over in
+
+36
+00:03:09,617 --> 00:03:17,884
+the design view, which will generate the following code in XML.
+
+37
+00:03:17,885 --> 00:03:22,051
+If we look at the generated XML code, we can see the layout_width and
+
+38
+00:03:22,052 --> 00:03:26,093
+layout_height were set to default values for us.
+
+39
+00:03:26,094 --> 00:03:29,480
+They were both set to match_parent, which means the view will try to
+
+40
+00:03:29,481 --> 00:03:35,676
+be as big as its parent by expanding to take up the remaining space in the layout.
+
+41
+00:03:35,677 --> 00:03:42,927
+We also went ahead and set the id property to be list_view_candy.
+
+42
+00:03:42,928 --> 00:03:46,628
+Match_parent as the layout_height means the list will take up the
+
+43
+00:03:46,629 --> 00:03:51,657
+available height left after the ImageView and the TextView.
+
+44
+00:03:51,658 --> 00:03:55,677
+And if we have more contents in our ListView than can show on screen,
+
+45
+00:03:55,678 --> 00:04:00,884
+the ListView will automatically scroll.  Match_parent as the
+
+46
+00:04:00,885 --> 00:04:04,495
+layout_width means it'll be as wide as the screen.
+
+47
+00:04:04,496 --> 00:04:08,797
+That's because there's nothing on the left or right of our ListView
+
+48
+00:04:08,798 --> 00:04:13,187
+fighting for space in the layout.
+
+49
+00:04:13,188 --> 00:04:18,155
+Step number 2 is to create a layout to tell the ArrayAdapter how to
+
+50
+00:04:18,156 --> 00:04:23,113
+create each item in our ListView.  It will have a single TextView with
+
+51
+00:04:23,114 --> 00:04:27,811
+a width and height of match_parent since we want each list item to
+
+52
+00:04:27,812 --> 00:04:33,097
+fill the ListView.  And we'll also add an id of text_view_candy so we
+
+53
+00:04:33,098 --> 00:04:38,791
+can find it later.  Let's jump into Android Studio so we can see how
+
+54
+00:04:38,792 --> 00:04:42,101
+to create this layout file.
+
+55
+00:04:42,102 --> 00:04:45,819
+To create a new layout for our list item, we can right-click the
+
+56
+00:04:45,820 --> 00:04:51,647
+layout directory and select New, Layout resource file.
+
+57
+00:04:51,648 --> 00:04:56,950
+In the pop-up, we want to name our file list_item_candy.
+
+58
+00:04:56,951 --> 00:05:01,314
+The root element is TextView since all we want for each item in our
+
+59
+00:05:01,315 --> 00:05:10,591
+list is a TextView.  If we look at the raw XML that was generated,
+
+60
+00:05:10,592 --> 00:05:16,636
+we have a TextView with the width and height set to match_parent.
+
+61
+00:05:16,637 --> 00:05:24,193
+We'll also add an ID, text_view_candy, so we can find this TextView later.
+
+62
+00:05:24,194 --> 00:05:27,685
+Now that we have all the pieces in place for our layout, it's time for
+
+63
+00:05:27,686 --> 00:05:31,673
+us to write some Java code.  We'll write this code at the bottom of
+
+64
+00:05:31,674 --> 00:05:38,033
+our onCreate method in MainActivity.java.
+
+65
+00:05:38,034 --> 00:05:43,831
+For step 3, we'll create an ArrayList to store the names of our candy.
+
+66
+00:05:43,832 --> 00:05:48,569
+Then we can add each candy string with the add method.
+
+67
+00:05:48,570 --> 00:05:53,081
+Just like before with the TextView, as soon as we type ArrayList,
+
+68
+00:05:53,082 --> 00:06:00,626
+Android Studio automatically imports the ArrayList library for us.
+
+69
+00:06:00,627 --> 00:06:04,808
+Next we need to create an ArrayAdapter from our candy_list.
+
+70
+00:06:04,809 --> 00:06:09,042
+We need a few things in the ArrayAdapter constructor, so let's look at
+
+71
+00:06:09,043 --> 00:06:13,895
+those things in detail.  First, we need the context of where the
+
+72
+00:06:13,896 --> 00:06:21,309
+ArrayAdapter will be used, which is this activity, so we use the this keyword.
+
+73
+00:06:21,310 --> 00:06:25,170
+Second, we need a reference to the layout file we created to build
+
+74
+00:06:25,171 --> 00:06:30,235
+each item in the ListView.  Then we need a reference to that specific
+
+75
+00:06:30,236 --> 00:06:36,549
+TextView inside the layout file that we named text_view_candy previously.
+
+76
+00:06:36,550 --> 00:06:43,364
+And finally, we need the ArrayList of our candies.
+
+77
+00:06:43,365 --> 00:06:48,183
+Step 5 is connecting the ArrayAdapter to the ListView, but before we
+
+78
+00:06:48,184 --> 00:06:52,332
+can do that, we need to get a reference to that ListView.
+
+79
+00:06:52,333 --> 00:06:57,732
+Like before, we can use the findViewById method with the ID we created
+
+80
+00:06:57,733 --> 00:07:02,766
+for the ListView previously.
+
+81
+00:07:02,767 --> 00:07:07,215
+If you forgot, we created the id property for the ListView in our
+
+82
+00:07:07,216 --> 00:07:17,483
+activity_main layout, so we can reference that ID, list_view_candy.
+
+83
+00:07:17,484 --> 00:07:21,788
+Now that we've found the ListView by its ID, we can set its adapter
+
+84
+00:07:21,789 --> 00:07:29,533
+with the setAdapter method.  Let's jump over to Android Studio to see
+
+85
+00:07:29,534 --> 00:07:35,273
+all of this code together and to demo our ListView in action.
+
+86
+00:07:35,274 --> 00:07:39,951
+If we look at all the code we added in MainActivity.java, we can see
+
+87
+00:07:39,952 --> 00:07:46,265
+the ArrayList, candy_list, and all of the candy strings we added.
+
+88
+00:07:46,266 --> 00:07:50,592
+Then the ArrayAdapter we created with a reference to this
+
+89
+00:07:50,593 --> 00:07:58,040
+MainActivity, our layout, list_item_candy, which we can go to directly
+
+90
+00:07:58,041 --> 00:08:03,686
+by right-clicking and selecting Go To, Declaration.
+
+91
+00:08:03,687 --> 00:08:08,547
+That brings us to that layout file, which defines a TextView for each
+
+92
+00:08:08,548 --> 00:08:13,684
+item in our list.  We also have a reference to that specific
+
+93
+00:08:13,685 --> 00:08:21,237
+TextView's ID, which we can go to by using Go To, Declaration again.
+
+94
+00:08:21,238 --> 00:08:26,766
+And the last thing in the adapter is a reference to the candy_list.
+
+95
+00:08:26,767 --> 00:08:30,650
+Then we created the ListView variable by finding the ListView by its
+
+96
+00:08:30,651 --> 00:08:36,915
+ID, and if we use Go To, Declaration here, we're taken to the
+
+97
+00:08:36,916 --> 00:08:44,060
+activity_main layout to the ListView with the ID list_view_candy.
+
+98
+00:08:44,061 --> 00:08:47,827
+And finally, we attach the adapter to the ListView.
+
+99
+00:08:47,828 --> 00:08:51,872
+Now if we run our app, we see our ListView working and displaying all
+
+100
+00:08:51,873 --> 00:08:56,216
+of our candy.
+
+101
+00:08:56,217 --> 00:08:59,474
+That's it for Level 3.  Now it's time for you to practice writing
+
+102
+00:08:59,475 --> 01:00:00,000
+ListViews and adapters in the challenges.

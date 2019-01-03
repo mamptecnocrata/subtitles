@@ -1,0 +1,415 @@
+﻿1
+00:00:00,000 --> 00:00:05,999
+Hey, let’s give C# a try and keep it classy.
+
+2
+00:00:06,000 --> 00:00:10,999
+Our variables and methods will make things very jazzy.
+
+3
+00:00:11,000 --> 00:00:15,999
+Oh, we'll compile that code and make our apps real smart, as we orchestrate
+
+4
+00:00:16,000 --> 00:00:23,999
+and riff on the smooth sounds of C#.
+
+5
+00:00:24,000 --> 00:00:27,999
+Welcome to Keeping it Classy with C#.  My name is Eric Fisher.
+
+6
+00:00:28,000 --> 00:00:30,999
+In this course we're going to learn about the C# programming language.
+
+7
+00:00:31,000 --> 00:00:35,999
+In this level we are going to learn about methods.
+
+8
+00:00:36,000 --> 00:00:38,999
+Using C# we're going to create an application to store and retrieve band
+
+9
+00:00:39,000 --> 00:00:42,999
+information.  We're going to be able to store the name of the band,
+
+10
+00:00:43,000 --> 00:00:44,999
+the musicians in the band, as well as be able to announce those back
+
+11
+00:00:45,000 --> 00:00:48,999
+to the user.  In this level though we're only going to worry about storing
+
+12
+00:00:49,000 --> 00:00:52,999
+the name of the band and announcing that band name back to the user.
+
+13
+00:00:53,000 --> 00:00:55,999
+As you can see here, when we run our program, the program is going to
+
+14
+00:00:56,000 --> 00:00:59,999
+first ask the user what is the name of your band?
+
+15
+00:01:00,000 --> 00:01:04,999
+The user will then type the name, in this case The C Sharps, and the
+
+16
+00:01:05,000 --> 00:01:10,999
+application will respond with Welcome The C Sharps to the stage!
+
+17
+00:01:11,000 --> 00:01:13,999
+This might look familiar if you've taken our Try C# course.
+
+18
+00:01:14,000 --> 00:01:21,999
+All C# console applications have a csproj file as well as a program.cs file.
+
+19
+00:01:22,000 --> 00:01:24,999
+The program.cs file is the entry point for our application, so we will
+
+20
+00:01:25,000 --> 00:01:27,999
+start there.
+
+21
+00:01:28,000 --> 00:01:32,999
+When we open the program.cs file we'll see some pre-generated code for us.
+
+22
+00:01:33,000 --> 00:01:35,999
+This will include a Program class and a Main method.
+
+23
+00:01:36,000 --> 00:01:38,999
+With the way this code is written right now, our Main method has
+
+24
+00:01:39,000 --> 00:01:44,999
+Console.WriteLine Hello World!, which will present Hello World! to the console
+
+25
+00:01:45,000 --> 00:01:47,999
+when we run our application.  Methods allow us to break up our code into
+
+26
+00:01:48,000 --> 00:01:51,999
+logical blocks.  So what we're going to go ahead and do is take our announce
+
+27
+00:01:52,000 --> 00:01:55,999
+functionality and create a separate method for it.
+
+28
+00:01:56,000 --> 00:01:58,999
+But how exactly do we make a method?
+
+29
+00:01:59,000 --> 00:02:03,999
+To create a method we need to provide a name for our method as well as parameters.
+
+30
+00:02:04,000 --> 00:02:06,999
+The name of our method is just what we're going to use to call that method
+
+31
+00:02:07,000 --> 00:02:10,999
+in our places in our application.  The parameter will hold whatever values
+
+32
+00:02:11,000 --> 00:02:16,999
+we plan to pass into our method.  Some conventions to note is typically
+
+33
+00:02:17,000 --> 00:02:19,999
+our method's name will use what's known as PascalCase, that is the first
+
+34
+00:02:20,000 --> 00:02:23,999
+letter will be capitalized and every word within the method name will be
+
+35
+00:02:24,000 --> 00:02:28,999
+also capitalized.  Like we see here, AnnounceBand, the A in announce
+
+36
+00:02:29,000 --> 00:02:33,999
+and the B in Band are capitalized.  When it comes to parameters we prefix
+
+37
+00:02:34,000 --> 00:02:41,999
+the variable with its data type.  Like we see here, string followed by bandName.
+
+38
+00:02:42,000 --> 00:02:44,999
+Parameter names typically use the camelCase convention, that is you start
+
+39
+00:02:45,000 --> 00:02:50,999
+with a lowercase letter, but every word after that first one will be capitalized.
+
+40
+00:02:51,000 --> 00:02:55,999
+So in this example band is lowercase, while Name has a capital N.
+
+41
+00:02:56,000 --> 00:02:58,999
+This covers what our methods take in as parameters, but how do we get data
+
+42
+00:02:59,000 --> 00:03:03,999
+back out of our methods?
+
+43
+00:03:04,000 --> 00:03:06,999
+Methods also require a return type and a return statement.
+
+44
+00:03:07,000 --> 00:03:10,999
+The return type lets our application know what type of data we're expecting
+
+45
+00:03:11,000 --> 00:03:15,999
+to get back out of our method.  The return statement is how we actually get
+
+46
+00:03:16,000 --> 00:03:20,999
+our data out of the method.  In this example our return type is a string,
+
+47
+00:03:21,000 --> 00:03:23,999
+which means our application knows no matter where this method is called
+
+48
+00:03:24,000 --> 00:03:26,999
+we're going to get a string out of it.  The return statement returns
+
+49
+00:03:27,000 --> 00:03:30,999
+Welcome followed by the bandName.  Now that we've written our method,
+
+50
+00:03:31,000 --> 00:03:34,999
+how exactly do we call it?
+
+51
+00:03:35,000 --> 00:03:39,999
+To call a method we use its name, followed by the values we intend on passing
+
+52
+00:03:40,000 --> 00:03:44,999
+into our parameters.  In this example we're going to call the AnnounceBand
+
+53
+00:03:45,000 --> 00:03:50,999
+method by using its name followed by the string "The C Sharps" and are
+
+54
+00:03:51,000 --> 00:03:53,999
+going to set our announce variable using it.
+
+55
+00:03:54,000 --> 00:03:57,999
+When we call Console.WriteLine using the announcement variable, we're going
+
+56
+00:03:58,000 --> 00:04:02,999
+to get the response Welcome The C Sharps.  This is because AnnounceBand
+
+57
+00:04:03,000 --> 00:04:05,999
+prepends welcome to whatever band name we provide and we provided
+
+58
+00:04:06,000 --> 00:04:10,999
+the band name The C Sharps.
+
+59
+00:04:11,000 --> 00:04:15,999
+Method calls can also be used as arguments for other method calls.
+
+60
+00:04:16,000 --> 00:04:19,999
+Instead of using the temporary variable announcement, we can actually just
+
+61
+00:04:20,000 --> 00:04:24,999
+add our AnnounceBand method call inside of our Console.WriteLine
+
+62
+00:04:25,000 --> 00:04:28,999
+method call and just skip dealing a variable entirely.
+
+63
+00:04:29,000 --> 00:04:31,999
+At this point we should probably just go ahead and move our Console.WriteLine
+
+64
+00:04:32,000 --> 00:04:34,999
+into our Announce method since we're ultimately going to be doing that
+
+65
+00:04:35,000 --> 00:04:37,999
+anyways.
+
+66
+00:04:38,000 --> 00:04:41,999
+Unfortunately once we move the Console.WriteLine method into our
+
+67
+00:04:42,000 --> 00:04:44,999
+AnnounceBand method we're getting an error.
+
+68
+00:04:45,000 --> 00:04:48,999
+The error we're getting is not all code paths return a value.
+
+69
+00:04:49,000 --> 00:04:52,999
+This is because Console.WriteLine doesn’t return a string, it just
+
+70
+00:04:53,000 --> 00:04:56,999
+interacts with the console.  Well we have a return type of string,
+
+71
+00:04:57,000 --> 00:04:59,999
+so our method is saying we're not giving it what we said we're going to
+
+72
+00:05:00,000 --> 00:05:06,999
+give it.  How exactly do we write a method that doesn’t return anything?
+
+73
+00:05:07,000 --> 00:05:10,999
+Methods that don’t return anything should use the void return type.
+
+74
+00:05:11,000 --> 00:05:13,999
+In our example we're just going to swap out string for void.
+
+75
+00:05:14,000 --> 00:05:17,999
+If we run our code again, we can see that we get the expected results.
+
+76
+00:05:18,000 --> 00:05:21,999
+Also notice when we change our return type to void, we no longer require
+
+77
+00:05:22,000 --> 00:05:28,999
+a return statement because this method isn’t returning anything.
+
+78
+00:05:29,000 --> 00:05:31,999
+Now that our method is working, let's go ahead and append the string
+
+79
+00:05:32,000 --> 00:05:36,999
+to the stage to the end of our string in our Console.WriteLine.
+
+80
+00:05:37,000 --> 00:05:40,999
+When we run our code again, we'll get the results Welcome The C Sharps
+
+81
+00:05:41,000 --> 00:05:43,999
+to the stage!
+
+82
+00:05:44,000 --> 00:05:47,999
+We can now set up our Main method to call our AnnounceBand method and provide
+
+83
+00:05:48,000 --> 00:05:52,999
+it a band name from user input.  We'll use Console.WriteLine "What is
+
+84
+00:05:53,000 --> 00:05:58,999
+the name of your band?" string name = Console.ReadLine, which will get
+
+85
+00:05:59,000 --> 00:06:04,999
+the user input and set it to our name variable, and then AnnounceBand name.
+
+86
+00:06:05,000 --> 00:06:11,999
+So let us review how this program is actually going to run this code.
+
+87
+00:06:12,000 --> 00:06:15,999
+The first line that we'll execute will be our Console.WriteLine "What is
+
+88
+00:06:16,000 --> 00:06:20,999
+the name of your band?".  From here we'll accept user input using the
+
+89
+00:06:21,000 --> 00:06:24,999
+Console.ReadLine, which will set our name variable.
+
+90
+00:06:25,000 --> 00:06:28,999
+Next we'll see our AnnounceBand method call, this is going to jump us down
+
+91
+00:06:29,000 --> 00:06:34,999
+inside the AnnounceBand method and run our Console.WriteLine "Welcome",
+
+92
+00:06:35,000 --> 00:06:40,999
+the band name that the user provided, to the stage!
+
+93
+00:06:41,000 --> 00:06:43,999
+Once AnnounceBand finishes executing, we're going to jump back up into
+
+94
+00:06:44,000 --> 00:06:47,999
+our Main method, but since there is no more code inside our Main method,
+
+95
+00:06:48,000 --> 00:06:52,999
+it is going to finish execution.
+
+96
+00:06:53,000 --> 00:06:55,999
+Our working application now performs the functions we set out to accomplish
+
+97
+00:06:56,000 --> 00:07:00,999
+at the beginning of this level.  We're capable of storing a band name
+
+98
+00:07:01,000 --> 00:07:09,999
+and announcing that band name back to the user.
+
+99
+00:07:10,000 --> 00:07:14,999
+A quick recap on methods.  We use method names to break up our executable code
+
+100
+00:07:15,000 --> 00:07:19,999
+into logical blocks.  Methods contain our application's executable code.
+
+101
+00:07:20,000 --> 00:07:24,999
+Method names are case sensitive and to call a method we use its name
+
+102
+00:07:25,000 --> 00:07:29,999
+followed by the values we would like to pass into its parameters.
+
+103
+00:07:30,000 --> 00:07:32,999
+That's it for this level, now it's your turn to create and call methods
+
+104
+00:07:33,000 --> 01:00:00,000
+in the challenges.  I'll see you in the next level.
